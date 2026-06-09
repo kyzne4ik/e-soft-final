@@ -1,7 +1,8 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@repo/typescript-config/vite.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": ".",
     "strictNullChecks": true
   },
   "include": ["src"],

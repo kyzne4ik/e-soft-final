@@ -5,11 +5,11 @@ import tseslint from "typescript-eslint";
 import onlyWarn from "eslint-plugin-only-warn";
 
 /**
- * A shared ESLint configuration for the repository.
+ * Базовый ESLint-конфиг репозитория.
  *
  * @type {import("eslint").Linter.Config[]}
- * */
-export const config = [
+ */
+export const baseConfig = [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
@@ -27,6 +27,15 @@ export const config = [
     },
   },
   {
-    ignores: ["dist/**"],
+    ignores: [
+      "dist/**",
+      "build/**",
+      ".turbo/**",
+      "node_modules/**",
+      "coverage/**",
+      "generated/**",
+    ],
   },
 ];
+
+export default baseConfig;

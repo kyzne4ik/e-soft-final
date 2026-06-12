@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "moduleDetection": "force",
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "ts-node": {
+    "esm": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@repo/eslint-config",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "author": "kyzne4ik",
+  "exports": {
+    "./base": "./base.js",
+    "./react-internal": "./react-internal.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "eslint-plugin-turbo": "^2.9.6",
+    "globals": "^16.5.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.60.1"
+  },
+  "peerDependencies": {
+    "eslint": "^9.39.1",
+    "typescript": "~6.0.2"
+  }
+}

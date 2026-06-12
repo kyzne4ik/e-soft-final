@@ -1,0 +1,35 @@
+{
+  "name": "@repo/schemas",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "author": "kyzne4ik",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\""
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^24.13.0",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
+    "typescript": "~6.0.2"
+  }
+}

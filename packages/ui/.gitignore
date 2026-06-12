@@ -30,3 +30,7 @@ dist-ssr
 
 # Turbo
 .turbo
+
+# Storybook
+*storybook.log
+storybook-static

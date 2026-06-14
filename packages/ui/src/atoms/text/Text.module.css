@@ -1,0 +1,113 @@
+.title,
+.h1,
+.h2,
+.p1,
+.p2,
+.p1_medium,
+.p1_link,
+.p2_link {
+  margin: 0;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.h1 {
+  font-family: var(--font-headline);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.h2 {
+  font-family: var(--font-headline);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+
+.p1 {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+}
+
+.p2 {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-caption);
+  color: var(--text-secondary);
+}
+
+.p1_medium {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+}
+
+.p1_link {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+  color: var(--text-link);
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+.p1_link:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+.p2_link {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-caption);
+  color: var(--text-link);
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+.p2_link:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+.on_full_width {
+  width: 100%;
+}
+
+.no_wrap {
+  white-space: nowrap;
+}
+
+.center {
+  text-align: center;
+}
+.justify {
+  text-align: justify;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.start {
+  text-align: start;
+}
+.end {
+  text-align: end;
+}

@@ -1,0 +1,17 @@
+.wrapper {
+  animation: skeleton_loading 1.5s linear infinite alternate;
+}
+
+@keyframes skeleton_loading {
+  0% {
+    background-color: var(--color-gray-200);
+  }
+
+  50% {
+    background-color: var(--color-gray-300);
+  }
+
+  100% {
+    background-color: var(--color-gray-200);
+  }
+}

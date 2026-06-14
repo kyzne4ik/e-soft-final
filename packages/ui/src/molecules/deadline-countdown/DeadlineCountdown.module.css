@@ -1,0 +1,30 @@
+.ui_countdown {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.ui_countdown__cell {
+  min-width: 42px;
+  padding: 4px 8px;
+  text-align: center;
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+}
+
+.ui_countdown__num {
+  font-family: var(--font-headline);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.ui_countdown__lbl {
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}

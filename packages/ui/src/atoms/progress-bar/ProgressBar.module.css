@@ -1,0 +1,33 @@
+.ui_pbar {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-gray-100);
+  overflow: hidden;
+}
+
+.ui_pbar__fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  transition: width var(--transition-slower);
+}
+
+.ui_pbar__fill__primary {
+  background: var(--color-primary);
+}
+
+.ui_pbar__fill__success {
+  background: var(--color-success);
+}
+
+.ui_pbar__fill__warning {
+  background: var(--color-warning);
+}
+
+.ui_pbar__fill__error {
+  background: var(--color-error);
+}
+
+.ui_pbar__fill__info {
+  background: var(--color-info);
+}

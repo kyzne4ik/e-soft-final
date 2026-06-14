@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto+Mono:wght@400;500;600;700&display=swap");
+
+:root {
+  --color-primary: #f97316;
+  --color-primary-hover: #ea580c;
+  --color-primary-light: #fff7ed;
+  --color-primary-medium: #fed7aa;
+
+  --color-secondary: #3b82f6;
+  --color-secondary-hover: #2563eb;
+  --color-secondary-light: #eff6ff;
+  --color-secondary-medium: #bfdbfe;
+
+  --color-tertiary: #22c55e;
+  --color-tertiary-hover: #16a34a;
+  --color-tertiary-light: #f0fdf4;
+  --color-tertiary-medium: #bbf7d0;
+
+  --color-success: #22c55e;
+  --color-success-light: #f0fdf4;
+  --color-success-bg: #bbf7d0;
+  --color-success-text: #15803d;
+
+  --color-warning: #eab308;
+  --color-warning-light: #fefce8;
+  --color-warning-bg: #fef08a;
+  --color-warning-text: #a16207;
+
+  --color-error: #ef4444;
+  --color-error-hover: #dc2626;
+  --color-error-light: #fef2f2;
+  --color-error-bg: #fecaca;
+  --color-error-text: #b91c1c;
+
+  --color-info: #3b82f6;
+  --color-info-light: #eff6ff;
+  --color-info-bg: #bfdbfe;
+  --color-info-text: #1d4ed8;
+
+  --color-gray-950: #030712;
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-300: #d1d5db;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
+
+  --surface-base: #ffffff;
+  --surface-subtle: #f9fafb;
+  --surface-muted: #f3f4f6;
+  --surface-border: #e5e7eb;
+  --surface-hover: #fff7ed;
+
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-inverse: #ffffff;
+  --text-link: #3b82f6;
+  --text-link-hover: #2563eb;
+
+  --font-headline: "Fredoka", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.25;
+  --leading-normal: 1.3;
+  --leading-relaxed: 1.35;
+  --leading-body: 1.6;
+  --leading-caption: 1.5;
+  --leading-badge: 1.4;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  --radius-circle: 50%;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(249, 115, 22, 0.3);
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-slower: 0.4s ease;
+  --transition-slowest: 0.6s ease;
+}

@@ -1,0 +1,26 @@
+.ui_empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  height: 100%;
+  padding: var(--sp-8) var(--sp-5);
+  text-align: center;
+  color: var(--text-tertiary);
+}
+
+.ui_empty__icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  color: var(--text-muted);
+}
+
+.ui_empty__text {
+  max-width: 360px;
+  margin-inline: auto;
+}

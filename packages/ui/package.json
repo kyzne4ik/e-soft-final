@@ -5,7 +5,13 @@
   "author": "kyzne4ik",
   "type": "module",
   "exports": {
-    "./*": "./src/*.tsx"
+    "./tokens.css": "./src/tokens.css",
+    "./atoms/*": "./src/atoms/*/index.ts",
+    "./molecules/*": "./src/molecules/*/index.ts",
+    "./organisms/*": "./src/organisms/*/index.ts",
+    "./layouts/*": "./src/layouts/*/index.ts",
+    "./hooks/*": "./src/hooks/*/index.ts",
+    "./libs/*": "./src/libs/*/index.ts"
   },
   "scripts": {
     "build": "tsc",
@@ -13,7 +19,9 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md,mdx}\"",
+    "sb": "storybook dev -p 6006",
+    "build-sb": "storybook build"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -26,7 +34,22 @@
     "typescript": "~6.0.2",
     "vite": "^8.0.12",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "storybook": "^10.4.4",
+    "@storybook/react-vite": "^10.4.4",
+    "@chromatic-com/storybook": "^5.2.1",
+    "@storybook/addon-vitest": "^10.4.4",
+    "@storybook/addon-a11y": "^10.4.4",
+    "@storybook/addon-docs": "^10.4.4",
+    "@storybook/addon-mcp": "^0.6.0",
+    "eslint-plugin-storybook": "^10.4.4",
+    "vitest": "^4.1.8",
+    "playwright": "^1.60.0",
+    "@vitest/browser-playwright": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.8"
+  },
+  "dependencies": {
+    "lucide-react": "0.487.0"
   },
   "peerDependencies": {
     "react": "^19.2.6",

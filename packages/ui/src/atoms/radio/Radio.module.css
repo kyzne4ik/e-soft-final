@@ -1,0 +1,85 @@
+.ui_radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.ui_radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ui_radio__circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-circle);
+  background: var(--surface-base);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.ui_radio__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  transform: scale(0);
+  transition: transform var(--transition-fast);
+}
+
+.ui_radio:hover .ui_radio__circle {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.ui_radio__input:checked + .ui_radio__circle {
+  border-color: var(--color-primary);
+  background: var(--surface-base);
+}
+.ui_radio__input:checked + .ui_radio__circle .ui_radio__dot {
+  transform: scale(1);
+}
+
+.ui_radio__input:focus-visible + .ui_radio__circle {
+  box-shadow: var(--shadow-focus);
+}
+
+.ui_radio__label {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.ui_radio__disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.ui_radio__disabled .ui_radio__circle,
+.ui_radio__disabled:hover .ui_radio__circle {
+  border-color: var(--color-gray-200);
+  background: var(--surface-muted);
+}
+.ui_radio__disabled .ui_radio__input:checked + .ui_radio__circle {
+  background: var(--color-gray-300);
+}
+.ui_radio__disabled .ui_radio__dot {
+  background: var(--color-gray-400);
+}
+.ui_radio__disabled .ui_radio__label {
+  color: var(--text-muted);
+}

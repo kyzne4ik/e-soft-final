@@ -1,0 +1,11 @@
+.ui_avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: var(--radius-circle);
+  font-family: var(--font-headline);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+}

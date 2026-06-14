@@ -5,7 +5,13 @@
   "author": "kyzne4ik",
   "type": "module",
   "exports": {
-    "./*": "./src/*.tsx"
+    "./tokens.css": "./src/tokens.css",
+    "./atoms/*": "./src/atoms/*/index.ts",
+    "./molecules/*": "./src/molecules/*/index.ts",
+    "./organisms/*": "./src/organisms/*/index.ts",
+    "./layouts/*": "./src/layouts/*/index.ts",
+    "./hooks/*": "./src/hooks/*/index.ts",
+    "./libs/*": "./src/libs/*/index.ts"
   },
   "scripts": {
     "build": "tsc",
@@ -41,6 +47,9 @@
     "playwright": "^1.60.0",
     "@vitest/browser-playwright": "^4.1.8",
     "@vitest/coverage-v8": "^4.1.8"
+  },
+  "dependencies": {
+    "lucide-react": "0.487.0"
   },
   "peerDependencies": {
     "react": "^19.2.6",

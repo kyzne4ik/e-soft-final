@@ -1,0 +1,109 @@
+.ui_file {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base);
+}
+.ui_file:hover {
+  border-color: var(--color-gray-300);
+}
+.ui_file__row_error {
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+.ui_file__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+}
+
+.ui_file__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ui_file__name {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui_file__meta {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+.ui_file__error_text {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-error-text);
+}
+
+.ui_file__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.ui_file__progress > :first-child {
+  flex: 1;
+}
+
+.ui_file__check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-circle);
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.ui_file__primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.ui_file__info {
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
+}
+.ui_file__success {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+.ui_file__warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+.ui_file__error {
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+}
+.ui_file__secondary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+.ui_file__tertiary {
+  background: var(--color-tertiary-light);
+  color: var(--color-tertiary);
+}
+.ui_file__neutral {
+  background: var(--surface-muted);
+  color: var(--text-muted);
+}

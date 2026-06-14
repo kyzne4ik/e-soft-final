@@ -1,0 +1,18 @@
+.ui_card {
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: box-shadow var(--transition-base);
+}
+
+.ui_card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.ui_card__clickable {
+  cursor: pointer;
+}

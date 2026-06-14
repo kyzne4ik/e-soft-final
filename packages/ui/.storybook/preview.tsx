@@ -1,6 +1,20 @@
 import type { Preview } from "@storybook/react-vite";
 
+import "../src/tokens.css";
+
 const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          fontFamily: "var(--font-body)",
+          color: "var(--text-primary)",
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     controls: {
       matchers: {

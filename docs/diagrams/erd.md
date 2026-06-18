@@ -42,7 +42,6 @@ erDiagram
     STUDENT_PROFILE {
         INT id PK
         INT user_id FK "U"
-        STUDENT_STATUS status "ENUM: ACTIVE|GRADUATED|EXPELLED"
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
@@ -85,7 +84,6 @@ erDiagram
         INT id PK
         TEXT name
         INT course_id FK
-        INT mentor_id FK
         STREAM_STATUS status "ENUM: ENROLLING|IN_PROGRESS|FINISHED"
         TIMESTAMP created_at
         TIMESTAMP updated_at
@@ -114,6 +112,14 @@ erDiagram
     STREAM_STUDENT {
         INT stream_id PK "FK"
         INT student_id PK "FK"
+        INT mentor_id "FK"
+        STUDENT_STATUS status "ENUM: ACTIVE|GRADUATED|EXPELLED"
+        TIMESTAMP joined_at
+    }
+
+    STREAM_MENTOR {
+        INT stream_id PK "FK"
+        INT mentor_id PK "FK"
         TIMESTAMP joined_at
     }
 
@@ -151,11 +157,12 @@ erDiagram
     STUDENT_PROFILE ||--|{ STREAM_STUDENT : "студент есть в разных потоках"
     STREAM ||--|{ STREAM_STUDENT : "поток содержит студентов"
     MENTOR_PROFILE ||--|{ REVIEW : "ментор делает ревью домашних заданий"
+    MENTOR_PROFILE ||--|{ STREAM_MENTOR : "ментор есть в разных потоках"
+    STREAM ||--|{ STREAM_MENTOR : "поток содержит менторов"
     SUBMISSION ||--|{ REVIEW : "по домашним заданиям делают ревью"
     TASK ||--|{ SUBMISSION : "у домашних заданий есть решения"
     STREAM ||--|{ TASK : "потоки содержат домашние задания"
     COURSE ||--|{ STREAM : "курсы есть в разных потоках"
-    MENTOR_PROFILE ||--|{ STREAM : "ментор учит в разных потоках"
     STREAM ||--|{ LESSON : "у потока есть домашние задания"
 ```
 
@@ -179,7 +186,9 @@ erDiagram
 | TASK → SUBMISSION                | 1:N | У одного ТЗ может быть много сданных работ                                                                    |
 | STREAM → TASK                    | 1:N | У одного потока может быть много ТЗ                                                                           |
 | COURSE → STREAM                  | 1:N | У одного курса может быть много потоков                                                                       |
-| MENTOR_PROFILE → STREAM          | 1:N | У одного ментора может быть много потоков                                                                     |
+| MENTOR_PROFILE → STREAM_MENTOR   | 1:N | Ментор может быть в множестве потоков                                                                         |
+| STREAM → STREAM_MENTOR           | 1:N | Поток может быть у множества менторов                                                                         |
+| MENTOR_PROFILE ↔ STREAM          | M:N | Через промежуточную таблицу `STREAM_MENTOR` - ментор содержит много потоков, поток входит в много менторов    |
 | STREAM → LESSON                  | 1:N | У одного потока может быть много занятий                                                                      |
 
 ### Ответы на вопросы:
@@ -194,7 +203,7 @@ M:N - оба объекта могут иметь много связей с д�
 
 _Ответ:_
 Потому нету способа хранить `список` в одной колонке без нарушения реляционной модели.
-Если мы добавим в `STUDENT_PROFILE` колонку stream_ids, то тогда туда бы пришлось писать что-то вроде "1,2,3" - это уже не атомарное зн-е, следовательно, нельзя сделать JOIN, индексировать или проверять целостность через *FK*.
+Если мы добавим в `STUDENT_PROFILE` колонку stream*ids, то тогда туда бы пришлось писать что-то вроде "1,2,3" - это уже не атомарное зн-е, следовательно, нельзя сделать JOIN, индексировать или проверять целостность через \_FK*.
 Промежуточная таблица `STREAM_STUDENT` решает это элегантно: каждая строка - одна пара (stream_id, student_id). Хочешь добавить студента в поток, добавляешь строку. Хочешь убрать - удаляешь строку.
 
 3. Что будет, если удалить запись, на которую ссылается FK? (Подумайте, мы разберём это на лекции)

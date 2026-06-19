@@ -2,7 +2,27 @@
   "extends": "@repo/typescript-config/node.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@bull/*": ["./src/libs/bull/*"],
+      "@bull": ["./src/libs/bull", "./src/libs/bull/index.ts"],
+      "@cache/*": ["./src/libs/cache/*"],
+      "@cache": ["./src/libs/cache", "./src/libs/cache/index.ts"],
+      "@config/*": ["./src/libs/config/*"],
+      "@config": ["./src/libs/config", "./src/libs/config/index.ts"],
+      "@database/*": ["./src/libs/database/*"],
+      "@database": ["./src/libs/database", "./src/libs/database/index.ts"],
+      "@error/*": ["./src/libs/error/*"],
+      "@error": ["./src/libs/error", "./src/libs/error/index.ts"],
+      "@mail/*": ["./src/libs/mail/*"],
+      "@mail": ["./src/libs/mail", "./src/libs/mail/index.ts"],
+      "@types/*": ["./src/libs/types/*"],
+      "@types": ["./src/libs/types", "./src/libs/types/index.ts"],
+      "@utils/*": ["./src/libs/utils/*"],
+      "@utils": ["./src/libs/utils", "./src/libs/utils/index.ts"],
+      "@plugins/*": ["./src/libs/plugins/*"],
+      "@telegram": ["./src/libs/telegram/index.ts"]
+    }
   },
   "include": ["src"]
 }

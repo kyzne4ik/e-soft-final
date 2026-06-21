@@ -1,7 +1,15 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
-  "globalEnv": ["DATABASE_URL"],
+  "globalEnv": [
+    "NODE_ENV",
+    "APP_ENV",
+    "BACKEND_PORT",
+    "BACKEND_URL",
+    "VITE_API_URL",
+    "VITE_PORT",
+    "VITE_USE_MOCKS"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -24,7 +32,6 @@
       "cache": false
     },
     "dev": {
-      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     }

@@ -4,5 +4,6 @@ export * from "./forbidden.error";
 export * from "./http.error";
 export * from "./internal-server.error";
 export * from "./not-found.error";
+export * from "./pg-error.mapper";
 export * from "./unauthorized.error";
 export * from "./unprocessable-entity.error";

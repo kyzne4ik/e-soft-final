@@ -54,13 +54,6 @@ export const changePasswordPayloadSchema = z.object({
 
 export type ChangePasswordPayload = z.infer<typeof changePasswordPayloadSchema>;
 
-export const bindTelegramPayloadSchema = z.object({
-  tgId: z.string().min(1).max(64),
-  tgUsername: z.string().min(1).max(64).optional(),
-});
-
-export type BindTelegramPayload = z.infer<typeof bindTelegramPayloadSchema>;
-
 export const userResponseSchema = z.object({
   id: z.number().int(),
   firstName: z.string(),
@@ -69,8 +62,9 @@ export const userResponseSchema = z.object({
   email: z.string().email(),
   role: roleSchema,
   isActivated: z.boolean(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  profileId: z.number().int().nullable(),
+  // createdAt: z.coerce.date(),
+  // updatedAt: z.coerce.date(),
 });
 
 export type UserResponse = z.infer<typeof userResponseSchema>;

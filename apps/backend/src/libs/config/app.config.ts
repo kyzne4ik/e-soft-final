@@ -21,5 +21,5 @@ export const AppConfig = cleanEnv(process.env, {
   BACKEND_JWT_EXPIRES_IN: num({ default: 3600 }),
   BACKEND_JWT_REFRESH_SECRET: str({ default: "jwt-refresh-secret" }),
   BACKEND_JWT_REFRESH_EXPIRES_IN: num({ default: 604800 }),
-  FRONTEND_URL: url({ default: "http://localhost:3000" }),
+  VITE_URL: url({ default: "http://localhost:3000" }),
 });

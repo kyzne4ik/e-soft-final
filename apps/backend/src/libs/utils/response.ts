@@ -1,3 +1,5 @@
+import type { PaginationResponse } from "@types";
+
 export class ResponseToolKit {
   static success<T>(
     data: T | null,
@@ -9,6 +11,20 @@ export class ResponseToolKit {
       success: true,
       message,
       data,
+    };
+  }
+
+  static paginated<T>(
+    result: PaginationResponse<T>,
+    message: string = "Success",
+    statusCode: number = 200,
+  ) {
+    return {
+      status: statusCode,
+      success: true,
+      message,
+      data: result.data,
+      meta: result.meta,
     };
   }
 

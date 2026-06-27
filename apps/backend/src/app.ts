@@ -10,14 +10,14 @@ import { fastifyAutoload } from "@fastify/autoload";
 import { AppConfig, RedisConfig } from "@config";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { createLogger } from "@utils";
+import { logger } from "@utils";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export const createAppInstance = () => {
   const app = fastify({
-    logger: createLogger(),
+    loggerInstance: logger,
   }).withTypeProvider<ZodTypeProvider>();
 
   app.register(fastifyJwt, {

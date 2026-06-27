@@ -1,4 +1,10 @@
-import { DatabaseType, users } from "@repo/database";
+import {
+  DatabaseType,
+  users,
+  studentProfile,
+  mentorProfile,
+  managerProfile,
+} from "@repo/database";
 import type { PaginationResponse } from "@types";
 import type { UserDto } from "@repo/schemas";
 import {
@@ -6,15 +12,18 @@ import {
   UserFilters,
   UserRepositoryPayload,
   UpdateUserRepositoryPayload,
+  UserWithProfileDto,
 } from "./user.types";
 import { count, desc, eq, and } from "drizzle-orm";
+import { toUserWithProfile } from "./user.mapper";
+import { PROFILE_BY_ROLE } from "./const";
 
 export class UserRepository implements IUsersRepository {
-  constructor(public db: DatabaseType) {}
+  constructor(private db: DatabaseType) {}
 
   async findAll(
     filters: UserFilters = {},
-  ): Promise<PaginationResponse<UserDto>> {
+  ): Promise<PaginationResponse<UserWithProfileDto>> {
     const { role, isActivated, page = 1, limit = 20 } = filters;
     const offset = (page - 1) * limit;
 
@@ -24,10 +33,27 @@ export class UserRepository implements IUsersRepository {
       conditions.push(eq(users.isActivated, isActivated));
     const where = conditions.length ? and(...conditions) : undefined;
 
-    const [data, totalRows] = await Promise.all([
+    const [rows, totalRows] = await Promise.all([
       this.db
-        .select()
+        .select({
+          id: users.id,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          patronymic: users.patronymic,
+          email: users.email,
+          passwordHash: users.passwordHash,
+          role: users.role,
+          isActivated: users.isActivated,
+          createdAt: users.createdAt,
+          updatedAt: users.updatedAt,
+          studentProfileId: studentProfile.id,
+          mentorProfileId: mentorProfile.id,
+          managerProfileId: managerProfile.id,
+        })
         .from(users)
+        .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
+        .leftJoin(mentorProfile, eq(mentorProfile.userId, users.id))
+        .leftJoin(managerProfile, eq(managerProfile.userId, users.id))
         .where(where)
         .orderBy(desc(users.createdAt))
         .limit(limit)
@@ -36,25 +62,83 @@ export class UserRepository implements IUsersRepository {
     ]);
 
     return {
-      data,
-      meta: {
-        page,
-        limit,
-        total: totalRows[0]?.value || 0,
-      },
+      data: rows.map(toUserWithProfile),
+      meta: { page, limit, total: totalRows[0]?.value || 0 },
     };
   }
-  async findById(id: number): Promise<UserDto | null> {
-    const [user] = await this.db.select().from(users).where(eq(users.id, id));
 
-    return user ?? null;
-  }
-  async create(data: UserRepositoryPayload): Promise<UserDto> {
-    const [user] = await this.db.insert(users).values(data).returning();
-    if (!user) throw new Error("Failed to create user");
+  async findById(id: number): Promise<UserWithProfileDto | null> {
+    const [row] = await this.db
+      .select({
+        id: users.id,
+        firstName: users.firstName,
+        lastName: users.lastName,
+        patronymic: users.patronymic,
+        email: users.email,
+        passwordHash: users.passwordHash,
+        role: users.role,
+        isActivated: users.isActivated,
+        createdAt: users.createdAt,
+        updatedAt: users.updatedAt,
+        studentProfileId: studentProfile.id,
+        mentorProfileId: mentorProfile.id,
+        managerProfileId: managerProfile.id,
+      })
+      .from(users)
+      .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
+      .leftJoin(mentorProfile, eq(mentorProfile.userId, users.id))
+      .leftJoin(managerProfile, eq(managerProfile.userId, users.id))
+      .where(eq(users.id, id));
 
-    return user;
+    return row ? toUserWithProfile(row) : null;
   }
+
+  async findByEmail(email: string): Promise<UserWithProfileDto | null> {
+    const [row] = await this.db
+      .select({
+        id: users.id,
+        firstName: users.firstName,
+        lastName: users.lastName,
+        patronymic: users.patronymic,
+        email: users.email,
+        passwordHash: users.passwordHash,
+        role: users.role,
+        isActivated: users.isActivated,
+        createdAt: users.createdAt,
+        updatedAt: users.updatedAt,
+        studentProfileId: studentProfile.id,
+        mentorProfileId: mentorProfile.id,
+        managerProfileId: managerProfile.id,
+      })
+      .from(users)
+      .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
+      .leftJoin(mentorProfile, eq(mentorProfile.userId, users.id))
+      .leftJoin(managerProfile, eq(managerProfile.userId, users.id))
+      .where(eq(users.email, email));
+
+    return row ? toUserWithProfile(row) : null;
+  }
+
+  async createWithProfile(
+    data: UserRepositoryPayload,
+  ): Promise<UserWithProfileDto> {
+    return this.db.transaction(async (tx) => {
+      const [user] = await tx.insert(users).values(data).returning();
+      if (!user) throw new Error("Ошибка при создании пользователя");
+
+      const profileTable = PROFILE_BY_ROLE[user.role];
+      if (!profileTable) {
+        return { ...user, profileId: null };
+      }
+
+      const [profile] = await tx
+        .insert(profileTable)
+        .values({ userId: user.id })
+        .returning({ id: profileTable.id });
+      return { ...user, profileId: profile?.id ?? null };
+    });
+  }
+
   async update(
     id: number,
     data: UpdateUserRepositoryPayload,
@@ -67,6 +151,7 @@ export class UserRepository implements IUsersRepository {
 
     return user ?? null;
   }
+
   async delete(id: number): Promise<boolean> {
     const deleted = await this.db
       .delete(users)

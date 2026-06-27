@@ -10,8 +10,10 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 export type UserRepositoryPayload = Omit<
   UserDto,
-  "id" | "isActivated" | "createdAt" | "updatedAt"
+  "id" | "createdAt" | "updatedAt"
 >;
+
+export type UserWithProfileDto = UserDto & { profileId: number | null };
 
 export type UpdateUserRepositoryPayload = {
   [K in keyof UserRepositoryPayload]?: UserRepositoryPayload[K] | undefined;
@@ -27,11 +29,14 @@ export type UserFilters = {
 export interface IUsersRepository {
   findAll: (filters?: UserFilters) => Promise<PaginationResponse<UserDto>>;
   findById: (id: number) => Promise<UserDto | null>;
+  findByEmail: (email: string) => Promise<UserDto | null>;
   update: (
     id: number,
     data: UpdateUserRepositoryPayload,
   ) => Promise<UserDto | null>;
-  create: (data: UserRepositoryPayload) => Promise<UserDto>;
+  createWithProfile: (
+    data: UserRepositoryPayload,
+  ) => Promise<UserWithProfileDto>;
   delete: (id: number) => Promise<boolean>;
 }
 
@@ -40,7 +45,8 @@ export interface IUsersService {
     filters?: UserFilters,
   ) => Promise<PaginationResponse<UserResponse>>;
   getUser: (id: number) => Promise<UserResponse | null>;
-  createUser: (data: CreateUserPayload) => Promise<UserResponse>;
+  getUserByEmail: (email: string) => Promise<UserResponse | null>;
+  createUserWithProfile: (data: CreateUserPayload) => Promise<UserResponse>;
   updateUser: (
     id: number,
     data: UpdateUserPayload,

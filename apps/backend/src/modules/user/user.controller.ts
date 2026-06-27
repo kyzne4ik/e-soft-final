@@ -10,10 +10,11 @@ import {
 } from "@repo/schemas";
 
 export class UserController implements IUsersController {
-  constructor(public userService: UserService) {}
+  constructor(private userService: UserService) {}
+
   getAll = async (
     req: FastifyRequest,
-    res: FastifyReply,
+    rep: FastifyReply,
   ): Promise<FastifyReply> => {
     const query = userQuerySchema.parse(req.query);
     const result = await this.userService.getUsers({
@@ -23,28 +24,35 @@ export class UserController implements IUsersController {
       limit: query.limit,
     });
 
-    return res.send(ResponseToolKit.success(result));
+    return rep.send(ResponseToolKit.paginated(result));
   };
+
   getById = async (
     req: FastifyRequest,
     rep: FastifyReply,
   ): Promise<FastifyReply> => {
     const { id } = idParamSchema.parse(req.params);
     const result = await this.userService.getUser(id);
-
+    if (!result) {
+      return rep
+        .status(404)
+        .send(ResponseToolKit.notFound("Пользователь не найден"));
+    }
     return rep.send(ResponseToolKit.success(result));
   };
+
   create = async (
     req: FastifyRequest,
     rep: FastifyReply,
   ): Promise<FastifyReply> => {
     const body = createUserPayloadSchema.parse(req.body);
-    const result = await this.userService.createUser(body);
+    const result = await this.userService.createUserWithProfile(body);
 
-    return rep.send(
-      ResponseToolKit.success(result, "Пользователь создан", 201),
-    );
+    return rep
+      .status(201)
+      .send(ResponseToolKit.success(result, "Пользователь создан", 201));
   };
+
   update = async (
     req: FastifyRequest,
     rep: FastifyReply,
@@ -52,9 +60,14 @@ export class UserController implements IUsersController {
     const { id } = idParamSchema.parse(req.params);
     const body = updateUserPayloadSchema.parse(req.body);
     const result = await this.userService.updateUser(id, body);
-
+    if (!result) {
+      return rep
+        .status(404)
+        .send(ResponseToolKit.notFound("Пользователь не найден"));
+    }
     return rep.send(ResponseToolKit.success(result, "Пользователь обновлён"));
   };
+
   delete = async (
     req: FastifyRequest,
     rep: FastifyReply,
@@ -62,6 +75,6 @@ export class UserController implements IUsersController {
     const { id } = idParamSchema.parse(req.params);
     await this.userService.deleteUser(id);
 
-    return rep.send(ResponseToolKit.success(null, "Пользователь удалён", 204));
+    return rep.send(ResponseToolKit.success(null, "Пользователь удалён"));
   };
 }

@@ -9,10 +9,11 @@ import { IUsersService, UserFilters } from "./user.types";
 import { userMap, usersMap } from "./user.mapper";
 import { isPgError, PG } from "@repo/database";
 import { ConflictError } from "@error/conflict.error";
-import bcrypt from "bcrypt";
+import { Hash } from "@utils/hash";
 
 export class UserService implements IUsersService {
-  constructor(public userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
+
   async getUsers(
     filters?: UserFilters,
   ): Promise<PaginationResponse<UserResponse>> {
@@ -23,18 +24,31 @@ export class UserService implements IUsersService {
       data: usersMap(users.data),
     };
   }
+
   async getUser(id: number): Promise<UserResponse | null> {
     const user = await this.userRepository.findById(id);
     if (!user) return null;
 
     return userMap(user);
   }
-  async createUser(data: CreateUserPayload): Promise<UserResponse> {
+
+  async getUserByEmail(email: string): Promise<UserResponse | null> {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) return null;
+
+    return userMap(user);
+  }
+
+  async createUserWithProfile(data: CreateUserPayload): Promise<UserResponse> {
     try {
       const { password, ...rest } = data;
-      const passwordHash = await bcrypt.hash(password, 10);
+      const passwordHash = await Hash.generateHash(password);
 
-      const user = await this.userRepository.create({ ...rest, passwordHash });
+      const user = await this.userRepository.createWithProfile({
+        ...rest,
+        passwordHash,
+        isActivated: true,
+      });
       return userMap(user);
     } catch (e) {
       if (isPgError(e, PG.UNIQUE)) throw new ConflictError("Email уже занят");
@@ -43,6 +57,7 @@ export class UserService implements IUsersService {
       throw e;
     }
   }
+
   async updateUser(
     id: number,
     data: UpdateUserPayload,

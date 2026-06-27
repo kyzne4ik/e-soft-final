@@ -1,4 +1,5 @@
 import { AppConfig } from "@config";
+import { bullWorkers } from "@bull";
 import { createAppInstance } from "./app";
 
 const app = createAppInstance();
@@ -9,6 +10,7 @@ const start = async () => {
       port: AppConfig.BACKEND_PORT,
       host: "0.0.0.0",
     });
+    bullWorkers.startWorkers();
     console.log(`Server listening on port ${AppConfig.BACKEND_PORT}`);
     app.log.info(`Server listening on port ${AppConfig.BACKEND_PORT}`);
   } catch (err) {
@@ -24,6 +26,7 @@ const gracefulShutdown = async (signal: string) => {
 
   try {
     await app.close();
+    bullWorkers.stopWorkers();
     console.log("Server closed successfully");
     app.log.info("Server closed successfully");
     process.exit(0);

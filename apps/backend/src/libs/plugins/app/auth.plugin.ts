@@ -7,6 +7,7 @@ import { ForbiddenError } from "@error/forbidden.error";
 export interface ICurrentUser {
   id: number;
   role: Role;
+  profileId: number | null;
 }
 
 declare module "fastify" {
@@ -30,17 +31,26 @@ async function verify(request: FastifyRequest): Promise<ICurrentUser> {
   try {
     await request.jwtVerify();
   } catch {
-    throw new UnauthorizedError("Authorization required");
+    throw new UnauthorizedError("Требуется авторизация");
   }
 
-  const payload = request.user as { id: number; role: Role };
-  const current: ICurrentUser = { id: payload.id, role: payload.role };
+  const payload = request.user as ICurrentUser;
+
+  const current: ICurrentUser = {
+    id: payload.id,
+    role: payload.role,
+    profileId: payload.profileId ?? null,
+  };
+
   request.currentUser = current;
+
   return current;
 }
 
 export default fp(
   async function authPlugin(fastify) {
+    fastify.decorate("currentUser", null);
+
     fastify.decorate(
       "authenticate",
       async function (request: FastifyRequest): Promise<void> {
@@ -53,7 +63,7 @@ export default fp(
         const user = await verify(request);
         if (user.role === "ADMIN") return;
         if (!roles.includes(user.role)) {
-          throw new ForbiddenError("Insufficient permissions");
+          throw new ForbiddenError("Недостаточно прав");
         }
       };
     });

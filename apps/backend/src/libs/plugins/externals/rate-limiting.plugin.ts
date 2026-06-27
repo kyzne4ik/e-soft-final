@@ -1,7 +1,6 @@
 import fp from "fastify-plugin";
-import { fastifyRateLimit } from "@fastify/rate-limit";
-import { FastifyRequest } from "fastify";
 import { RedisConfig } from "@config";
+import { fastifyRateLimit } from "@fastify/rate-limit";
 
 export default fp(
   async function (fastify) {
@@ -10,7 +9,7 @@ export default fp(
       timeWindow: "1 minute",
       redis: fastify.redis,
       global: true,
-      errorResponseBuilder: (_request: FastifyRequest, context) => {
+      errorResponseBuilder: () => {
         return {
           status: 429,
           success: false,

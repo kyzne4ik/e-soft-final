@@ -1,5 +1,5 @@
 import { AppConfig } from "@config/app.config";
-import { LoggerOptions as PinoLoggerOptions } from "pino";
+import { pino, LoggerOptions as PinoLoggerOptions } from "pino";
 
 interface LoggerOptions {
   level?: string;
@@ -52,3 +52,5 @@ export const createLogger = (
     },
   };
 };
+
+export const logger = pino(createLogger());

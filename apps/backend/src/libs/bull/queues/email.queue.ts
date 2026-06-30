@@ -7,7 +7,6 @@ export const emailQueue = new Queue(QUEUE_NAMES.email, {
   connection: bullConnection,
   defaultJobOptions: {
     attempts: 3,
-    delay: 10000,
     backoff: {
       type: "exponential",
       jitter: 0.5,

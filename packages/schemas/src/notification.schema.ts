@@ -18,7 +18,17 @@ export const notificationSchema = z.object({
 });
 
 export type NotificationDto = z.infer<typeof notificationSchema>;
-export type NotificationResponse = NotificationDto;
+
+export const notificationResponseSchema = z.object({
+  id: z.number().int(),
+  message: z.string(),
+  isSilent: z.boolean(),
+  sendAt: z.coerce.date().nullable(),
+  status: notificationStatusSchema,
+  isRead: z.boolean(),
+});
+
+export type NotificationResponse = z.infer<typeof notificationResponseSchema>;
 
 export const createNotificationPayloadSchema = z.object({
   userId: z.number().int().positive(),
@@ -31,7 +41,7 @@ export type CreateNotificationPayload = z.infer<
   typeof createNotificationPayloadSchema
 >;
 
-export const notifyQuerySchema = z
+export const notificationQuerySchema = z
   .object({
     isRead: z
       .enum(["true", "false"])
@@ -40,7 +50,7 @@ export const notifyQuerySchema = z
   })
   .merge(paginationSchema.partial());
 
-export type NotifyQuery = z.infer<typeof notifyQuerySchema>;
+export type NotificationQuery = z.infer<typeof notificationQuerySchema>;
 
 export const unreadCountResponseSchema = z.object({
   count: z.number().int(),

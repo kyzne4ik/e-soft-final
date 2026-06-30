@@ -1,16 +1,40 @@
-import { AppConfig } from "@config";
+import { AppConfig, TelegramConfig } from "@config";
 import { bullWorkers } from "@bull";
 import { createAppInstance } from "./app";
+import { Redis } from "@database";
+import { db } from "@repo/database";
+import { TelegramBot, TelegramClient } from "@telegram";
+import { UserRepository } from "@modules/user/user.repository";
+import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
+import { UserTelegramRepository } from "@modules/profile/user-telegram/user-telegram.repository";
 
 const app = createAppInstance();
 
 const start = async () => {
   try {
-    app.listen({
+    await app.listen({
       port: AppConfig.BACKEND_PORT,
       host: "0.0.0.0",
     });
+
     bullWorkers.startWorkers();
+
+    const telegramBot = new TelegramBot(
+      new UserTelegramRepository(db),
+      new UserTelegramStore(Redis.getInstance()),
+      new UserRepository(db),
+    );
+    telegramBot.registerBotHandlers();
+
+    if (AppConfig.APP_ENV === "production") {
+      await TelegramClient.getApi().setWebhook(
+        `${AppConfig.BACKEND_PUBLIC_URL}/api/telegram/webhook`,
+        { secret_token: TelegramConfig.TELEGRAM_WEBHOOK_SECRET },
+      );
+    } else {
+      void TelegramClient.getBot().start();
+    }
+
     console.log(`Server listening on port ${AppConfig.BACKEND_PORT}`);
     app.log.info(`Server listening on port ${AppConfig.BACKEND_PORT}`);
   } catch (err) {
@@ -27,6 +51,7 @@ const gracefulShutdown = async (signal: string) => {
   try {
     await app.close();
     bullWorkers.stopWorkers();
+    await TelegramClient.destroyTelegramBot();
     console.log("Server closed successfully");
     app.log.info("Server closed successfully");
     process.exit(0);

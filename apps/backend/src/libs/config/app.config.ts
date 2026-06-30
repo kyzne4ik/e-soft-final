@@ -17,6 +17,7 @@ export const AppConfig = cleanEnv(process.env, {
   BACKEND_PORT: num({ default: 3000 }),
   BACKEND_HOST: str({ default: "localhost" }),
   BACKEND_URL: url({ default: "http://localhost:3000" }),
+  BACKEND_PUBLIC_URL: url({ default: "http://localhost:3000" }),
   BACKEND_JWT_SECRET: str({ default: "jwt-secret" }),
   BACKEND_JWT_EXPIRES_IN: num({ default: 3600 }),
   BACKEND_JWT_REFRESH_SECRET: str({ default: "jwt-refresh-secret" }),

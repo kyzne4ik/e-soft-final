@@ -6,5 +6,5 @@ export * from "./lesson.schema";
 export * from "./schedule.schema";
 export * from "./crm.schema";
 export * from "./lms.schema";
-export * from "./notify.schema";
+export * from "./notification.schema";
 export * from "./events.schema";

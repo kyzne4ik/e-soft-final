@@ -16,6 +16,7 @@ export interface IProfileService {
     data: BindTelegramPayload,
   ) => Promise<UserTelegramResponse | null>;
   unbindTelegram: (userId: number) => Promise<boolean>;
+  generateLinkToken: (userId: number) => Promise<string>;
 }
 
 export interface IProfileController {
@@ -32,6 +33,10 @@ export interface IProfileController {
     rep: FastifyReply,
   ) => Promise<FastifyReply>;
   unbindTelegram: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  generateLink: (
     req: FastifyRequest,
     rep: FastifyReply,
   ) => Promise<FastifyReply>;

@@ -3,13 +3,14 @@ import {
   UpdateUserPayload,
   UserResponse,
 } from "@repo/schemas";
+import { Hash } from "@utils";
 import { PaginationResponse } from "@types";
-import { UserRepository } from "./user.repository";
-import { IUsersService, UserFilters } from "./user.types";
-import { userMap, usersMap } from "./user.mapper";
 import { isPgError, PG } from "@repo/database";
+import { userMap, usersMap } from "./user.mapper";
+import { UserRepository } from "./user.repository";
 import { ConflictError } from "@error/conflict.error";
-import { Hash } from "@utils/hash";
+import { NotFoundError } from "@error/not-found.error";
+import { IUsersService, UserFilters } from "./user.types";
 
 export class UserService implements IUsersService {
   constructor(private userRepository: UserRepository) {}
@@ -25,9 +26,9 @@ export class UserService implements IUsersService {
     };
   }
 
-  async getUser(id: number): Promise<UserResponse | null> {
+  async getUser(id: number): Promise<UserResponse> {
     const user = await this.userRepository.findById(id);
-    if (!user) return null;
+    if (!user) throw new NotFoundError("Пользователь не найден");
 
     return userMap(user);
   }
@@ -58,16 +59,14 @@ export class UserService implements IUsersService {
     }
   }
 
-  async updateUser(
-    id: number,
-    data: UpdateUserPayload,
-  ): Promise<UserResponse | null> {
+  async updateUser(id: number, data: UpdateUserPayload): Promise<UserResponse> {
     const user = await this.userRepository.update(id, data);
 
-    if (!user) return null;
+    if (!user) throw new NotFoundError("Не удалось найти пользователя");
 
     return userMap(user);
   }
+
   async deleteUser(id: number): Promise<boolean> {
     return await this.userRepository.delete(id);
   }

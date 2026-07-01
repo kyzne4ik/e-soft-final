@@ -44,13 +44,10 @@ export interface IUsersService {
   getUsers: (
     filters?: UserFilters,
   ) => Promise<PaginationResponse<UserResponse>>;
-  getUser: (id: number) => Promise<UserResponse | null>;
+  getUser: (id: number) => Promise<UserResponse>;
   getUserByEmail: (email: string) => Promise<UserResponse | null>;
   createUserWithProfile: (data: CreateUserPayload) => Promise<UserResponse>;
-  updateUser: (
-    id: number,
-    data: UpdateUserPayload,
-  ) => Promise<UserResponse | null>;
+  updateUser: (id: number, data: UpdateUserPayload) => Promise<UserResponse>;
   deleteUser: (id: number) => Promise<boolean>;
 }
 

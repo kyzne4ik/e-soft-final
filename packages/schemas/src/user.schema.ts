@@ -80,3 +80,10 @@ export const userQuerySchema = z
   .merge(paginationSchema.partial());
 
 export type UserQuery = z.infer<typeof userQuerySchema>;
+
+export const generateLinkSchema = z.object({
+  token: z.string(),
+  link: z.string(),
+});
+
+export type GenerateLinkResponse = z.infer<typeof generateLinkSchema>;

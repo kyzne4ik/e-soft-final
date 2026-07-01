@@ -33,11 +33,7 @@ export class UserController implements IUsersController {
   ): Promise<FastifyReply> => {
     const { id } = idParamSchema.parse(req.params);
     const result = await this.userService.getUser(id);
-    if (!result) {
-      return rep
-        .status(404)
-        .send(ResponseToolKit.notFound("Пользователь не найден"));
-    }
+
     return rep.send(ResponseToolKit.success(result));
   };
 
@@ -60,11 +56,7 @@ export class UserController implements IUsersController {
     const { id } = idParamSchema.parse(req.params);
     const body = updateUserPayloadSchema.parse(req.body);
     const result = await this.userService.updateUser(id, body);
-    if (!result) {
-      return rep
-        .status(404)
-        .send(ResponseToolKit.notFound("Пользователь не найден"));
-    }
+
     return rep.send(ResponseToolKit.success(result, "Пользователь обновлён"));
   };
 

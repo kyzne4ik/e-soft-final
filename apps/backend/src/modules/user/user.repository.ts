@@ -1,6 +1,7 @@
 import {
   DatabaseType,
   users,
+  userTelegram,
   studentProfile,
   mentorProfile,
   managerProfile,
@@ -117,6 +118,16 @@ export class UserRepository implements IUsersRepository {
       .where(eq(users.email, email));
 
     return row ? toUserWithProfile(row) : null;
+  }
+
+  async findByTgId(tgId: string): Promise<UserDto | null> {
+    const [row] = await this.db
+      .select()
+      .from(users)
+      .innerJoin(userTelegram, eq(userTelegram.userId, users.id))
+      .where(eq(userTelegram.tgId, tgId));
+
+    return row?.users ?? null;
   }
 
   async createWithProfile(

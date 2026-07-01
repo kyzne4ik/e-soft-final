@@ -1,36 +1,26 @@
 import { Role } from "@repo/schemas";
+import { ConflictError } from "@error";
 import { Context, NextFunction } from "grammy";
 import { TelegramClient } from "./telegram.client";
-import { UserRepository } from "@modules/user/user.repository";
-import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
-import { UserTelegramRepository } from "@modules/profile/user-telegram/user-telegram.repository";
+import { ProfileService } from "@modules/profile/profile.service";
+import { StartTemplate, AccessTemplate, TopicTemplate } from "./templates";
 
 export class TelegramBot {
-  constructor(
-    private userTelegramRepo: UserTelegramRepository,
-    private userTelegramStore: UserTelegramStore,
-    private userRepo: UserRepository,
-  ) {}
+  constructor(private profileService: ProfileService) {}
 
   private requireRole(...roles: Role[]) {
     return async (ctx: Context, next: NextFunction): Promise<void> => {
       const tgId = ctx.from?.id;
       if (!tgId) return;
 
-      const link = await this.userTelegramRepo.findByTgId(String(tgId));
-      if (!link) {
-        await ctx.reply("❌ Сначала привяжите аккаунт командой /start.");
-        return;
-      }
-
-      const user = await this.userRepo.findById(link.userId);
+      const user = await this.profileService.getUserByTgId(String(tgId));
       if (!user) {
-        await ctx.reply("❌ Аккаунт не найден.");
+        await ctx.reply(AccessTemplate.notLinked());
         return;
       }
 
       if (user.role !== "ADMIN" && !roles.includes(user.role)) {
-        await ctx.reply("⛔ Недостаточно прав для этой команды.");
+        await ctx.reply(AccessTemplate.forbidden());
         return;
       }
 
@@ -46,38 +36,41 @@ export class TelegramBot {
       const username = ctx.from?.username;
 
       if (!payload) {
-        await ctx.reply(`
-👋 Привет, ${username}!
-Добро пожаловать в Школу Программирования Esoft 🎓
-Мы обучаем Full-Stack разработке: Frontend (HTML, CSS, JS, React) и Backend (Node.js, PostgreSQL).
-`);
+        await ctx.reply(StartTemplate.welcome(username));
         return;
       }
 
-      const userId = await this.userTelegramStore.resolveToken(ctx.match);
+      const userId = await this.profileService.resolveLinkToken(ctx.match);
 
       if (!userId) {
-        await ctx.reply("❌ Ссылка недействительна или истекла.");
+        await ctx.reply(StartTemplate.linkInvalid());
         return;
       }
 
-      await this.userTelegramRepo.createByUserId(Number(userId), {
-        tgId: String(ctx.from?.id),
-        tgUsername: ctx.from?.username ?? null,
-      });
+      try {
+        await this.profileService.bindTelegram(Number(userId), {
+          tgId: String(ctx.from?.id),
+          tgUsername: ctx.from?.username ?? null,
+        });
+      } catch (e) {
+        if (e instanceof ConflictError) {
+          await ctx.reply(StartTemplate.alreadyLinked());
+          return;
+        }
+        throw e;
+      }
 
-      await ctx.reply("✅ Telegram успешно привязан!");
+      await ctx.reply(StartTemplate.linkSuccess());
     });
 
     bot.command("topic_id", this.requireRole("MANAGER"), async (ctx) => {
-      if (!ctx.message?.is_topic_message) {
-        return ctx.reply("Запусти команду внутри нужного топика.");
+      const threadId = ctx.message?.message_thread_id;
+      if (!ctx.message?.is_topic_message || threadId === undefined) {
+        return ctx.reply(TopicTemplate.notInTopic());
       }
-      await ctx.reply(
-        `chatId: <code>${ctx.chat.id}</code>\n` +
-          `topicId: <code>${ctx.message.message_thread_id}</code>`,
-        { parse_mode: "HTML" },
-      );
+      await ctx.reply(TopicTemplate.ids(ctx.chat.id, threadId), {
+        parse_mode: "HTML",
+      });
     });
   }
 }

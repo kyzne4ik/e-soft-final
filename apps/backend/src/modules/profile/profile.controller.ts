@@ -52,4 +52,14 @@ export class ProfileController implements IProfileController {
     await this.profileService.unbindTelegram(user.id);
     return rep.send(ResponseToolKit.success(null, "Telegram отвязан"));
   };
+
+  generateLink = async (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ): Promise<FastifyReply> => {
+    const { user } = getCurrentUser(req);
+
+    const token = await this.profileService.generateLinkToken(user.id);
+    return rep.send(ResponseToolKit.success(token));
+  };
 }

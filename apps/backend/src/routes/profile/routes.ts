@@ -4,10 +4,15 @@ import { UserRepository } from "@modules/user/user.repository";
 import { ProfileService } from "@modules/profile/profile.service";
 import { ProfileController } from "@modules/profile/profile.controller";
 import { UserTelegramRepository } from "@modules/profile/user-telegram/user-telegram.repository";
+import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
 
 export default async function profileRoutes(fastify: FastifyInstance) {
   const controller = new ProfileController(
-    new ProfileService(new UserTelegramRepository(db), new UserRepository(db)),
+    new ProfileService(
+      new UserTelegramStore(fastify.redis),
+      new UserTelegramRepository(db),
+      new UserRepository(db),
+    ),
   );
 
   fastify.get(
@@ -24,13 +29,24 @@ export default async function profileRoutes(fastify: FastifyInstance) {
 
   fastify.post(
     "/telegram",
-    { schema: { tags: ["Profile"], summary: "Привязать Telegram" } },
+    { schema: { tags: ["Profile"], summary: "Привязать Telegram к профилю" } },
     controller.bindTelegram,
   );
 
   fastify.delete(
     "/telegram",
-    { schema: { tags: ["Profile"], summary: "Отвязать Telegram" } },
+    { schema: { tags: ["Profile"], summary: "Отвязать Telegram от профиля" } },
     controller.unbindTelegram,
+  );
+
+  fastify.post(
+    "/telegram/link",
+    {
+      schema: {
+        tags: ["Profile"],
+        summary: "Сгенерировать ссылку-привязки Telegram",
+      },
+    },
+    controller.generateLink,
   );
 }

@@ -2,6 +2,7 @@ import { Role } from "@repo/schemas";
 import { Context, NextFunction } from "grammy";
 import { TelegramClient } from "./telegram.client";
 import { UserRepository } from "@modules/user/user.repository";
+import { StartTemplate, AccessTemplate, TopicTemplate } from "./templates";
 import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
 import { UserTelegramRepository } from "@modules/profile/user-telegram/user-telegram.repository";
 
@@ -19,18 +20,18 @@ export class TelegramBot {
 
       const link = await this.userTelegramRepo.findByTgId(String(tgId));
       if (!link) {
-        await ctx.reply("❌ Сначала привяжите аккаунт командой /start.");
+        await ctx.reply(AccessTemplate.notLinked());
         return;
       }
 
       const user = await this.userRepo.findById(link.userId);
       if (!user) {
-        await ctx.reply("❌ Аккаунт не найден.");
+        await ctx.reply(AccessTemplate.accountNotFound());
         return;
       }
 
       if (user.role !== "ADMIN" && !roles.includes(user.role)) {
-        await ctx.reply("⛔ Недостаточно прав для этой команды.");
+        await ctx.reply(AccessTemplate.forbidden());
         return;
       }
 
@@ -46,18 +47,14 @@ export class TelegramBot {
       const username = ctx.from?.username;
 
       if (!payload) {
-        await ctx.reply(`
-👋 Привет, ${username}!
-Добро пожаловать в Школу Программирования Esoft 🎓
-Мы обучаем Full-Stack разработке: Frontend (HTML, CSS, JS, React) и Backend (Node.js, PostgreSQL).
-`);
+        await ctx.reply(StartTemplate.welcome(username));
         return;
       }
 
       const userId = await this.userTelegramStore.resolveToken(ctx.match);
 
       if (!userId) {
-        await ctx.reply("❌ Ссылка недействительна или истекла.");
+        await ctx.reply(StartTemplate.linkInvalid());
         return;
       }
 
@@ -66,18 +63,17 @@ export class TelegramBot {
         tgUsername: ctx.from?.username ?? null,
       });
 
-      await ctx.reply("✅ Telegram успешно привязан!");
+      await ctx.reply(StartTemplate.linkSuccess());
     });
 
     bot.command("topic_id", this.requireRole("MANAGER"), async (ctx) => {
-      if (!ctx.message?.is_topic_message) {
-        return ctx.reply("Запусти команду внутри нужного топика.");
+      const threadId = ctx.message?.message_thread_id;
+      if (!ctx.message?.is_topic_message || threadId === undefined) {
+        return ctx.reply(TopicTemplate.notInTopic());
       }
-      await ctx.reply(
-        `chatId: <code>${ctx.chat.id}</code>\n` +
-          `topicId: <code>${ctx.message.message_thread_id}</code>`,
-        { parse_mode: "HTML" },
-      );
+      await ctx.reply(TopicTemplate.ids(ctx.chat.id, threadId), {
+        parse_mode: "HTML",
+      });
     });
   }
 }

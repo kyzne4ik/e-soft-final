@@ -3,16 +3,17 @@ import {
   ChangePasswordPayload,
   UserTelegramResponse,
 } from "@repo/schemas";
-import { Hash } from "@utils/hash";
+import { Hash } from "@utils";
 import { profileMap } from "./profile.mapper";
 import { IProfileService } from "./profile.types";
-import { NotFoundError } from "@error/not-found.error";
-import { BadRequestError } from "@error/bad-request.error";
+import { NotFoundError, BadRequestError } from "@error";
 import { UserRepository } from "@modules/user/user.repository";
+import { UserTelegramStore } from "./user-telegram/user-telegram.store";
 import { UserTelegramRepository } from "./user-telegram/user-telegram.repository";
 
 export class ProfileService implements IProfileService {
   constructor(
+    private userTelegramStore: UserTelegramStore,
     private userTelegramRepo: UserTelegramRepository,
     private userRepo: UserRepository,
   ) {}
@@ -52,5 +53,9 @@ export class ProfileService implements IProfileService {
 
   async unbindTelegram(userId: number): Promise<boolean> {
     return await this.userTelegramRepo.deleteByUserId(userId);
+  }
+
+  async generateLinkToken(userId: number): Promise<string> {
+    return await this.userTelegramStore.generateLinkToken(userId);
   }
 }

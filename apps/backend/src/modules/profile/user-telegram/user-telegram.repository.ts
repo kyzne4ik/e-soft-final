@@ -19,23 +19,32 @@ export class UserTelegramRepository implements IUserTelegramRepository {
     return row ?? null;
   }
 
+  async findByTgId(tgId: string): Promise<UserTelegramDto | null> {
+    const [row] = await this.db
+      .select()
+      .from(userTelegram)
+      .where(eq(userTelegram.tgId, tgId));
+
+    return row ?? null;
+  }
+
   async createByUserId(
     userId: number,
     data: CreateUserTelegramPayload,
-  ): Promise<UserTelegramDto> {
+  ): Promise<UserTelegramDto | null> {
     const [row] = await this.db
       .insert(userTelegram)
       .values({
         userId,
         ...data,
       })
-      .returning()
       .onConflictDoUpdate({
         target: userTelegram.userId,
         set: data,
-      });
+      })
+      .returning();
 
-    if (!row) throw new Error("Ошибка при создании userTelegram");
+    if (!row) return null;
 
     return row;
   }

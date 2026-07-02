@@ -9,3 +9,4 @@ export * from "./lms.schema";
 export * from "./notification.schema";
 export * from "./events.schema";
 export * from "./stream-telegram";
+export * from "./course.schema";

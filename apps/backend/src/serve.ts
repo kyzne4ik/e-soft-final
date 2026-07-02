@@ -5,6 +5,7 @@ import { Redis } from "@database";
 import { db } from "@repo/database";
 import { TelegramBot, TelegramClient } from "@telegram";
 import { UserRepository } from "@modules/user/user.repository";
+import { ProfileService } from "@modules/profile/profile.service";
 import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
 import { UserTelegramRepository } from "@modules/profile/user-telegram/user-telegram.repository";
 
@@ -20,9 +21,11 @@ const start = async () => {
     bullWorkers.startWorkers();
 
     const telegramBot = new TelegramBot(
-      new UserTelegramRepository(db),
-      new UserTelegramStore(Redis.getInstance()),
-      new UserRepository(db),
+      new ProfileService(
+        new UserTelegramStore(Redis.getInstance()),
+        new UserTelegramRepository(db),
+        new UserRepository(db),
+      ),
     );
     telegramBot.registerBotHandlers();
 

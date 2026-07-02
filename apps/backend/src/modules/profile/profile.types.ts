@@ -1,7 +1,9 @@
 import {
-  BindTelegramPayload,
-  ChangePasswordPayload,
+  UserDto,
   UserTelegramResponse,
+  ChangePasswordPayload,
+  CreateUserTelegramPayload,
+  GenerateLinkResponse,
 } from "@repo/schemas";
 import { FastifyReply, FastifyRequest } from "fastify";
 
@@ -13,10 +15,12 @@ export interface IProfileService {
   getTelegram: (userId: number) => Promise<UserTelegramResponse | null>;
   bindTelegram: (
     userId: number,
-    data: BindTelegramPayload,
+    data: CreateUserTelegramPayload,
   ) => Promise<UserTelegramResponse | null>;
   unbindTelegram: (userId: number) => Promise<boolean>;
-  generateLinkToken: (userId: number) => Promise<string>;
+  generateLinkToken: (userId: number) => Promise<GenerateLinkResponse>;
+  resolveLinkToken: (token: string) => Promise<string | null>;
+  getUserByTgId: (tgId: string) => Promise<UserDto | null>;
 }
 
 export interface IProfileController {

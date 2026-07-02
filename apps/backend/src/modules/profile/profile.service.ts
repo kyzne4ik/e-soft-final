@@ -1,12 +1,15 @@
 import {
-  BindTelegramPayload,
+  UserDto,
   ChangePasswordPayload,
   UserTelegramResponse,
+  CreateUserTelegramPayload,
+  GenerateLinkResponse,
 } from "@repo/schemas";
 import { Hash } from "@utils";
-import { profileMap } from "./profile.mapper";
+import { isPgError, PG } from "@repo/database";
+import { generateLinkMap, profileMap } from "./profile.mapper";
 import { IProfileService } from "./profile.types";
-import { NotFoundError, BadRequestError } from "@error";
+import { NotFoundError, BadRequestError, ConflictError } from "@error";
 import { UserRepository } from "@modules/user/user.repository";
 import { UserTelegramStore } from "./user-telegram/user-telegram.store";
 import { UserTelegramRepository } from "./user-telegram/user-telegram.repository";
@@ -43,19 +46,36 @@ export class ProfileService implements IProfileService {
 
   async bindTelegram(
     userId: number,
-    data: BindTelegramPayload,
+    data: CreateUserTelegramPayload,
   ): Promise<UserTelegramResponse | null> {
-    const row = await this.userTelegramRepo.createByUserId(userId, data);
-    if (!row) return null;
+    try {
+      const row = await this.userTelegramRepo.createByUserId(userId, data);
+      if (!row) return null;
 
-    return profileMap(row);
+      return profileMap(row);
+    } catch (e) {
+      if (isPgError(e, PG.UNIQUE))
+        throw new ConflictError(
+          "Этот Telegram уже привязан к другому аккаунту",
+        );
+      throw e;
+    }
   }
 
   async unbindTelegram(userId: number): Promise<boolean> {
     return await this.userTelegramRepo.deleteByUserId(userId);
   }
 
-  async generateLinkToken(userId: number): Promise<string> {
-    return await this.userTelegramStore.generateLinkToken(userId);
+  async generateLinkToken(userId: number): Promise<GenerateLinkResponse> {
+    const token = await this.userTelegramStore.generateLinkToken(userId);
+    return generateLinkMap(token);
+  }
+
+  async resolveLinkToken(token: string): Promise<string | null> {
+    return await this.userTelegramStore.resolveToken(token);
+  }
+
+  async getUserByTgId(tgId: string): Promise<UserDto | null> {
+    return await this.userRepo.findByTgId(tgId);
   }
 }

@@ -16,4 +16,8 @@ export class StartTemplate {
   static linkInvalid(): string {
     return "❌ Ссылка недействительна или истекла.";
   }
+
+  static alreadyLinked(): string {
+    return "❌ Этот Telegram уже привязан к другому аккаунту.";
+  }
 }

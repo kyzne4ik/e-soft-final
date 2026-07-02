@@ -30,6 +30,7 @@ export interface IUsersRepository {
   findAll: (filters?: UserFilters) => Promise<PaginationResponse<UserDto>>;
   findById: (id: number) => Promise<UserDto | null>;
   findByEmail: (email: string) => Promise<UserDto | null>;
+  findByTgId: (tgId: string) => Promise<UserDto | null>;
   update: (
     id: number,
     data: UpdateUserRepositoryPayload,

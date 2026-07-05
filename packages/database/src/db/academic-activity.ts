@@ -17,7 +17,6 @@ export const submissionStatusEnum = pgEnum("submission_status", [
   "CHANGES_REQUESTED",
   "ACCEPTED",
   "RESUBMITTED",
-  "ARCHIVED",
 ]);
 
 export const studentStatusEnum = pgEnum("student_status", [

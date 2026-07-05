@@ -83,35 +83,30 @@ export async function seedAcademicActivity(
         studentId: student1.id,
         repoLink: "https://github.com/student1/hw-1",
         status: "ACCEPTED",
-        isActivate: true,
       },
       {
         taskId: task2.id,
         studentId: student1.id,
         repoLink: "https://github.com/student1/hw-2",
         status: "CHANGES_REQUESTED",
-        isActivate: true,
       },
       {
         taskId: task1.id,
         studentId: student2.id,
         repoLink: "https://github.com/student2/hw-1",
         status: "REVIEWING",
-        isActivate: true,
       },
       {
         taskId: task1.id,
         studentId: student3.id,
         repoLink: "https://github.com/student3/hw-1",
         status: "NEW",
-        isActivate: true,
       },
       {
         taskId: task3.id,
         studentId: student3.id,
         repoLink: "https://github.com/student3/hw-3-v2",
         status: "RESUBMITTED",
-        isActivate: true,
       },
     ])
     .returning();

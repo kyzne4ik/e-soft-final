@@ -67,7 +67,6 @@ export const submission = pgTable("submission", {
     .references(() => studentProfile.id, { onDelete: "cascade" }),
   repoLink: text("repo_link").notNull(),
   status: submissionStatusEnum("status").notNull().default("NEW"),
-  isActivate: boolean("is_activate").notNull().default(true),
   ...timestamps,
 });
 

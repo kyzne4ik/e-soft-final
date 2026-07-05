@@ -194,16 +194,15 @@
 
 ### Поля
 
-| Поле        | Тип              | Обязательное | Описание                                                                    |
-| ----------- | ---------------- | ------------ | --------------------------------------------------------------------------- |
-| id          | INTEGER          | Да           | Уникальный идентификатор (PK)                                               |
-| task_id     | INTEGER          | Да           | Ссылка на задание (FK)                                                      |
-| student_id  | INTEGER          | Да           | Ссылка на профиль студента (FK)                                             |
-| repo_link   | TEXT             | Да           | Ссылка на PR/Репозиторий студента                                           |
-| status      | SubmissionStatus | Да           | Статус (NEW, REVIEWING, CHANGES_REQUESTED, ACCEPTED, RESUBMITTED, ARCHIVED) |
-| is_activate | BOOLEAN          | Да           | Актуальна ли сдача (false для отчисленных/архивных), default: true          |
-| created_at  | TIMESTAMP        | Да           | Время первой сдачи, auto                                                    |
-| updated_at  | TIMESTAMP        | Да           | Время обновления, auto                                                      |
+| Поле       | Тип              | Обязательное | Описание                                                          |
+| ---------- | ---------------- | ------------ | ----------------------------------------------------------------- |
+| id         | INTEGER          | Да           | Уникальный идентификатор (PK)                                     |
+| task_id    | INTEGER          | Да           | Ссылка на задание (FK)                                            |
+| student_id | INTEGER          | Да           | Ссылка на профиль студента (FK)                                   |
+| repo_link  | TEXT             | Да           | Ссылка на PR/Репозиторий студента                                 |
+| status     | SubmissionStatus | Да           | Статус (NEW, REVIEWING, CHANGES_REQUESTED, ACCEPTED, RESUBMITTED) |
+| created_at | TIMESTAMP        | Да           | Время первой сдачи, auto                                          |
+| updated_at | TIMESTAMP        | Да           | Время обновления, auto                                            |
 
 ## **ENUM**: SubmissionStatus
 
@@ -218,7 +217,6 @@
 | CHANGES_REQUESTED |
 | ACCEPTED          |
 | RESUBMITTED       |
-| ARCHIVED          |
 
 ## Review
 

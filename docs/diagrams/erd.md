@@ -103,8 +103,7 @@ erDiagram
         INT task_id FK
         INT student_id FK
         TEXT repo_link
-        SUBMISSION_STATUS status "ENUM: NEW|REVIEWING|CHANGES_REQUESTED|ACCEPTED|RESUBMITTED|ARCHIVED"
-        BOOLEAN is_activate
+        SUBMISSION_STATUS status "ENUM: NEW|REVIEWING|CHANGES_REQUESTED|ACCEPTED|RESUBMITTED"
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }

@@ -3,6 +3,7 @@ import {
   StreamTelegramDto,
   StreamTelegramResponse,
 } from "@repo/schemas";
+import { FastifyReply, FastifyRequest } from "fastify";
 
 export interface IStreamTelegramRepository {
   findByStreamId: (streamId: number) => Promise<StreamTelegramDto | null>;
@@ -20,4 +21,19 @@ export interface IStreamTelegramService {
     data: BindStreamTelegramPayload,
   ) => Promise<StreamTelegramResponse | null>;
   unbindTelegram: (streamId: number) => Promise<boolean>;
+}
+
+export interface IStreamController {
+  getTelegram: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  bindTelegram: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  unbindTelegram: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
 }

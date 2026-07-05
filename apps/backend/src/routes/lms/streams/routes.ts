@@ -1,41 +1,50 @@
 import { db } from "@repo/database";
 import { FastifyInstance } from "fastify";
+import { StreamService } from "@modules/lms/stream/stream.service";
 import { StreamController } from "@modules/lms/stream/stream.controller";
-import { StreamTelegramService } from "@modules/lms/stream/stream-telegram/stream-telegram.service";
-import { StreamTelegramRepository } from "@modules/lms/stream/stream-telegram/stream-telegram.repository";
+import { StreamRepository } from "@modules/lms/stream/stream.repository";
 
 export default async function streamsRoutes(fastify: FastifyInstance) {
   const controller = new StreamController(
-    new StreamTelegramService(new StreamTelegramRepository(db)),
+    new StreamService(new StreamRepository(db)),
   );
 
   fastify.get(
-    "/:id/telegram",
-    {
-      preHandler: fastify.authorize("MANAGER"),
-      schema: {
-        tags: ["Streams"],
-        summary: "Посмотреть привязанный Telegram потока",
-      },
-    },
-    controller.getTelegram,
+    "/",
+    { schema: { tags: ["Streams"], summary: "Список потоков" } },
+    controller.getAll,
+  );
+
+  fastify.get(
+    "/:id",
+    { schema: { tags: ["Streams"], summary: "Поток по id" } },
+    controller.getById,
   );
 
   fastify.post(
-    "/:id/telegram",
+    "/",
     {
-      preHandler: fastify.authorize("MANAGER"),
-      schema: { tags: ["Streams"], summary: "Привязать Telegram к потоку" },
+      preHandler: fastify.authorize("ADMIN"),
+      schema: { tags: ["Streams"], summary: "Создать поток (админ)" },
     },
-    controller.bindTelegram,
+    controller.create,
+  );
+
+  fastify.patch(
+    "/:id",
+    {
+      preHandler: fastify.authorize("ADMIN"),
+      schema: { tags: ["Streams"], summary: "Обновить поток (админ)" },
+    },
+    controller.update,
   );
 
   fastify.delete(
-    "/:id/telegram",
+    "/:id",
     {
-      preHandler: fastify.authorize("MANAGER"),
-      schema: { tags: ["Streams"], summary: "Отвязать Telegram от потока" },
+      preHandler: fastify.authorize("ADMIN"),
+      schema: { tags: ["Streams"], summary: "Удалить поток (админ)" },
     },
-    controller.unbindTelegram,
+    controller.delete,
   );
 }

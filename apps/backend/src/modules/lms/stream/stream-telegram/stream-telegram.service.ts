@@ -1,10 +1,10 @@
 import {
-  BindStreamTelegramPayload,
   StreamTelegramResponse,
+  BindStreamTelegramPayload,
 } from "@repo/schemas";
-import { StreamTelegramRepository } from "./stream-telegram.repository";
+import { NotFoundError } from "@error";
 import { IStreamTelegramService } from "./stream-telegram.types";
-import { NotFoundError } from "@error/not-found.error";
+import { StreamTelegramRepository } from "./stream-telegram.repository";
 
 export class StreamTelegramService implements IStreamTelegramService {
   constructor(private streamTelegramRepo: StreamTelegramRepository) {}
@@ -12,10 +12,9 @@ export class StreamTelegramService implements IStreamTelegramService {
   async findByStreamId(streamId: number): Promise<StreamTelegramResponse> {
     const streamTelegram =
       await this.streamTelegramRepo.findByStreamId(streamId);
-    console.debug("[get-telegram]", { streamTelegram });
 
     if (!streamTelegram)
-      throw new NotFoundError("Не удалось найти streamTelegram");
+      throw new NotFoundError("Не удалось найти telegram потока");
 
     return streamTelegram;
   }

@@ -18,6 +18,7 @@ export const leadSchema = z.object({
   id: z.number().int(),
   convertedUserId: z.number().int().nullable(),
   managerId: z.number().int().nullable(),
+  targetStreamId: z.number().int(),
   firstName: z.string(),
   lastName: z.string(),
   patronymic: z.string().nullable(),
@@ -41,10 +42,18 @@ export const createLeadPayloadSchema = z.object({
   phone: z.string().min(1).nullable().optional(),
   telegram: z.string().min(1).nullable().optional(),
   experience: z.string().nullable().optional(),
-  testResult: z.string().nullable().optional(),
+  testResult: z.string().url().nullable().optional(),
 });
 
 export type CreateLeadPayload = z.infer<typeof createLeadPayloadSchema>;
+
+export const createManualLeadPayloadSchema = createLeadPayloadSchema.extend({
+  targetStreamId: z.number().int().positive(),
+});
+
+export type CreateManualLeadPayload = z.infer<
+  typeof createManualLeadPayloadSchema
+>;
 
 export const updateLeadStatusPayloadSchema = z.object({
   status: leadStatusSchema,
@@ -56,10 +65,12 @@ export type UpdateLeadStatusPayload = z.infer<
 
 export const leadQuerySchema = z
   .object({
-    status: leadStatusSchema.optional(),
-    managerId: z.coerce.number().int().positive().optional(),
+    status: leadStatusSchema,
+    managerId: z.coerce.number().int().positive(),
+    targetStreamId: z.coerce.number().int().positive(),
   })
-  .merge(paginationSchema.partial());
+  .merge(paginationSchema)
+  .partial();
 
 export type LeadQuery = z.infer<typeof leadQuerySchema>;
 
@@ -73,3 +84,19 @@ export const leadStatusResponseSchema = z.object({
 });
 
 export type LeadStatusResponse = z.infer<typeof leadStatusResponseSchema>;
+
+export const upsertLeadRepositoryPayloadSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  patronymic: z.string().nullable().optional(),
+  email: z.string().email(),
+  phone: z.string().min(1).nullable().optional(),
+  telegram: z.string().min(1).nullable().optional(),
+  experience: z.string().nullable().optional(),
+  testResult: z.string().url().nullable().optional(),
+  targetStreamId: z.number().int().positive(),
+});
+
+export type UpsertLeadRepositoryPayload = z.infer<
+  typeof upsertLeadRepositoryPayloadSchema
+>;

@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/students"
+method: "POST"
+pathVariables:
+- key: "id"
+  value: "1"
+body:
+  type: "json"
+  content: |-
+    {
+        "studentId": 25,
+        "mentorId": 5
+    }
+examples: "./.resources/Add Student to Stream (manager).resources/examples"
+order: 10000

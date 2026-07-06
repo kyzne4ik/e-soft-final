@@ -1,0 +1,24 @@
+$kind: http-request
+name: Login (custom)
+url: "{{baseUrl}}/api/auth/login"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "nikita@new.dev",
+        "password": "newpass12345"
+    }
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: |-
+      const r = pm.response.json();
+      if (r.data && r.data.accessToken && r.data.refreshToken) {
+          pm.collectionVariables.set('accessToken', r.data.accessToken);
+          pm.collectionVariables.set('refreshToken', r.data.refreshToken);
+      }
+    language: text/javascript
+examples: ./.resources/Login (custom).resources/examples
+order: 5000

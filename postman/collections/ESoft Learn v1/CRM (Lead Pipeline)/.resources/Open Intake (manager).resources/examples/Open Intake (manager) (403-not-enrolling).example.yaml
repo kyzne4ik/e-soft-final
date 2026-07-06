@@ -1,0 +1,23 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/crm/intake/open"
+  method: POST
+  body:
+    type: json
+    content: |-
+      {
+          "streamId": 1,
+          "expiresIn": 3600
+      }
+response:
+  statusCode: 403
+  statusText: Forbidden
+  body:
+    type: text
+    content: |-
+      {
+          "status": 403,
+          "success": false,
+          "message": "Открыть набор можно только для потока со статусом ENROLLING"
+      }
+order: 2000

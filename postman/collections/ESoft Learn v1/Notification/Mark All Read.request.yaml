@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/notifications/read-all"
+method: "PATCH"
+examples: "./.resources/Mark All Read.resources/examples"
+order: 4000

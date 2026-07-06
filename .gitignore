@@ -37,3 +37,6 @@ yarn-error.log*
 
 # pnpm global cache store
 .pnpm-store
+
+# postman
+.postman

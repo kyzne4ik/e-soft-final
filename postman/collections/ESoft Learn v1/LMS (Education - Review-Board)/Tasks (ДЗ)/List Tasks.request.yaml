@@ -1,0 +1,12 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/tasks"
+method: "GET"
+queryParams:
+- key: "page"
+  value: "1"
+- key: "limit"
+  value: "20"
+- key: "streamId"
+  value: "1"
+examples: "./.resources/List Tasks.resources/examples"
+order: 2000

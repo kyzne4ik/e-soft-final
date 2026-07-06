@@ -1,0 +1,8 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/tasks/:id"
+method: "GET"
+pathVariables:
+- key: "id"
+  value: "1"
+examples: "./.resources/Get Task by ID.resources/examples"
+order: 3000

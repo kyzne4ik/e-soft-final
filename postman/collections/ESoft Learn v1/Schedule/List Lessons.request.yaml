@@ -1,0 +1,8 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/schedule"
+method: "GET"
+queryParams:
+- key: "streamId"
+  value: "1"
+examples: "./.resources/List Lessons.resources/examples"
+order: 1000

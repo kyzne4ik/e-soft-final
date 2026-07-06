@@ -1,0 +1,33 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/tasks/:id"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "title": "ДЗ-1 (обновлено)02",
+          "deadline": "2027-01-15T00:00:00.000Z"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Задание обновлено",
+          "data": {
+              "id": 1,
+              "streamId": 1,
+              "title": "ДЗ-1 (обновлено)02",
+              "description": "Создать ветки, сделать коммиты по Conventional Commits, открыть PR и попросить соседа принять его.",
+              "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSe",
+              "deadline": "2027-01-15T00:00:00.000Z",
+              "createdAt": "2026-06-20T08:39:01.051Z",
+              "updatedAt": "2026-06-22T21:51:47.323Z"
+          }
+      }
+order: 1000

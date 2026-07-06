@@ -1,0 +1,21 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/courses/:id"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "id": 1,
+              "name": "Школа программирования",
+              "description": "Полный курс веб-разработки: Frontend (React/TS), Backend (Node.js/Fastify), БД (PostgreSQL/Prisma), DevOps (Docker/CI)."
+          }
+      }
+order: 1000

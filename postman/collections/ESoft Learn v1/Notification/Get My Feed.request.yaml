@@ -1,0 +1,13 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/notifications"
+method: "GET"
+queryParams:
+- key: "page"
+  value: "1"
+- key: "limit"
+  value: "20"
+- key: "isRead"
+  value: "false"
+  disabled: true
+examples: "./.resources/Get My Feed.resources/examples"
+order: 2000

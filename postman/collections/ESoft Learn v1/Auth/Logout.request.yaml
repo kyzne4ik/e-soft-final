@@ -1,0 +1,32 @@
+$kind: http-request
+name: Logout
+url: "{{baseUrl}}/api/auth/logout"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "refreshToken": "{{refreshToken}}"
+    }
+events:
+  - listen: "afterResponse"
+    script:
+      type: "text/javascript"
+      exec: |-
+        const r = pm.response.json();
+        if (r.data && r.data.accessToken && r.data.refreshToken) {
+            pm.collectionVariables.set('accessToken', r.data.accessToken);
+            pm.collectionVariables.set('refreshToken', r.data.refreshToken);
+            console.log('Update tokens');
+        }
+scripts:
+  - type: afterResponse
+    code: |-
+      const r = pm.response.json();
+      if (r.data && r.data.accessToken && r.data.refreshToken) {
+          pm.collectionVariables.set('accessToken', r.data.accessToken);
+          pm.collectionVariables.set('refreshToken', r.data.refreshToken);
+      }
+    language: text/javascript
+examples: ./.resources/Logout.resources/examples
+order: 10000

@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/notifications/unread-count"
+method: "GET"
+examples: "./.resources/Unread Count.resources/examples"
+order: 3000

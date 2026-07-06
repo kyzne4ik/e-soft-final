@@ -1,0 +1,28 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/courses"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "name": "Backend Pro",
+          "description": "Node.js + PostgreSQL"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Курс создан",
+          "data": {
+              "id": 15,
+              "name": "Backend Pro",
+              "description": "Node.js + PostgreSQL"
+          }
+      }
+order: 1000

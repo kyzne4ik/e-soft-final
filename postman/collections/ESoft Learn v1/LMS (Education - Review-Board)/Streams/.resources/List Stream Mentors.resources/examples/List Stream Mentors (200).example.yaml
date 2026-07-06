@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/:id/mentors"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "mentorId": 5
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Ментор добавлен в поток",
+          "data": {
+              "id": 2,
+              "name": "ШП-2025",
+              "courseId": 1,
+              "status": "FINISHED",
+              "createdAt": "2026-06-20T08:39:01.044Z",
+              "updatedAt": "2026-06-20T08:39:01.044Z"
+          }
+      }
+order: 1000

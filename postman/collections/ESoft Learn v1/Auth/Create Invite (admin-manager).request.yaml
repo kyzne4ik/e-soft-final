@@ -1,0 +1,34 @@
+$kind: http-request
+name: Create Invite (admin-manager)
+url: "{{baseUrl}}/api/auth/invite"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "Кирилл",
+        "lastName": "Заявкин",
+        "email": "kirill@cand.dev",
+        "role": "ADMIN",
+        "ttlSeconds": 86400
+    }
+events:
+  - listen: "afterResponse"
+    script:
+      type: "text/javascript"
+      exec: |-
+        const r = pm.response.json();
+        if (r.data && r.data.token) {
+            pm.collectionVariables.set('inviteToken', r.data.token);
+            console.log('Invite token saved');
+        }
+scripts:
+  - type: afterResponse
+    code: |-
+      const r = pm.response.json();
+      if (r.data && r.data.token) {
+          pm.collectionVariables.set('inviteToken', r.data.token);
+      }
+    language: text/javascript
+examples: ./.resources/Create Invite (admin-manager).resources/examples
+order: 6000

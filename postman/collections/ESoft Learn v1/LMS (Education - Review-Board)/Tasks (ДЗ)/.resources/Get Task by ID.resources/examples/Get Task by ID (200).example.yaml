@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/tasks/:id"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "id": 1,
+              "streamId": 1,
+              "title": "ДЗ #1 — Git: базовый воркфлоу",
+              "description": "Создать ветки, сделать коммиты по Conventional Commits, открыть PR и попросить соседа принять его.",
+              "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSe",
+              "deadline": "2026-04-18T09:00:00.000Z",
+              "createdAt": "2026-06-20T08:39:01.051Z",
+              "updatedAt": "2026-06-20T08:39:01.051Z"
+          }
+      }
+order: 1000

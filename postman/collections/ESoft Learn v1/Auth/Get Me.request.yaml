@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/auth/me"
+method: "GET"
+examples: "./.resources/Get Me.resources/examples"
+order: 8000

@@ -1,0 +1,25 @@
+$kind: collection
+name: ESoft Learn v1
+variables:
+  baseUrl: ""
+  accessToken: ""
+  refreshToken: ""
+  inviteToken: ""
+  intakeToken: ""
+documentation:
+  content: |-
+    Полная коллекция всех ручек бэкенда ESoft Learn: Auth, Users, Profile, CRM (Lead Pipeline), LMS (Review-Board), Schedule, Notify, Health.
+
+    Как пользоваться:
+    1. Подними инфраструктуру и сервер: `docker compose up -d` + `pnpm --filter backend dev`.
+    2. Засидь БД: `pnpm --filter @repo/database db:seed` (юзеры из сида, пароль у всех `password123`).
+    3. Запусти один из запросов 'Login as ...' в папке Auth — токен сохранится в {{accessToken}} автоматически и подставится во все защищённые запросы.
+    4. Чтобы проверить RBAC — переключай роль, запуская нужный Login.
+
+    CRM Intake: сначала «Open Intake (manager)» открывает набор и кладёт ingest-JWT в {{intakeToken}}, затем «Public Intake (ingest-JWT)» шлёт публичную заявку с этим токеном.
+
+    Пути с :id имеют дефолтные значения под сид-данные.
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"

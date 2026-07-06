@@ -1,0 +1,12 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/courses"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "name": "Новый курс",
+        "description": "Какой-то новый курс"
+    }
+examples: "./.resources/Create Course (manager).resources/examples"
+order: 1000

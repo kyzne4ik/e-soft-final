@@ -1,0 +1,28 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/courses/:id"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "name": "Новый курс-updated",
+          "description": "Какой-то новый курс-updated"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Курс обновлён",
+          "data": {
+              "id": 13,
+              "name": "Новый курс-updated",
+              "description": "Какой-то новый курс-updated"
+          }
+      }
+order: 1000

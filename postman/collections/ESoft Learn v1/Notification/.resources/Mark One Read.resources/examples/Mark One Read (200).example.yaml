@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/notifications/:id/read"
+  method: "PATCH"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Уведомление прочитано",
+          "data": {
+              "id": 12,
+              "userId": 41,
+              "message": "приветики",
+              "isSilent": false,
+              "sendAt": null,
+              "status": "PENDING",
+              "isRead": true,
+              "createdAt": "2026-06-22T12:55:53.533Z",
+              "updatedAt": "2026-06-22T13:16:50.759Z"
+          }
+      }
+order: 1000

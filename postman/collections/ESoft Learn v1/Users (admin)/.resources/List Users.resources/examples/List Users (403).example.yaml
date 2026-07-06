@@ -1,0 +1,16 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/users"
+  method: "GET"
+response:
+  statusCode: 403
+  statusText: "Forbidden"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 403,
+          "success": false,
+          "message": "Недостаточно прав"
+      }
+order: 4000

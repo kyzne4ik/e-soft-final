@@ -1,0 +1,35 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/notifications"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "userId": 51,
+          "message": "Важное системное сообщение",
+          "isSilent": false
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Уведомление создано",
+          "data": {
+              "id": 10,
+              "userId": 51,
+              "message": "Важное системное сообщение",
+              "isSilent": false,
+              "sendAt": null,
+              "status": "PENDING",
+              "isRead": false,
+              "createdAt": "2026-06-22T12:54:36.295Z",
+              "updatedAt": "2026-06-22T12:54:36.295Z"
+          }
+      }
+order: 1000

@@ -1,0 +1,17 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "1"
+body:
+  type: "json"
+  content: |-
+    {
+        "name": "Поток JS #1",
+        "courseId": 1,
+        "status": "IN_PROGRESS"
+    }
+documentation:
+  content: "Обновить поток (админ). Все поля опциональны."
+order: 13000

@@ -1,0 +1,87 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 9,
+                  "name": "ШП-ОСЕНЬ-2026",
+                  "courseId": 6,
+                  "status": "ENROLLING",
+                  "createdAt": "2026-06-22T18:08:18.876Z",
+                  "updatedAt": "2026-06-22T18:08:18.876Z"
+              },
+              {
+                  "id": 8,
+                  "name": "ШП-ОСЕНЬ-2026",
+                  "courseId": 6,
+                  "status": "ENROLLING",
+                  "createdAt": "2026-06-22T18:08:12.316Z",
+                  "updatedAt": "2026-06-22T18:08:12.316Z"
+              },
+              {
+                  "id": 5,
+                  "name": "ШП-2025",
+                  "courseId": 3,
+                  "status": "FINISHED",
+                  "createdAt": "2026-06-22T07:22:05.065Z",
+                  "updatedAt": "2026-06-22T07:22:05.065Z"
+              },
+              {
+                  "id": 4,
+                  "name": "ШП-2026",
+                  "courseId": 3,
+                  "status": "IN_PROGRESS",
+                  "createdAt": "2026-06-22T07:22:05.065Z",
+                  "updatedAt": "2026-06-22T07:22:05.065Z"
+              },
+              {
+                  "id": 6,
+                  "name": "DevOps-2026",
+                  "courseId": 4,
+                  "status": "ENROLLING",
+                  "createdAt": "2026-06-22T07:22:05.065Z",
+                  "updatedAt": "2026-06-22T07:22:05.065Z"
+              },
+              {
+                  "id": 2,
+                  "name": "ШП-2025",
+                  "courseId": 1,
+                  "status": "FINISHED",
+                  "createdAt": "2026-06-20T08:39:01.044Z",
+                  "updatedAt": "2026-06-20T08:39:01.044Z"
+              },
+              {
+                  "id": 3,
+                  "name": "DevOps-2026",
+                  "courseId": 2,
+                  "status": "ENROLLING",
+                  "createdAt": "2026-06-20T08:39:01.044Z",
+                  "updatedAt": "2026-06-20T08:39:01.044Z"
+              },
+              {
+                  "id": 1,
+                  "name": "ШП-2026",
+                  "courseId": 1,
+                  "status": "IN_PROGRESS",
+                  "createdAt": "2026-06-20T08:39:01.044Z",
+                  "updatedAt": "2026-06-20T08:39:01.044Z"
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 8
+          }
+      }
+order: 1000

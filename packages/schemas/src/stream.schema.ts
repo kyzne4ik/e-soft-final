@@ -113,3 +113,14 @@ export const streamQuerySchema = z
   .partial();
 
 export type StreamQuery = z.infer<typeof streamQuerySchema>;
+
+export const openIntakePayloadSchema = z.object({
+  streamId: z.number().int().positive(),
+  expiresIn: z.number().int().positive(),
+});
+export type OpenIntakePayload = z.infer<typeof openIntakePayloadSchema>;
+
+export const openIntakeResponseSchema = z.object({
+  token: z.string(),
+});
+export type OpenIntakeResponse = z.infer<typeof openIntakeResponseSchema>;

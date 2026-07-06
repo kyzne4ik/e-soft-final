@@ -1,5 +1,6 @@
-import { integer, pgEnum, pgTable, serial, text } from "drizzle-orm/pg-core";
+import { streams } from "./content";
 import { managerProfile, timestamps, users } from "./core";
+import { integer, pgEnum, pgTable, serial, text } from "drizzle-orm/pg-core";
 
 export const leadStatusEnum = pgEnum("lead_status", [
   "NEW",
@@ -19,6 +20,9 @@ export const leads = pgTable("leads", {
   managerId: integer("manager_id").references(() => managerProfile.id, {
     onDelete: "set null",
   }),
+  targetStreamId: integer("target_stream_id")
+    .notNull()
+    .references(() => streams.id, { onDelete: "restrict" }),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   patronymic: text("patronymic"),

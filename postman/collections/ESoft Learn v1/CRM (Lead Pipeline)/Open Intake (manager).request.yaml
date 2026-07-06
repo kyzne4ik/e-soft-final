@@ -1,0 +1,37 @@
+$kind: http-request
+name: Open Intake (manager)
+url: "{{baseUrl}}/api/crm/intake/open"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "streamId": 3,
+        "expiresIn": 3600
+    }
+events:
+  - listen: "afterResponse"
+    script:
+      type: "text/javascript"
+      exec: |-
+        const r = pm.response.json();
+        if (r.data && r.data.token) {
+            pm.collectionVariables.set('intakeToken', r.data.token);
+            console.log('Intake token saved to {{intakeToken}}');
+        }
+documentation:
+  content: |-
+    Открыть набор для потока: включает приём заявок и выдаёт ingest-JWT со streamId внутри (scope=intake). Токен автоматически сохраняется в {{intakeToken}} и используется публичной ручкой «Public Intake (ingest-JWT)».
+
+    Требуется роль MANAGER (наследует Bearer {{accessToken}} от коллекции). Поток должен быть в статусе ENROLLING. Поле ttlDays (1..365) — срок жизни токена в днях, необязательно.
+scripts:
+  - type: afterResponse
+    code: |-
+      const r = pm.response.json();
+      if (r.data && r.data.token) {
+          pm.collectionVariables.set('intakeToken', r.data.token);
+          console.log('12312')
+      }
+    language: text/javascript
+examples: ./.resources/Open Intake (manager).resources/examples
+order: 5000

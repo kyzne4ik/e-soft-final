@@ -1,0 +1,22 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/mentor"
+method: "GET"
+queryParams:
+- key: "taskId"
+  value: "1"
+  disabled: true
+- key: "studentId"
+  value: "25"
+  disabled: true
+- key: "status"
+  value: "NEW"
+  disabled: true
+- key: "page"
+  value: "1"
+  disabled: true
+- key: "limit"
+  value: "20"
+  disabled: true
+documentation:
+  content: "Канбан: сдачи моих студентов (ментор). Фильтры опциональны."
+order: 7000

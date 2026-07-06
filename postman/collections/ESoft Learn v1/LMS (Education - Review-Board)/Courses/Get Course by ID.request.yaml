@@ -1,0 +1,8 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/courses/:id"
+method: "GET"
+pathVariables:
+- key: "id"
+  value: "100"
+examples: "./.resources/Get Course by ID.resources/examples"
+order: 3000

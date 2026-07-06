@@ -1,0 +1,11 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/mentors/:mentorId"
+method: "DELETE"
+pathVariables:
+- key: "id"
+  value: "1"
+- key: "mentorId"
+  value: "5"
+documentation:
+  content: "Отвязать ментора от потока (админ)."
+order: 18000

@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/courses"
+method: "GET"
+examples: "./.resources/List Courses.resources/examples"
+order: 2000

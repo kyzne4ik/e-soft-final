@@ -1,0 +1,12 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/profile/telegram"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "tgId": "99887766",
+        "tgUsername": "my_tg"
+    }
+examples: "./.resources/Bind Telegram.resources/examples"
+order: 3000

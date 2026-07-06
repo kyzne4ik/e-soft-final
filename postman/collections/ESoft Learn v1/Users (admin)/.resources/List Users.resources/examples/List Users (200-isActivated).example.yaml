@@ -1,0 +1,223 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/users"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 86,
+                  "firstName": "Никита",
+                  "lastName": "Тимофеев",
+                  "patronymic": "Александрович",
+                  "email": "nikita2@new.dev",
+                  "role": "ADMIN",
+                  "isActivated": true,
+                  "profileId": null
+              },
+              {
+                  "id": 85,
+                  "firstName": "Никита",
+                  "lastName": "Тимофеев",
+                  "patronymic": "Александрович",
+                  "email": "nikita@new.dev",
+                  "role": "ADMIN",
+                  "isActivated": true,
+                  "profileId": null
+              },
+              {
+                  "id": 75,
+                  "firstName": "Вацлав",
+                  "lastName": "Гусев",
+                  "patronymic": "Дорофеевич",
+                  "email": "student_3@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 29
+              },
+              {
+                  "id": 76,
+                  "firstName": "Емельян",
+                  "lastName": "Новиков",
+                  "patronymic": "Богдановна",
+                  "email": "student_4@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 30
+              },
+              {
+                  "id": 77,
+                  "firstName": "Казимир",
+                  "lastName": "Веселова",
+                  "patronymic": "Иосифович",
+                  "email": "student_5@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 31
+              },
+              {
+                  "id": 78,
+                  "firstName": "Мина",
+                  "lastName": "Жданов",
+                  "patronymic": "Трофимович",
+                  "email": "student_6@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 32
+              },
+              {
+                  "id": 79,
+                  "firstName": "Анжелика",
+                  "lastName": "Калинин",
+                  "patronymic": "Алексеевич",
+                  "email": "student_7@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 33
+              },
+              {
+                  "id": 80,
+                  "firstName": "Михаил",
+                  "lastName": "Доронина",
+                  "patronymic": "Викторовна",
+                  "email": "student_8@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 34
+              },
+              {
+                  "id": 81,
+                  "firstName": "Лукия",
+                  "lastName": "Кузнецов",
+                  "patronymic": "Иосипович",
+                  "email": "student_9@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 35
+              },
+              {
+                  "id": 82,
+                  "firstName": "Полина",
+                  "lastName": "Родионова",
+                  "patronymic": "Михайловна",
+                  "email": "student_10@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 36
+              },
+              {
+                  "id": 83,
+                  "firstName": "Иларион",
+                  "lastName": "Федосеев",
+                  "patronymic": "Федоровна",
+                  "email": "student_11@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 37
+              },
+              {
+                  "id": 84,
+                  "firstName": "Касьян",
+                  "lastName": "Субботина",
+                  "patronymic": "Филипповна",
+                  "email": "student_12@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 38
+              },
+              {
+                  "id": 73,
+                  "firstName": "Елена",
+                  "lastName": "Ермаков",
+                  "patronymic": "Витальевич",
+                  "email": "student_1@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 27
+              },
+              {
+                  "id": 74,
+                  "firstName": "Флорентин",
+                  "lastName": "Носов",
+                  "patronymic": "Димитриевич",
+                  "email": "student_2@esoft.fake",
+                  "role": "STUDENT",
+                  "isActivated": true,
+                  "profileId": 28
+              },
+              {
+                  "id": 72,
+                  "firstName": "Admin",
+                  "lastName": "Esoft",
+                  "patronymic": null,
+                  "email": "admin@esoft.fake",
+                  "role": "ADMIN",
+                  "isActivated": true,
+                  "profileId": null
+              },
+              {
+                  "id": 71,
+                  "firstName": "Наталья",
+                  "lastName": "Нестеренко",
+                  "patronymic": null,
+                  "email": "nesterenko@esoft.fake",
+                  "role": "MANAGER",
+                  "isActivated": true,
+                  "profileId": 3
+              },
+              {
+                  "id": 68,
+                  "firstName": "Владислав",
+                  "lastName": "Задорожнюк",
+                  "patronymic": null,
+                  "email": "zadorozhnuk@esoft.fake",
+                  "role": "MENTOR",
+                  "isActivated": true,
+                  "profileId": 10
+              },
+              {
+                  "id": 67,
+                  "firstName": "Евгений",
+                  "lastName": "Сапов",
+                  "patronymic": null,
+                  "email": "sapov@esoft.fake",
+                  "role": "MENTOR",
+                  "isActivated": true,
+                  "profileId": 9
+              },
+              {
+                  "id": 69,
+                  "firstName": "Алексей",
+                  "lastName": "Андреев",
+                  "patronymic": null,
+                  "email": "andreev@esoft.fake",
+                  "role": "MENTOR",
+                  "isActivated": true,
+                  "profileId": 11
+              },
+              {
+                  "id": 70,
+                  "firstName": "Илья",
+                  "lastName": "Киреев",
+                  "patronymic": null,
+                  "email": "kireev@esoft.fake",
+                  "role": "MENTOR",
+                  "isActivated": true,
+                  "profileId": 12
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 20
+          }
+      }
+order: 3000

@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/tasks/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "1"
+body:
+  type: "json"
+  content: |-
+    {
+        "title": "ДЗ-1 (обновлено)02",
+        "deadline": "2027-01-15T00:00:00.000Z"
+    }
+examples: "./.resources/Update Task (admin).resources/examples"
+order: 4000

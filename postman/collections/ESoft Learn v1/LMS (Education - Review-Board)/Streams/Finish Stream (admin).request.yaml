@@ -1,0 +1,9 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/finish"
+method: "POST"
+pathVariables:
+- key: "id"
+  value: "1"
+documentation:
+  content: "Завершить поток и выпустить студентов (админ)."
+order: 16000

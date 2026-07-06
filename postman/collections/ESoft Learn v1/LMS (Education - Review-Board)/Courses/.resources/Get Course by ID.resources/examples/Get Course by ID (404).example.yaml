@@ -1,0 +1,16 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/courses/:id"
+  method: "GET"
+response:
+  statusCode: 404
+  statusText: "Not Found"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 404,
+          "success": false,
+          "message": "Курс не найден"
+      }
+order: 2000

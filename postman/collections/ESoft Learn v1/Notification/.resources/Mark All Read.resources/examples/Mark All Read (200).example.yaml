@@ -1,0 +1,19 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/notifications/read-all"
+  method: "PATCH"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Все уведомления прочитаны",
+          "data": {
+              "updated": 1
+          }
+      }
+order: 1000

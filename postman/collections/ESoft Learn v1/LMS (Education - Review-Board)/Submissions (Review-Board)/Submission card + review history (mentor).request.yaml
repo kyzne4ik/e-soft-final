@@ -1,0 +1,9 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/mentor/:id"
+method: "GET"
+pathVariables:
+- key: "id"
+  value: "6"
+documentation:
+  content: "Карточка сдачи + история ревью (-id = submissionId). Ментор."
+order: 8000

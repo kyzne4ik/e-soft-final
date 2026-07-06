@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/profile/telegram"
+method: "GET"
+examples: "./.resources/Get Telegram Binding.resources/examples"
+order: 2000

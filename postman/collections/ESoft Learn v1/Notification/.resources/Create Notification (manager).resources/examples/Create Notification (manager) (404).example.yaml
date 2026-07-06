@@ -1,0 +1,24 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/notifications"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "userId": 5,
+          "message": "Важное системное сообщение",
+          "isSilent": false
+      }
+response:
+  statusCode: 404
+  statusText: "Not Found"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 404,
+          "success": false,
+          "message": "Пользователь не найден"
+      }
+order: 2000

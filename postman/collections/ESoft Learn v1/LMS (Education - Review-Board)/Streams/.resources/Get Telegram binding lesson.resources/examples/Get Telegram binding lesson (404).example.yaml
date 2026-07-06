@@ -1,0 +1,16 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/:id/telegram"
+  method: "GET"
+response:
+  statusCode: 404
+  statusText: "Not Found"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 404,
+          "success": false,
+          "message": "Не удалось найти streamTelegram"
+      }
+order: 1000

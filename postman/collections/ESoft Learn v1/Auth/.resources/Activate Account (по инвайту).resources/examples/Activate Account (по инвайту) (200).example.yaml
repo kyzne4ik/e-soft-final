@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/activate"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "token": "{{inviteToken}}",
+          "password": "newpass1234",
+          "firstName": "Никита",
+          "lastName": "Тимофеев",
+          "patronymic": "Александрович"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Аккаунт активирован",
+          "data": {
+              "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODYsInByb2ZpbGVJZCI6bnVsbCwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzgyNTQyNjAzLCJleHAiOjE3ODI1NDYyMDN9._Fe3sEAS2DUOpEqWPGrj_zd_z5T3zlUQE5aY0QB7nvg",
+              "refreshToken": "-7iQIcMJWF9uMzy06kXRuz1_WWyX0JNMdbw4rurv578TqW7BaHxqcYj8BhrDQz5J"
+          }
+      }
+order: 1000

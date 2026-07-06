@@ -34,3 +34,9 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# pnpm global cache store
+.pnpm-store
+
+# postman
+.postman

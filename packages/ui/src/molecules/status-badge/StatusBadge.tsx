@@ -5,13 +5,7 @@ import css from "./StatusBadge.module.css";
 export type StatusKind = "submission" | "lead" | "stream";
 
 type BadgeTone =
-  | "neutral"
-  | "info"
-  | "success"
-  | "warning"
-  | "error"
-  | "primary"
-  | "highprio";
+  "neutral" | "info" | "success" | "warning" | "error" | "primary" | "highprio";
 
 interface BadgeMeta {
   tone: BadgeTone;

@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/telegram"
+method: "POST"
+pathVariables:
+- key: "id"
+  value: "2"
+body:
+  type: "json"
+  content: |-
+    {
+        "chatId": "-1002868636781",
+        "announceThreadId": 372
+    }
+examples: "./.resources/Bind Telegram stream.resources/examples"
+order: 2000

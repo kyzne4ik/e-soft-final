@@ -1,0 +1,38 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/schedule"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "streamId": 1,
+          "title": "Лекция: Drizzle ORM",
+          "startTime": "2026-08-01T10:00:00.000Z",
+          "endTime": "2026-08-01T12:00:00.000Z",
+          "meetingLink": "https://localhost:3000/j/123",
+          "recordLink": "https://youtu.be/rec"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Занятие создано",
+          "data": {
+              "id": 80,
+              "streamId": 1,
+              "title": "Лекция: Drizzle ORM",
+              "startTime": "2026-08-01T10:00:00.000Z",
+              "endTime": "2026-08-01T12:00:00.000Z",
+              "meetingLink": "https://localhost:3000/j/123",
+              "recordLink": "https://youtu.be/rec",
+              "createdAt": "2026-06-22T12:02:41.468Z",
+              "updatedAt": "2026-06-22T12:02:41.468Z"
+          }
+      }
+order: 1000

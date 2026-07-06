@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/users"
+method: "GET"
+queryParams:
+- key: "page"
+  value: "1"
+- key: "limit"
+  value: "20"
+- key: "role"
+  value: "STUDENT"
+- key: "isActivated"
+  value: "true"
+  disabled: true
+examples: "./.resources/List Users.resources/examples"
+order: 1000

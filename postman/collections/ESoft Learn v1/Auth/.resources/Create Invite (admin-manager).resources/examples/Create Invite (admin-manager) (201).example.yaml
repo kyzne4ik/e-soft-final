@@ -1,0 +1,32 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/invite"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Никита",
+          "lastName": "Тимофеев",
+          "patronymic": "Александрович",
+          "email": "nikita@new.dev",
+          "role": "ADMIN",
+          "ttlSeconds": 82400
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Приглашение отправлено",
+          "data": {
+              "token": "KG6zbSB3zcBNQ2raWWONHg_Io8eM3R2CqvYTxdzhHbM",
+              "inviteLink": "http://localhost:3001/activate?token=KG6zbSB3zcBNQ2raWWONHg_Io8eM3R2CqvYTxdzhHbM",
+              "expiresInSeconds": 82400
+          }
+      }
+order: 1000

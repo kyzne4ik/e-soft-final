@@ -1,0 +1,28 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/me"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "id": 41,
+              "firstName": "Admin",
+              "lastName": "Esoft",
+              "patronymic": null,
+              "email": "admin@esoft.fake",
+              "role": "ADMIN",
+              "isActivated": true,
+              "profileId": null,
+              "createdAt": "2026-06-22T07:22:04.899Z",
+              "updatedAt": "2026-06-22T07:22:04.899Z"
+          }
+      }
+order: 1000

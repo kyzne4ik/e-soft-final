@@ -1,0 +1,31 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "name": "ШП-ОСЕНЬ-2026",
+          "courseId": 6
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Поток создан",
+          "data": {
+              "id": 9,
+              "name": "ШП-ОСЕНЬ-2026",
+              "courseId": 6,
+              "status": "ENROLLING",
+              "createdAt": "2026-06-22T18:08:18.876Z",
+              "updatedAt": "2026-06-22T18:08:18.876Z"
+          }
+      }
+order: 1000

@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/profile/telegram"
+method: "DELETE"
+examples: "./.resources/Unbind Telegram.resources/examples"
+order: 4000

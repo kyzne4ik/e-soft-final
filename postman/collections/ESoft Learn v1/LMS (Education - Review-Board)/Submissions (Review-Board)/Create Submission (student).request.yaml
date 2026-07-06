@@ -1,0 +1,12 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "taskId": 2,
+        "repoLink": "https://github.com/ivan/hw2/pull/1"
+    }
+examples: "./.resources/Create Submission (student).resources/examples"
+order: 1000

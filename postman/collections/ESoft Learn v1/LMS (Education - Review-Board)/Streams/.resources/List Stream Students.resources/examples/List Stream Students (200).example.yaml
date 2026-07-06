@@ -1,0 +1,28 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/:id/students"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "userId": 64,
+                  "firstName": "Кирилл",
+                  "lastName": "Заявкин",
+                  "patronymic": "Игоревич",
+                  "email": "kirill@cand.dev",
+                  "status": "EXPELLED",
+                  "joinedAt": "2026-06-22T21:26:05.002Z",
+                  "mentor": null
+              }
+          ]
+      }
+order: 1000

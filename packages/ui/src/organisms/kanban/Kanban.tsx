@@ -20,8 +20,7 @@ import { classNames } from "../../libs/classNames";
 import css from "./Kanban.module.css";
 
 type KanbanChildren =
-  | (({ col }: { col: KanbanColumn }) => ReactNode)
-  | ReactNode;
+  (({ col }: { col: KanbanColumn }) => ReactNode) | ReactNode;
 
 const TONE_ACCENT: Record<KanbanTone, string> = {
   blue: "var(--color-secondary)",

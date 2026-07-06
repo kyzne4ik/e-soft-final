@@ -1,0 +1,14 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/mentors"
+method: "GET"
+pathVariables:
+- key: "id"
+  value: "2"
+body:
+  type: "json"
+  content: |-
+    {
+        "mentorId": 5
+    }
+examples: "./.resources/List Stream Mentors.resources/examples"
+order: 7000

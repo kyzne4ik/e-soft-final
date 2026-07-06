@@ -1,0 +1,8 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/users/:id"
+method: "DELETE"
+pathVariables:
+- key: "id"
+  value: "7"
+examples: "./.resources/Delete User.resources/examples"
+order: 5000

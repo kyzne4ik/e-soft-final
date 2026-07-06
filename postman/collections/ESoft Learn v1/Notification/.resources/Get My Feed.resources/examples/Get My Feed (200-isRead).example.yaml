@@ -1,0 +1,103 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/notifications"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 14,
+                  "message": "Ментор проверил ваше ДЗ #1 — работа зачтена! Оценка: 92 балла.",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "SENT",
+                  "isRead": true
+              },
+              {
+                  "id": 15,
+                  "message": "Ментор оставил замечания по ДЗ #2. Требуется доработка — проверьте комментарии в PR.",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "SENT",
+                  "isRead": true
+              },
+              {
+                  "id": 16,
+                  "message": "Напоминание: дедлайн по ДЗ #3 истекает через 24 часа.",
+                  "isSilent": true,
+                  "sendAt": "2026-06-28T05:48:01.867Z",
+                  "status": "PENDING",
+                  "isRead": true
+              },
+              {
+                  "id": 17,
+                  "message": "Ментор оставил комментарий по ДЗ #1.",
+                  "isSilent": true,
+                  "sendAt": null,
+                  "status": "SENT",
+                  "isRead": true
+              },
+              {
+                  "id": 18,
+                  "message": "Тестовое сообщение",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": false
+              },
+              {
+                  "id": 19,
+                  "message": "Тестовое сообщение 2",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": false
+              },
+              {
+                  "id": 20,
+                  "message": "Тестовое сообщение 3",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": false
+              },
+              {
+                  "id": 21,
+                  "message": "Тестовое сообщение 4",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": false
+              },
+              {
+                  "id": 22,
+                  "message": "Тестовое сообщение 5",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": false
+              },
+              {
+                  "id": 23,
+                  "message": "Тестовое сообщение 6",
+                  "isSilent": false,
+                  "sendAt": null,
+                  "status": "PENDING",
+                  "isRead": true
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 10,
+              "total": 10
+          }
+      }
+order: 2000

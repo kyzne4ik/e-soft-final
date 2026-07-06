@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/:id/telegram"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "chatId": "-1002868636781",
+          "announceThreadId": 372
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Telegram привязан к потоку",
+          "data": {
+              "id": 1,
+              "streamId": 1,
+              "chatId": "-1002868636781",
+              "announceThreadId": 372,
+              "linkedAt": "2026-07-01T07:28:49.690Z"
+          }
+      }
+order: 1000

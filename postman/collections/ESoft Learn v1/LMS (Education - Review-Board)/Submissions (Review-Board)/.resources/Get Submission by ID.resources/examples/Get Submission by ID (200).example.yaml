@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "text"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "id": 6,
+              "taskId": 11,
+              "studentId": 13,
+              "repoLink": "https://github.com/student1/hw-1",
+              "status": "ACCEPTED",
+              "isActivate": true,
+              "createdAt": "2026-06-22T07:22:05.084Z",
+              "updatedAt": "2026-06-22T07:22:05.084Z"
+          }
+      }
+order: 1000

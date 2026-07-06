@@ -1,10 +1,10 @@
-import "dotenv/config";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import { Config } from "../config";
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: Config.DATABASE_URL,
 });
 
 const db = drizzle(pool);

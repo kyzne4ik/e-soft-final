@@ -1,46 +1,32 @@
 import type { ReactNode } from "react";
-import { useLocation } from "react-router";
-// import { useGetMe } from "@/shared/api/user/me";
-// import { authRoutesFullPaths, mainRoutesFullPaths } from "../router-configs";
+import { useAuth } from "@/features/auth";
+import { Navigate, useLocation } from "react-router";
 
 interface ProtectedRouteProps {
-  withAuth?: boolean;
   children: ReactNode;
+  withAuth?: boolean;
   withoutAuth?: boolean;
-  allowedFrom?: string | string[];
 }
 
 export const ProtectedRoute = ({
   children,
-  allowedFrom,
-  // withAuth = false,
-  // withoutAuth = false,
+  withAuth = false,
+  withoutAuth = false,
 }: ProtectedRouteProps) => {
   const location = useLocation();
-  // const { isAuth } = { isAuth: true }; // = useGetMe()
+  const { isAuth, isLoading } = useAuth();
 
-  // if (withAuth && !isAuth) {
-  //   return <Navigate replace to={AuthRoutesFullPaths.AUTHORIZATION} />;
-  // }
-
-  if (location.state?.isPasswordReset) {
-    return <>{children}</>;
+  if (isLoading) {
+    return null;
   }
 
-  // if (withoutAuth && isAuth) {
-  //   return <Navigate replace to={mainRoutesFullPaths.HOME} />;
-  // }
-
-  if (allowedFrom) {
-    // const referrer = location.state?.from;
-    // const isAllowed = Array.isArray(allowedFrom)
-    //   ? allowedFrom.includes(referrer)
-    //   : referrer === allowedFrom;
-    // if (!isAllowed) {
-    //   return (
-    //     <Navigate replace to={mainRoutesFullPaths.PROFILE} />
-    //   );
-    // }
+  if (withAuth && !isAuth) {
+    return <Navigate replace to="/login" state={{ from: location.pathname }} />;
   }
+
+  if (withoutAuth && isAuth) {
+    return <Navigate replace to="/" />;
+  }
+
   return <>{children}</>;
 };

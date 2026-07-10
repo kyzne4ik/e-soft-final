@@ -4,8 +4,8 @@ import {
   toastsContext,
   type ToastParams,
   type ToastType,
-} from "@/shared/contexts/toasts-context";
-import { withPortal } from "@/shared/hocs";
+} from "@/shared/lib/contexts/toasts-context";
+import { withPortal } from "@repo/ui/hocs/with-portal";
 
 const AUTO_DISMISS_MS = 4000;
 

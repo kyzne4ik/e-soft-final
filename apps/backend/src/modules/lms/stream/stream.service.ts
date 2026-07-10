@@ -35,6 +35,18 @@ export class StreamService implements IStreamService {
     return streamMap(stream);
   }
 
+  async getStreamsByStudent(studentId: number): Promise<StreamResponse[]> {
+    const ss = await this.streamRepo.findByStudent(studentId);
+
+    return streamsMap(ss);
+  }
+
+  async getStreamsByMentor(mentorId: number): Promise<StreamResponse[]> {
+    const ss = await this.streamRepo.findByMentor(mentorId);
+
+    return streamsMap(ss);
+  }
+
   async createStream(data: CreateStreamPayload): Promise<StreamResponse> {
     try {
       const stream = await this.streamRepo.create(data);

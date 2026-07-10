@@ -13,6 +13,20 @@ import { PaginationResponse } from "@types";
 import { count, eq, and } from "drizzle-orm";
 import { IStreamStudentRepository } from "./stream-student.types";
 
+const studentWithUserFields = {
+  streamId: streamStudent.streamId,
+  studentId: streamStudent.studentId,
+  mentorId: streamStudent.mentorId,
+  status: streamStudent.status,
+  joinedAt: streamStudent.joinedAt,
+  userId: users.id,
+  firstName: users.firstName,
+  lastName: users.lastName,
+  patronymic: users.patronymic,
+  email: users.email,
+  role: users.role,
+} as const;
+
 export class StreamStudentRepository implements IStreamStudentRepository {
   constructor(private db: DatabaseType) {}
 
@@ -29,22 +43,13 @@ export class StreamStudentRepository implements IStreamStudentRepository {
 
     const [data, totalRows] = await Promise.all([
       this.db
-        .select({
-          streamId: streamStudent.streamId,
-          studentId: streamStudent.studentId,
-          mentorId: streamStudent.mentorId,
-          status: streamStudent.status,
-          joinedAt: streamStudent.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(studentWithUserFields)
         .from(streamStudent)
-        .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamStudent.mentorId))
+        .leftJoin(
+          studentProfile,
+          eq(studentProfile.id, streamStudent.studentId),
+        )
+        .leftJoin(users, eq(users.id, studentProfile.userId))
         .where(where)
         .limit(limit)
         .offset(offset),
@@ -67,7 +72,7 @@ export class StreamStudentRepository implements IStreamStudentRepository {
   async addStudent(
     streamId: number,
     studentId: number,
-    mentorId: number,
+    mentorId: number | null = null,
   ): Promise<StreamStudentWithUserDto | null> {
     return await this.db.transaction(async (tx) => {
       const [row] = await tx
@@ -85,27 +90,17 @@ export class StreamStudentRepository implements IStreamStudentRepository {
         throw new Error("Ошибка при добавлении студента в streamStudent");
 
       const [ss] = await tx
-        .select({
-          streamId: streamStudent.streamId,
-          studentId: streamStudent.studentId,
-          mentorId: streamStudent.mentorId,
-          status: streamStudent.status,
-          joinedAt: streamStudent.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(studentWithUserFields)
         .from(streamStudent)
-        .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamStudent.mentorId))
+        .leftJoin(
+          studentProfile,
+          eq(studentProfile.id, streamStudent.studentId),
+        )
+        .leftJoin(users, eq(users.id, studentProfile.userId))
         .where(
           and(
             eq(streamStudent.streamId, streamId),
             eq(streamStudent.studentId, studentId),
-            eq(streamStudent.mentorId, mentorId),
           ),
         );
 
@@ -121,9 +116,7 @@ export class StreamStudentRepository implements IStreamStudentRepository {
     return await this.db.transaction(async (tx) => {
       const [row] = await tx
         .update(streamStudent)
-        .set({
-          mentorId: newMentorId,
-        })
+        .set({ mentorId: newMentorId })
         .where(
           and(
             eq(streamStudent.streamId, streamId),
@@ -136,22 +129,13 @@ export class StreamStudentRepository implements IStreamStudentRepository {
         throw new Error("Ошибка при обновлении поля ментора в streamStudent");
 
       const [ss] = await tx
-        .select({
-          streamId: streamStudent.streamId,
-          studentId: streamStudent.studentId,
-          mentorId: streamStudent.mentorId,
-          status: streamStudent.status,
-          joinedAt: streamStudent.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(studentWithUserFields)
         .from(streamStudent)
-        .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamStudent.mentorId))
+        .leftJoin(
+          studentProfile,
+          eq(studentProfile.id, streamStudent.studentId),
+        )
+        .leftJoin(users, eq(users.id, studentProfile.userId))
         .where(
           and(
             eq(streamStudent.streamId, streamId),
@@ -172,9 +156,7 @@ export class StreamStudentRepository implements IStreamStudentRepository {
     return await this.db.transaction(async (tx) => {
       const [row] = await tx
         .update(streamStudent)
-        .set({
-          status: newStatus,
-        })
+        .set({ status: newStatus })
         .where(
           and(
             eq(streamStudent.streamId, streamId),
@@ -187,22 +169,13 @@ export class StreamStudentRepository implements IStreamStudentRepository {
         throw new Error("Ошибка при обновлении поля статуса в streamStudent");
 
       const [ss] = await tx
-        .select({
-          streamId: streamStudent.streamId,
-          studentId: streamStudent.studentId,
-          mentorId: streamStudent.mentorId,
-          status: streamStudent.status,
-          joinedAt: streamStudent.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(studentWithUserFields)
         .from(streamStudent)
-        .leftJoin(studentProfile, eq(studentProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamStudent.mentorId))
+        .leftJoin(
+          studentProfile,
+          eq(studentProfile.id, streamStudent.studentId),
+        )
+        .leftJoin(users, eq(users.id, studentProfile.userId))
         .where(
           and(
             eq(streamStudent.streamId, streamId),

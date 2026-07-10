@@ -16,6 +16,30 @@ export default async function streamsRoutes(fastify: FastifyInstance) {
   );
 
   fastify.get(
+    "/my/student",
+    {
+      preHandler: fastify.authorize("STUDENT"),
+      schema: {
+        tags: ["Streams"],
+        summary: "Мои потоки (студент)",
+      },
+    },
+    controller.getMyStudentStreams,
+  );
+
+  fastify.get(
+    "/my/mentor",
+    {
+      preHandler: fastify.authorize("MENTOR"),
+      schema: {
+        tags: ["Streams"],
+        summary: "Мои потоки (ментор)",
+      },
+    },
+    controller.getMyMentorStreams,
+  );
+
+  fastify.get(
     "/:id",
     { schema: { tags: ["Streams"], summary: "Поток по id" } },
     controller.getById,

@@ -15,7 +15,7 @@ export interface IStreamStudentRepository {
   addStudent: (
     streamId: number,
     studentId: number,
-    mentorId: number,
+    mentorId?: number | null,
   ) => Promise<StreamStudentWithUserDto | null>;
   changeMentor: (
     streamId: number,
@@ -38,7 +38,7 @@ export interface IStreamStudentService {
   addStudent: (
     streamId: number,
     studentId: number,
-    mentorId: number,
+    mentorId?: number | null,
   ) => Promise<StreamStudentWithUserResponse>;
   changeMentor: (
     streamId: number,

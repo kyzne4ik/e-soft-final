@@ -7,10 +7,15 @@ import {
   FinishStreamAndGraduateStudentsRepositoryResponse,
 } from "@repo/schemas";
 import { PaginationResponse } from "@types";
-import { and, count, eq } from "drizzle-orm";
+import { and, count, desc, eq } from "drizzle-orm";
 import { StringToolKit } from "@utils/string";
 import { IStreamRepository } from "./stream.types";
-import { streams, DatabaseType, streamStudent } from "@repo/database";
+import {
+  streams,
+  DatabaseType,
+  streamStudent,
+  streamMentor,
+} from "@repo/database";
 
 export class StreamRepository implements IStreamRepository {
   constructor(private db: DatabaseType) {}
@@ -32,7 +37,7 @@ export class StreamRepository implements IStreamRepository {
         .where(where)
         .offset(offset)
         .limit(limit)
-        .orderBy(streams.createdAt),
+        .orderBy(desc(streams.createdAt)),
       this.db.select({ value: count() }).from(streams).where(where),
     ]);
 
@@ -44,6 +49,38 @@ export class StreamRepository implements IStreamRepository {
         total: totalRows[0]?.value || 0,
       },
     };
+  }
+
+  async findByStudent(studentId: number): Promise<StreamDto[]> {
+    return await this.db
+      .select({
+        id: streams.id,
+        name: streams.name,
+        courseId: streams.courseId,
+        status: streams.status,
+        createdAt: streams.createdAt,
+        updatedAt: streams.updatedAt,
+      })
+      .from(streamStudent)
+      .innerJoin(streams, eq(streams.id, streamStudent.streamId))
+      .where(eq(streamStudent.studentId, studentId))
+      .orderBy(desc(streams.createdAt));
+  }
+
+  async findByMentor(mentorId: number): Promise<StreamDto[]> {
+    return await this.db
+      .select({
+        id: streams.id,
+        name: streams.name,
+        courseId: streams.courseId,
+        status: streams.status,
+        createdAt: streams.createdAt,
+        updatedAt: streams.updatedAt,
+      })
+      .from(streamMentor)
+      .innerJoin(streams, eq(streams.id, streamMentor.streamId))
+      .where(eq(streamMentor.mentorId, mentorId))
+      .orderBy(desc(streams.createdAt));
   }
 
   async findById(id: number): Promise<StreamDto | null> {

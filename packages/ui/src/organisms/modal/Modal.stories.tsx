@@ -44,13 +44,17 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { title: "Подтвердите действие", sub: "Это нельзя отменить" },
+  args: {
+    isOpen: true,
+    title: "Подтвердите действие",
+    sub: "Это нельзя отменить",
+  },
 };
 
 export const Small: Story = {
-  args: { title: "Небольшое окно", size: "sm" },
+  args: { isOpen: true, title: "Небольшое окно", size: "sm" },
 };
 
 export const Wide: Story = {
-  args: { title: "Широкое окно", size: "wide" },
+  args: { isOpen: true, title: "Широкое окно", size: "wide" },
 };

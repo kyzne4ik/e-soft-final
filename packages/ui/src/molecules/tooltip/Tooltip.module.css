@@ -1,10 +1,9 @@
 .ui_tooltip {
-  position: relative;
   display: inline-flex;
 }
 
 .ui_tooltip__bubble {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   max-width: 240px;
   width: max-content;
@@ -17,32 +16,14 @@
   border-radius: 8px;
   box-shadow: var(--shadow-md);
   pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
+  animation: ui_tooltip_fade_in var(--transition-fast);
 }
 
-.ui_tooltip:hover .ui_tooltip__bubble,
-.ui_tooltip:focus-within .ui_tooltip__bubble {
-  opacity: 1;
-}
-
-.ui_tooltip__top .ui_tooltip__bubble {
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-.ui_tooltip__bottom .ui_tooltip__bubble {
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-.ui_tooltip__left .ui_tooltip__bubble {
-  right: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
-}
-.ui_tooltip__right .ui_tooltip__bubble {
-  left: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
+@keyframes ui_tooltip_fade_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

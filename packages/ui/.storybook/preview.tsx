@@ -12,6 +12,7 @@ const preview: Preview = {
         }}
       >
         <Story />
+        <div id="portals" />
       </div>
     ),
   ],

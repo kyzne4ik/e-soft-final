@@ -1,0 +1,113 @@
+.ui_rh {
+  font-family: var(--font-body);
+}
+
+.ui_rh__title {
+  margin-bottom: var(--sp-4);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.ui_rh__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ui_rh__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-5);
+}
+.ui_rh__item:last-child {
+  padding-bottom: 0;
+}
+
+.ui_rh__item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: var(--surface-border);
+}
+
+.ui_rh__marker {
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.ui_rh__dot {
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  border-radius: var(--radius-circle);
+  background: var(--surface-base);
+  border: 2px solid var(--color-gray-300);
+}
+.ui_rh__dot__active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.ui_rh__body {
+  min-width: 0;
+}
+
+.ui_rh__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.ui_rh__name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.ui_rh__sep {
+  color: var(--text-muted);
+}
+
+.ui_rh__time {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+
+.ui_rh__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+
+.ui_rh__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ui_rh__message {
+  width: 100%;
+  padding: var(--sp-3);
+  background: var(--surface-subtle);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+}

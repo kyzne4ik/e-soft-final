@@ -33,6 +33,7 @@ export function Select({
   className,
   id,
   disabled,
+  required,
   value,
   defaultValue,
   children,
@@ -55,6 +56,15 @@ export function Select({
           })}
         >
           {label}
+          {required ? (
+            <span
+              className={css.ui_select__required}
+              aria-hidden
+              title="Обязательное поле"
+            >
+              *
+            </span>
+          ) : null}
         </label>
       ) : null}
 
@@ -71,6 +81,7 @@ export function Select({
             [],
           )}
           disabled={disabled}
+          aria-required={required || undefined}
           aria-invalid={isError || undefined}
           value={value}
           defaultValue={defaultValue}

@@ -3,7 +3,7 @@ import { useKanban } from "./context/KanbanContext";
 import { Avatar } from "../../atoms/avatar";
 import { Icon } from "../../atoms/icon";
 import {
-  useState,
+  Fragment,
   type CSSProperties,
   type ReactNode,
   type HTMLAttributes,
@@ -15,7 +15,7 @@ import type {
   KanbanPriority,
   KanbanTone,
 } from "./model/types";
-import { useDrag } from "./hooks/use-drag";
+import { useCardDrag, useColumnDrop, CARD_MARKER } from "./hooks/use-drag";
 import { classNames } from "../../libs/classNames";
 import css from "./Kanban.module.css";
 
@@ -85,12 +85,7 @@ Kanban.Column = function KanbanColumnView({
   column: KanbanColumn;
   children: ReactNode;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children">) {
-  const { dropHandlers } = useDrag(
-    { cardId: "", columnId: "" },
-    {
-      columnId: column.id,
-    },
-  );
+  const dropHandlers = useColumnDrop({ columnId: column.id });
 
   return (
     <div
@@ -117,23 +112,58 @@ Kanban.Column = function KanbanColumnView({
 
 Kanban.CardList = function KanbanCardList({
   cards,
+  columnId,
   className,
   emptyText = "No tasks.",
   children,
   ...rest
 }: {
   cards?: KanbanCard[];
+  columnId?: string;
   emptyText?: ReactNode;
   children: (({ card }: { card: KanbanCard }) => ReactNode) | ReactNode;
 } & Omit<HTMLAttributes<HTMLUListElement>, "children">) {
-  const isEmpty = typeof children === "function" && !cards?.length;
+  const { dragState } = useKanban();
+  const isFn = typeof children === "function";
+  const isEmpty = isFn && !cards?.length;
+
+  const dropIndex =
+    columnId != null &&
+    dragState.cardId != null &&
+    dragState.overColumnId === columnId
+      ? dragState.overIndex
+      : null;
+
+  const placeholder = (
+    <li
+      aria-hidden
+      className={css.placeholder}
+      style={
+        dragState.cardHeight != null
+          ? { height: dragState.cardHeight }
+          : undefined
+      }
+    />
+  );
 
   return (
     <ul className={classNames(css.card_list, {}, [className])} {...rest}>
       {isEmpty ? (
-        <li className={css.empty}>{emptyText}</li>
-      ) : typeof children === "function" ? (
-        cards?.map((card) => children({ card }))
+        dropIndex != null ? (
+          placeholder
+        ) : (
+          <li className={css.empty}>{emptyText}</li>
+        )
+      ) : isFn ? (
+        <>
+          {cards?.map((card, index) => (
+            <Fragment key={card.id}>
+              {dropIndex === index && placeholder}
+              {children({ card })}
+            </Fragment>
+          ))}
+          {dropIndex === cards?.length && placeholder}
+        </>
       ) : (
         children
       )}
@@ -145,10 +175,10 @@ Kanban.Card = function KanbanCardView({
   card,
   columnId,
   className,
+  children,
   ...rest
 }: { card: KanbanCard; columnId: string } & HTMLAttributes<HTMLLIElement>) {
-  const { dragHandlers } = useDrag({ cardId: card.id, columnId }, { columnId });
-  const [isDragging, setIsDragging] = useState(false);
+  const { handlers, isDragging } = useCardDrag({ cardId: card.id, columnId });
 
   const accent = card.priority
     ? PRIORITY_ACCENT[card.priority]
@@ -156,78 +186,75 @@ Kanban.Card = function KanbanCardView({
 
   return (
     <li
+      {...{ [CARD_MARKER]: "" }}
       className={classNames(css.card, { [css.card__dragging]: isDragging }, [
         className,
       ])}
       style={{ "--card-accent": accent } as CSSProperties}
-      {...dragHandlers}
-      onDragStart={(e) => {
-        dragHandlers.onDragStart(e);
-        setIsDragging(true);
-      }}
-      onDragEnd={(e) => {
-        dragHandlers.onDragEnd(e);
-        setIsDragging(false);
-      }}
+      {...handlers}
       {...rest}
     >
-      <span className={css.card__title}>
-        <span className={css.dot} />
-        {card.title}
-      </span>
+      {children ?? (
+        <>
+          <span className={css.card__title}>
+            <span className={css.dot} />
+            {card.title}
+          </span>
 
-      {(card.priority || card.size || card.assignees?.length) && (
-        <div className={css.meta}>
-          {card.priority && (
-            <span
-              className={classNames(css.chip, {}, [
-                PRIORITY_CHIP[card.priority],
-              ])}
-            >
-              {PRIORITY_LABEL[card.priority]}
-            </span>
+          {(card.priority || card.size || card.assignees?.length) && (
+            <div className={css.meta}>
+              {card.priority && (
+                <span
+                  className={classNames(css.chip, {}, [
+                    PRIORITY_CHIP[card.priority],
+                  ])}
+                >
+                  {PRIORITY_LABEL[card.priority]}
+                </span>
+              )}
+              {card.size && (
+                <span className={classNames(css.chip, {}, [css.chip__size])}>
+                  {card.size}
+                </span>
+              )}
+              {card.assignees?.length ? (
+                <span className={css.assignees}>
+                  {card.assignees.map((person) => (
+                    <Avatar key={person.name} person={person} size={22} ring />
+                  ))}
+                </span>
+              ) : null}
+            </div>
           )}
-          {card.size && (
-            <span className={classNames(css.chip, {}, [css.chip__size])}>
-              {card.size}
-            </span>
+
+          {(card.project || card.date) && (
+            <div className={css.info_row}>
+              {card.project && (
+                <span className={css.project}>
+                  <Icon name="zap" size={13} />
+                  {card.project}
+                </span>
+              )}
+              {card.date && (
+                <span className={css.date}>
+                  <Icon name="calendar" size={13} />
+                  {card.date}
+                </span>
+              )}
+            </div>
           )}
-          {card.assignees?.length ? (
-            <span className={css.assignees}>
-              {card.assignees.map((person) => (
-                <Avatar key={person.name} person={person} size={22} ring />
+
+          {card.tags?.length ? (
+            <div className={css.tags}>
+              {card.tags.map((tag) => (
+                <span key={tag} className={css.tag}>
+                  {tag}
+                </span>
               ))}
-            </span>
+            </div>
           ) : null}
-        </div>
+        </>
       )}
-
-      {(card.project || card.date) && (
-        <div className={css.info_row}>
-          {card.project && (
-            <span className={css.project}>
-              <Icon name="zap" size={13} />
-              {card.project}
-            </span>
-          )}
-          {card.date && (
-            <span className={css.date}>
-              <Icon name="calendar" size={13} />
-              {card.date}
-            </span>
-          )}
-        </div>
-      )}
-
-      {card.tags?.length ? (
-        <div className={css.tags}>
-          {card.tags.map((tag) => (
-            <span key={tag} className={css.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      ) : null}
     </li>
   );
 };
@@ -243,7 +270,7 @@ Kanban.AddTask = function KanbanAddTask({
       className={classNames(css.add_task, {}, [className])}
       {...rest}
     >
-      <Icon name="plus" size={16} />
+      <Icon name="plus" size={18} />
       {children}
     </button>
   );

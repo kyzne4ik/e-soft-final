@@ -1,0 +1,54 @@
+.board {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  padding: var(--sp-4);
+}
+
+.board > div {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+
+.fadeIn {
+  animation: crm_board_fade_in var(--transition-base);
+}
+
+@keyframes crm_board_fade_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skeleton {
+  display: flex;
+  gap: var(--sp-4);
+  overflow: hidden;
+}
+
+.skeleton_column {
+  display: flex;
+  flex: 0 0 300px;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  background: var(--surface-muted);
+  border-radius: var(--radius-lg);
+}
+
+.skeleton_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-1) var(--sp-1) 0;
+}
+
+.skeleton_cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}

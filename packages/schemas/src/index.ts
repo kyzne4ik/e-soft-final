@@ -3,6 +3,7 @@ export * from "./common.schema";
 export * from "./course.schema";
 export * from "./crm.schema";
 export * from "./events.schema";
+export * from "./health.schema";
 export * from "./lesson.schema";
 export * from "./notification.schema";
 export * from "./review.schema";

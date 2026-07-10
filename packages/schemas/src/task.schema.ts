@@ -7,6 +7,7 @@ export const taskSchema = z.object({
   title: z.string(),
   description: z.string(),
   repoTemplate: z.string(),
+  recordLink: z.string().nullable(),
   deadline: z.coerce.date(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
@@ -20,6 +21,7 @@ export const taskResponseSchema = z.object({
   title: z.string(),
   description: z.string(),
   repoTemplate: z.string(),
+  recordLink: z.string().nullable(),
   deadline: z.coerce.date(),
 });
 
@@ -30,6 +32,7 @@ export const createTaskPayloadSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   repoTemplate: z.string().min(1),
+  recordLink: z.string().url().nullish(),
   deadline: z.coerce.date(),
 });
 

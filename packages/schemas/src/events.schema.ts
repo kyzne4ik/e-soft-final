@@ -3,6 +3,7 @@ import z from "zod";
 export const QUEUE_NAMES = {
   telegram: "telegram",
   email: "email",
+  lead: "lead",
 };
 
 export const telegramJobSchema = z.discriminatedUnion("kind", [
@@ -31,3 +32,10 @@ export const telegramJobSchema = z.discriminatedUnion("kind", [
 ]);
 
 export type TelegramJob = z.infer<typeof telegramJobSchema>;
+
+export const leadJobSchema = z.object({
+  kind: z.literal("lead-ignore"),
+  leadId: z.number().int(),
+});
+
+export type LeadJob = z.infer<typeof leadJobSchema>;

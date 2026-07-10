@@ -1,4 +1,2 @@
-export { ForbiddenPage } from "./ForbiddenPage";
-export { NotFoundPage } from "./NotFoundPage";
-export { ServerErrorPage } from "./ServerErrorPage";
-export { UnknowErrorPage } from "./UnknownErrorPage";
+export { ForbiddenPage } from "./forbidden-page";
+export { NotFoundPage } from "./not-found-page";

@@ -1,0 +1,9 @@
+export { FirstName } from "./FirstName";
+export { LastName } from "./LastName";
+export { Patronymic } from "./Patronymic";
+export { Email } from "./Email";
+export { Phone } from "./Phone";
+export { Telegram } from "./Telegram";
+export { Experience } from "./Experience";
+export { TestResult } from "./TestResult";
+export { TargetStreamSelect } from "./TargetStreamSelect";

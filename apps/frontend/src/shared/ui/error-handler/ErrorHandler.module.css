@@ -1,0 +1,35 @@
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--text-tertiary);
+}
+
+.wrapper > svg {
+  color: var(--color-primary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-headline);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.detail {
+  margin: var(--sp-1) 0 0;
+  max-width: 100%;
+}
+.detail code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}

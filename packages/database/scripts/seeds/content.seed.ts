@@ -1,7 +1,13 @@
 import { db } from "../../src/index";
 import { courses, lessons, streams, tasks } from "../../src/db/content";
+import { leads } from "../../src/db/crm";
+import { eq } from "drizzle-orm";
+import type { InferSelectModel } from "drizzle-orm";
+import type { managerProfile } from "../../src/db/core";
 
-export async function seedContent() {
+type ManagerProfile = InferSelectModel<typeof managerProfile>;
+
+export async function seedContent(managerProf: ManagerProfile) {
   const [jsDevCourse, devopsCourse] = await db
     .insert(courses)
     .values([
@@ -300,6 +306,270 @@ export async function seedContent() {
     },
   ]);
 
+  const MENTORS: [string, string, string, string] = [
+    "Евгений Сапов",
+    "Владислав Задорожнюк",
+    "Алексей Андреев",
+    "Илья Киреев",
+  ];
+
+  const LESSON_META: Record<
+    string,
+    { type: string; host: string; description: string }
+  > = {
+    "Вводная лекция": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Знакомство с командой, форматом обучения и дорожной картой курса. Расскажем, что вас ждёт и как получить максимум от обучения.",
+    },
+    "Git: VCS, ветвление, слияние, rebase, конфликты": {
+      type: "Семинар",
+      host: MENTORS[1],
+      description:
+        "Разберём систему контроля версий Git: ветвление, слияние, rebase, разрешение конфликтов и работу с удалёнными репозиториями.",
+    },
+    "Войти в IT — направления разработки": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Обзор ролей и направлений в IT-индустрии. Поможем определиться с вектором развития карьеры.",
+    },
+    "React: Virtual DOM, JSX, CRA, ReactDOM, Fragment": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Первое знакомство с React: виртуальный DOM, JSX-синтаксис, создание приложения через CRA и работа с Fragment.",
+    },
+    "Reconciliation, списки, key, useState, поток данных": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Алгоритм обновления DOM в React, работа со списками и ключами, хук useState и однонаправленный поток данных.",
+    },
+    "useEffect, useLayoutEffect, жизненный цикл, useRef, Portals": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Управление побочными эффектами с useEffect и useLayoutEffect, жизненный цикл компонентов, работа с DOM через useRef и Portals.",
+    },
+    "Продвинутые хуки: useContext, useReducer, useMemo, useCallback, Custom Hooks":
+      {
+        type: "Семинар",
+        host: MENTORS[2],
+        description:
+          "Углублённое изучение хуков React: управление состоянием, оптимизация рендеров и написание собственных хуков.",
+      },
+    "Работа с формами, валидация (RHF + Zod)": {
+      type: "Семинар",
+      host: MENTORS[1],
+      description:
+        "Управляемые и неуправляемые формы, React Hook Form, валидация схем через Zod, обработка ошибок.",
+    },
+    "TypeScript: основы через React": {
+      type: "Лекция",
+      host: MENTORS[3],
+      description:
+        "Введение в TypeScript: типы, интерфейсы, дженерики на практических примерах React-компонентов.",
+    },
+    "Роутинг: React Router v6": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Клиентская маршрутизация с React Router v6: вложенные маршруты, параметры, защищённые роуты, навигация.",
+    },
+    "State Managers: Zustand vs Redux": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Сравнение подходов к управлению глобальным состоянием: Zustand и Redux Toolkit, выбор инструмента под задачу.",
+    },
+    "Работа с API: TanStack Query": {
+      type: "Семинар",
+      host: MENTORS[1],
+      description:
+        "Загрузка данных, кеширование и синхронизация с сервером через TanStack Query (React Query).",
+    },
+    "UI-Kit, Atomic Design, Storybook": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Атомарный дизайн, построение переиспользуемых компонентов и документирование UI-кита в Storybook.",
+    },
+    "Архитектура фронтенда: FSD + SSR/SSG": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Feature-Sliced Design как подход к структуре проекта, рендеринг на сервере (SSR) и статическая генерация (SSG).",
+    },
+    "Node.js: устройство + Fastify старт": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Событийный цикл Node.js, модульная система, создание HTTP-сервера на Fastify.",
+    },
+    "Fastify: реальное приложение": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Плагины, схемы валидации, хуки жизненного цикла и построение REST API на Fastify.",
+    },
+    "Трёхслойная архитектура": {
+      type: "Лекция",
+      host: MENTORS[3],
+      description:
+        "Разделение на слои: контроллеры, сервисы, репозитории. Принципы чистой архитектуры бэкенда.",
+    },
+    "TypeScript Intermediate: Generics и Utility Types": {
+      type: "Лекция",
+      host: MENTORS[3],
+      description:
+        "Дженерики, utility types (Partial, Required, Pick, Omit), условные типы и mapped types.",
+    },
+    "Авторизация через JWT": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Механизм JWT: создание, проверка токенов, refresh-схема, защита роутов.",
+    },
+    "Введение в PostgreSQL": {
+      type: "Лекция",
+      host: MENTORS[1],
+      description:
+        "Реляционная модель данных, установка и настройка PostgreSQL, основные типы данных.",
+    },
+    "DDL, DML, DQL: управление структурой и данными": {
+      type: "Семинар",
+      host: MENTORS[1],
+      description:
+        "CREATE/ALTER/DROP таблиц, INSERT/UPDATE/DELETE данных, SELECT и фильтрация.",
+    },
+    "Ключи, нормализация, JOIN'ы": {
+      type: "Семинар",
+      host: MENTORS[1],
+      description:
+        "Первичные и внешние ключи, нормальные формы, INNER/LEFT/RIGHT/FULL JOIN.",
+    },
+    "Индексы, EXPLAIN ANALYZE, Views": {
+      type: "Лекция",
+      host: MENTORS[1],
+      description:
+        "Оптимизация запросов с индексами, анализ плана выполнения и использование представлений.",
+    },
+    "Query Builder: Knex.js": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Построение запросов через Knex.js, миграции, работа с транзакциями.",
+    },
+    "ORM: миграции, N+1, connection pool (Prisma)": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Prisma ORM: схема, генерация клиента, проблема N+1 и управление пулом соединений.",
+    },
+    "Транзакции: ACID, уровни изоляции, deadlocks": {
+      type: "Лекция",
+      host: MENTORS[1],
+      description:
+        "Свойства ACID, уровни изоляции транзакций в PostgreSQL и предотвращение дедлоков.",
+    },
+    "TypeScript Advanced: infer, mapped, conditional types": {
+      type: "Лекция",
+      host: MENTORS[3],
+      description:
+        "Продвинутые типы TypeScript: infer в conditional types, mapped types и рекурсивные типы.",
+    },
+    "SOLID + Dependency Injection": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Принципы SOLID на примерах, внедрение зависимостей и IoC-контейнеры.",
+    },
+    "Nest.js": {
+      type: "Семинар",
+      host: MENTORS[0],
+      description:
+        "Модули, контроллеры, провайдеры, декораторы Nest.js и сборка полноценного REST API.",
+    },
+    "Тестирование бэкенда: Jest + Supertest": {
+      type: "Семинар",
+      host: MENTORS[2],
+      description:
+        "Unit- и интеграционные тесты на Jest, тестирование HTTP-эндпоинтов через Supertest.",
+    },
+    "Кеширование (Redis)": {
+      type: "Лекция",
+      host: MENTORS[3],
+      description:
+        "Паттерны кеширования, Redis как in-memory хранилище, TTL, pub/sub.",
+    },
+    "Очереди (BullMQ)": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Очереди задач с BullMQ на Redis: воркеры, повторы, приоритеты.",
+    },
+    "Системная архитектура (обзор)": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Монолит, микросервисы, serverless — обзор архитектурных паттернов и критерии выбора.",
+    },
+    "Docker: образы, контейнеры, Dockerfile": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Контейнеризация приложений: написание Dockerfile, сборка образов, управление контейнерами.",
+    },
+    "Docker Compose + GitHub Actions + Deploy": {
+      type: "Семинар",
+      host: MENTORS[3],
+      description:
+        "Многоконтейнерные приложения с Compose, CI/CD pipeline на GitHub Actions и деплой.",
+    },
+    "Тестирование: виды, инструменты, зоны ответственности": {
+      type: "Лекция",
+      host: MENTORS[2],
+      description:
+        "Пирамида тестирования, юнит-, интеграционные и E2E-тесты, выбор инструментов.",
+    },
+    "Жизненный цикл ПО и Agile/Scrum": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description: "SDLC, Agile-манифест, Scrum: спринты, роли, церемонии.",
+    },
+    "Роли в команде и зоны ответственности": {
+      type: "Лекция",
+      host: MENTORS[0],
+      description:
+        "Роли разработчика, тимлида, PM, QA и DevOps — взаимодействие и ответственность.",
+    },
+    "HR: Позиционирование на рынке": {
+      type: "Лекция",
+      host: "Наталья Нестеренко",
+      description:
+        "Как составить резюме, пройти техническое интервью и правильно позиционировать себя на рынке труда.",
+    },
+  };
+
+  const insertedLessons = await db
+    .select({ id: lessons.id, title: lessons.title })
+    .from(lessons);
+  for (const lesson of insertedLessons) {
+    const meta = LESSON_META[lesson.title];
+    if (meta) {
+      await db
+        .update(lessons)
+        .set({
+          type: meta.type,
+          host: meta.host,
+          description: meta.description,
+        })
+        .where(eq(lessons.id, lesson.id));
+    }
+  }
+
   await db.insert(tasks).values([
     {
       streamId: activeStream.id,
@@ -392,7 +662,99 @@ export async function seedContent() {
     },
   ]);
 
-  console.log(`  ✓ content: 2 курса, 3 потока, 37 занятий, 10 ДЗ`);
+  await db.insert(leads).values([
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Михаил",
+      lastName: "Орлов",
+      email: "orlov@gmail.fake",
+      phone: "+7 900 111-11-11",
+      telegram: "@morlov",
+      experience: "Год опыта в вёрстке, хочу углубиться в React.",
+      status: "NEW",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Никита",
+      lastName: "Волков",
+      email: "volkov@gmail.fake",
+      phone: "+7 900 222-22-22",
+      telegram: "@nvolkov",
+      experience: "Пишу скрипты на Python, хочу попробовать фронтенд.",
+      status: "IN_REVIEW",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Анна",
+      lastName: "Морозова",
+      email: "morozova@gmail.fake",
+      phone: "+7 900 333-33-33",
+      experience: "Без опыта в разработке, аналитик.",
+      status: "ACCEPTED",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Дмитрий",
+      lastName: "Козлов",
+      email: "kozlov@gmail.fake",
+      telegram: "@dkozlov",
+      experience: "Junior бэкенд на Django, хочу full-stack.",
+      status: "ACCEPTED",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Светлана",
+      lastName: "Новикова",
+      email: "novikova@gmail.fake",
+      phone: "+7 900 444-44-44",
+      status: "REJECTED",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: activeStream.id,
+      firstName: "Артём",
+      lastName: "Зайцев",
+      email: "zaitsev@gmail.fake",
+      telegram: "@azaitsev",
+      experience: "Нет опыта, мотивирован учиться.",
+      status: "NEW",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: enrollingStream.id,
+      firstName: "Ольга",
+      lastName: "Соколова",
+      email: "sokolova@gmail.fake",
+      phone: "+7 900 555-55-55",
+      experience: "Верстальщик 2 года, хочу в DevOps.",
+      status: "IN_REVIEW",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: enrollingStream.id,
+      firstName: "Игорь",
+      lastName: "Лебедев",
+      email: "lebedev@gmail.fake",
+      telegram: "@ilebedev",
+      experience: "Сисадмин 3 года, интересует автоматизация.",
+      status: "NEW",
+    },
+    {
+      managerId: managerProf.id,
+      targetStreamId: enrollingStream.id,
+      firstName: "Елена",
+      lastName: "Павлова",
+      email: "pavlova@gmail.fake",
+      status: "IGNORED",
+    },
+  ]);
+
+  console.log(`  ✓ content: 2 курса, 3 потока, 37 занятий, 10 ДЗ, 9 лидов`);
 
   return { activeStream, finishedStream, enrollingStream };
 }

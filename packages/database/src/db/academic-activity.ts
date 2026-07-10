@@ -6,6 +6,7 @@ import {
   serial,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { streams, tasks } from "./content";
 import { mentorProfile, studentProfile, timestamps } from "./core";
@@ -56,18 +57,24 @@ export const streamMentor = pgTable(
   (t) => [primaryKey({ columns: [t.streamId, t.mentorId] })],
 );
 
-export const submission = pgTable("submission", {
-  id: serial("id").primaryKey(),
-  taskId: integer("task_id")
-    .notNull()
-    .references(() => tasks.id, { onDelete: "cascade" }),
-  studentId: integer("student_id")
-    .notNull()
-    .references(() => studentProfile.id, { onDelete: "cascade" }),
-  repoLink: text("repo_link").notNull(),
-  status: submissionStatusEnum("status").notNull().default("NEW"),
-  ...timestamps,
-});
+export const submission = pgTable(
+  "submission",
+  {
+    id: serial("id").primaryKey(),
+    taskId: integer("task_id")
+      .notNull()
+      .references(() => tasks.id, { onDelete: "cascade" }),
+    studentId: integer("student_id")
+      .notNull()
+      .references(() => studentProfile.id, { onDelete: "cascade" }),
+    repoLink: text("repo_link").notNull(),
+    status: submissionStatusEnum("status").notNull().default("NEW"),
+    ...timestamps,
+  },
+  (t) => [
+    uniqueIndex("submission_task_student_uidx").on(t.taskId, t.studentId),
+  ],
+);
 
 export const reviews = pgTable("reviews", {
   id: serial("id").primaryKey(),

@@ -21,7 +21,6 @@ export async function seedCore() {
         email: "sapov@esoft.fake",
         passwordHash: await hash("password123"),
         role: "MENTOR",
-        isActivated: true,
       },
       {
         firstName: "Владислав",
@@ -29,7 +28,6 @@ export async function seedCore() {
         email: "zadorozhnuk@esoft.fake",
         passwordHash: await hash("password123"),
         role: "MENTOR",
-        isActivated: true,
       },
       {
         firstName: "Алексей",
@@ -37,7 +35,6 @@ export async function seedCore() {
         email: "andreev@esoft.fake",
         passwordHash: await hash("password123"),
         role: "MENTOR",
-        isActivated: true,
       },
       {
         firstName: "Илья",
@@ -45,7 +42,6 @@ export async function seedCore() {
         email: "kireev@esoft.fake",
         passwordHash: await hash("password123"),
         role: "MENTOR",
-        isActivated: true,
       },
     ])
     .returning();
@@ -64,7 +60,6 @@ export async function seedCore() {
         email: "nesterenko@esoft.fake",
         passwordHash: await hash("password123"),
         role: "MANAGER",
-        isActivated: true,
       },
     ])
     .returning();
@@ -83,7 +78,6 @@ export async function seedCore() {
       email: "admin@esoft.fake",
       passwordHash: await hash("admin123"),
       role: "ADMIN",
-      isActivated: true,
     },
   ]);
 
@@ -100,7 +94,6 @@ export async function seedCore() {
           email: `student_${i + 1}@esoft.fake`,
           passwordHash: await hash("password123"),
           role: "STUDENT" as const,
-          isActivated: true,
         })),
       ),
     )

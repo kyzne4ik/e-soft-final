@@ -20,8 +20,9 @@ async function main() {
   try {
     console.log("🌱 Начинаю наполнение БД...");
 
-    const { mentorProfiles, studentProfiles } = await seedCore();
-    const { activeStream, finishedStream } = await seedContent();
+    const { mentorProfiles, managerProf, studentProfiles } = await seedCore();
+    if (!managerProf) throw new Error("Не удалось создать профиль менеджера");
+    const { activeStream, finishedStream } = await seedContent(managerProf);
 
     await seedAcademicActivity(
       mentorProfiles,

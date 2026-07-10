@@ -8,8 +8,6 @@ export const leadStatusEnum = pgEnum("lead_status", [
   "ACCEPTED",
   "REJECTED",
   "IGNORED",
-  "LOST",
-  "ARCHIVED",
 ]);
 
 export const leads = pgTable("leads", {

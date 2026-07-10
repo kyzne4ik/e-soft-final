@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/my/mentor"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 1,
+                  "name": "ШП-2026",
+                  "courseId": 1,
+                  "status": "IN_PROGRESS"
+              },
+              {
+                  "id": 2,
+                  "name": "ШП-2025",
+                  "courseId": 1,
+                  "status": "FINISHED"
+              }
+          ]
+      }
+order: 1000

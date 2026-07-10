@@ -1,0 +1,33 @@
+$kind: "http-example"
+name: Update Own Submission (student) (200)
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id"
+  method: "PATCH"
+  pathVariables:
+    - key: "id"
+      value: "11"
+  body:
+    type: "json"
+    content: |-
+      {
+          "repoLink": "https://github.com/ivan/hw2/pull/2"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Решение обновлено",
+          "data": {
+              "id": 11,
+              "taskId": 2,
+              "studentId": 25,
+              "repoLink": "https://github.com/ivan/hw2/pull/2",
+              "status": "RESUBMITTED"
+          }
+      }
+order: 1000

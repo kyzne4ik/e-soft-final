@@ -1,0 +1,7 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/my/student"
+method: "GET"
+documentation:
+  content: "Мои потоки как студента. profileId берётся из JWT (req.currentUser). Только роль STUDENT (ADMIN проходит авторизацию, но получит 403 — нет профиля)."
+examples: "./.resources/My Streams (student).resources/examples"
+order: 8300

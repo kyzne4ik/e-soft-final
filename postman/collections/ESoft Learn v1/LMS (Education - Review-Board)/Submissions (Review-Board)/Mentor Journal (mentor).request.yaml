@@ -1,0 +1,10 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/mentor/journal"
+method: "GET"
+queryParams:
+- key: "streamId"
+  value: "1"
+documentation:
+  content: "Журнал успеваемости студентов ментора по потоку (?streamId=). Ментор."
+examples: "./.resources/Mentor Journal.resources/examples"
+order: 7000

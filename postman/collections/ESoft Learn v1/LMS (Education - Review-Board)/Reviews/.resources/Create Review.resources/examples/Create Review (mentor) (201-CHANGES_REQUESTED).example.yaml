@@ -1,0 +1,35 @@
+$kind: "http-example"
+name: Create Review (mentor) (201) — CHANGES_REQUESTED
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id/reviews"
+  method: "POST"
+  pathVariables:
+    - key: "id"
+      value: "11"
+  body:
+    type: "json"
+    content: |-
+      {
+          "score": 60,
+          "comment": "Нет обработки ошибок в контроллере. Добавь try/catch и возврат корректных статус-кодов.",
+          "verdict": "CHANGES_REQUESTED"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Ревью создано",
+          "data": {
+              "id": 8,
+              "submissionId": 11,
+              "mentorId": 2,
+              "score": 60,
+              "comment": "Нет обработки ошибок в контроллере. Добавь try/catch и возврат корректных статус-кодов."
+          }
+      }
+order: 2000

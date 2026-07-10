@@ -14,7 +14,7 @@ response:
   statusCode: 409
   statusText: "Conflict"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 409,

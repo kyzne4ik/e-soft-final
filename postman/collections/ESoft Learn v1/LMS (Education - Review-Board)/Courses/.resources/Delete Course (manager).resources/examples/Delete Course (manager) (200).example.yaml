@@ -3,13 +3,13 @@ request:
   url: "{{baseUrl}}/api/lms/courses/:id"
   method: "DELETE"
   body:
-    type: "text"
+    type: "json"
     content: ""
 response:
   statusCode: 200
   statusText: "OK"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 200,

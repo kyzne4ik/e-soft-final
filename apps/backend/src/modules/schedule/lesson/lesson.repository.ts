@@ -5,7 +5,7 @@ import {
   OverlappingLessonRepositoryPayload,
 } from "@repo/schemas";
 import { PaginationResponse } from "@types";
-import { and, count, eq, lt, gt, ne } from "drizzle-orm";
+import { and, count, desc, eq, lt, gt, ne } from "drizzle-orm";
 import { DatabaseType, lessons } from "@repo/database";
 import { ILessonRepository, LessonFilters } from "./lesson.types";
 
@@ -23,7 +23,13 @@ export class LessonRepository implements ILessonRepository {
     const where = conditions.length ? and(...conditions) : undefined;
 
     const [rows, totalRows] = await Promise.all([
-      this.db.select().from(lessons).where(where).limit(limit).offset(offset),
+      this.db
+        .select()
+        .from(lessons)
+        .where(where)
+        .orderBy(desc(lessons.createdAt))
+        .limit(limit)
+        .offset(offset),
       this.db.select({ value: count() }).from(lessons).where(where),
     ]);
 

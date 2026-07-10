@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "submission_task_student_uidx" ON "submission" USING btree ("task_id","student_id");

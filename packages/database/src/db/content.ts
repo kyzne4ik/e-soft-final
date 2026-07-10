@@ -48,6 +48,9 @@ export const lessons = pgTable("lessons", {
     .notNull()
     .references(() => streams.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
+  type: text("type"),
+  host: text("host"),
+  description: text("description"),
   startTime: timestamp("start_time", { withTimezone: true }).notNull(),
   endTime: timestamp("end_time", { withTimezone: true }).notNull(),
   meetingLink: text("meeting_link"),
@@ -65,6 +68,7 @@ export const tasks = pgTable("tasks", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   repoTemplate: text("repo_template").notNull(),
+  recordLink: text("record_link"),
   deadline: timestamp("deadline", { withTimezone: true }).notNull(),
   ...timestamps,
 });

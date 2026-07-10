@@ -1,6 +1,8 @@
 import {
   UserDto,
+  UserResponse,
   ChangePasswordPayload,
+  UpdateProfilePayload,
   UserTelegramResponse,
   CreateUserTelegramPayload,
   GenerateLinkResponse,
@@ -11,6 +13,7 @@ import { generateLinkMap, profileMap } from "./profile.mapper";
 import { IProfileService } from "./profile.types";
 import { NotFoundError, BadRequestError, ConflictError } from "@error";
 import { UserRepository } from "@modules/user/user.repository";
+import { userMap } from "@modules/user/user.mapper";
 import { UserTelegramStore } from "./user-telegram/user-telegram.store";
 import { UserTelegramRepository } from "./user-telegram/user-telegram.repository";
 
@@ -36,6 +39,24 @@ export class ProfileService implements IProfileService {
 
     const passwordHash = await Hash.generateHash(data.newPassword);
     await this.userRepo.update(userId, { passwordHash });
+  }
+
+  async updateProfile(
+    userId: number,
+    data: UpdateProfilePayload,
+  ): Promise<UserResponse> {
+    let updated: UserDto | null;
+    try {
+      updated = await this.userRepo.update(userId, data);
+    } catch (e) {
+      if (isPgError(e, PG.UNIQUE))
+        throw new ConflictError("Этот email уже используется");
+      throw e;
+    }
+
+    if (!updated) throw new NotFoundError("Пользователь не найден");
+
+    return userMap(updated);
   }
 
   async getTelegram(userId: number): Promise<UserTelegramResponse> {

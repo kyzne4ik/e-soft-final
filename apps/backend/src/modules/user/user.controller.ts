@@ -19,7 +19,6 @@ export class UserController implements IUsersController {
     const query = userQuerySchema.parse(req.query);
     const result = await this.userService.getUsers({
       role: query.role,
-      isActivated: query.isActivated,
       page: query.page,
       limit: query.limit,
     });

@@ -16,7 +16,6 @@ export const userMap = (
   patronymic: u.patronymic,
   email: u.email,
   role: u.role,
-  isActivated: u.isActivated,
   profileId: u.profileId ?? null,
 });
 

@@ -21,6 +21,14 @@ export const reviewResponseSchema = z.object({
 
 export type ReviewResponse = z.infer<typeof reviewResponseSchema>;
 
+export const mentorReviewResponseSchema = reviewResponseSchema.extend({
+  reviewedAt: z.coerce.date(),
+  mentorFirstName: z.string().nullable(),
+  mentorLastName: z.string().nullable(),
+});
+
+export type MentorReviewResponse = z.infer<typeof mentorReviewResponseSchema>;
+
 export const reviewVerdictSchema = z.enum([
   "ACCEPTED",
   "CHANGES_REQUESTED",

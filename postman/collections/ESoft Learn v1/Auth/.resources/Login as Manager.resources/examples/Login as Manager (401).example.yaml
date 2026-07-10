@@ -13,7 +13,7 @@ response:
   statusCode: 401
   statusText: "Unauthorized"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 401,

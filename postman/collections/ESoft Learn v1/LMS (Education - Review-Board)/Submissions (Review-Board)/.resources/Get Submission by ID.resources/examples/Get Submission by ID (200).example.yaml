@@ -6,7 +6,7 @@ response:
   statusCode: 200
   statusText: "OK"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 200,
@@ -17,10 +17,7 @@ response:
               "taskId": 11,
               "studentId": 13,
               "repoLink": "https://github.com/student1/hw-1",
-              "status": "ACCEPTED",
-              "isActivate": true,
-              "createdAt": "2026-06-22T07:22:05.084Z",
-              "updatedAt": "2026-06-22T07:22:05.084Z"
+              "status": "ACCEPTED"
           }
       }
 order: 1000

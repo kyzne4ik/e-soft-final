@@ -8,7 +8,6 @@ export const userPublicSchema = z.object({
   patronymic: z.string().nullable(),
   email: z.string().email(),
   role: roleSchema,
-  isActivated: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -23,7 +22,6 @@ export const userSchema = z.object({
   email: z.string().email(),
   passwordHash: z.string(),
   role: roleSchema,
-  isActivated: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
@@ -54,6 +52,15 @@ export const changePasswordPayloadSchema = z.object({
 
 export type ChangePasswordPayload = z.infer<typeof changePasswordPayloadSchema>;
 
+export const updateProfilePayloadSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  patronymic: z.string().nullable().optional(),
+  email: z.string().email(),
+});
+
+export type UpdateProfilePayload = z.infer<typeof updateProfilePayloadSchema>;
+
 export const userResponseSchema = z.object({
   id: z.number().int(),
   firstName: z.string(),
@@ -61,10 +68,7 @@ export const userResponseSchema = z.object({
   patronymic: z.string().nullable(),
   email: z.string().email(),
   role: roleSchema,
-  isActivated: z.boolean(),
   profileId: z.number().int().nullable(),
-  // createdAt: z.coerce.date(),
-  // updatedAt: z.coerce.date(),
 });
 
 export type UserResponse = z.infer<typeof userResponseSchema>;
@@ -72,10 +76,6 @@ export type UserResponse = z.infer<typeof userResponseSchema>;
 export const userQuerySchema = z
   .object({
     role: roleSchema.optional(),
-    isActivated: z
-      .enum(["true", "false"])
-      .transform((value) => value === "true")
-      .optional(),
   })
   .merge(paginationSchema.partial());
 

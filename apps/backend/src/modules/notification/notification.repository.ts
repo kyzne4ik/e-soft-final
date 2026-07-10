@@ -4,7 +4,7 @@ import {
   NotificationStatus,
 } from "@repo/schemas";
 import { PaginationResponse } from "@types";
-import { count, and, eq } from "drizzle-orm";
+import { count, and, eq, desc } from "drizzle-orm";
 import { DatabaseType, notifications } from "@repo/database";
 import { INotificationRepository, NotifyFilters } from "./notification.types";
 
@@ -28,6 +28,7 @@ export class NotificationRepository implements INotificationRepository {
         .select()
         .from(notifications)
         .where(where)
+        .orderBy(desc(notifications.createdAt))
         .limit(limit)
         .offset(offset),
       await this.db.select({ value: count() }).from(notifications).where(where),

@@ -99,6 +99,24 @@ export class LeadRepository implements ILeadRepository {
     return row ?? null;
   }
 
+  async findAcceptedByEmail(email: string): Promise<LeadDto | null> {
+    const [row] = await this.db
+      .select()
+      .from(leads)
+      .where(and(eq(leads.email, email), eq(leads.status, "ACCEPTED")))
+      .orderBy(desc(leads.createdAt))
+      .limit(1);
+
+    return row ?? null;
+  }
+
+  async updateStatusSystem(id: number, status: LeadStatus): Promise<void> {
+    await this.db
+      .update(leads)
+      .set({ status, updatedAt: new Date() })
+      .where(eq(leads.id, id));
+  }
+
   async linkConvertedUser(email: string, userId: number): Promise<void> {
     await this.db
       .update(leads)

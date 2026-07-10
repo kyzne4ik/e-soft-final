@@ -3,12 +3,7 @@ import { classNames, type Mods } from "../../libs/classNames";
 import css from "./Text.module.css";
 
 export type TextAlign =
-  | "start"
-  | "end"
-  | "left"
-  | "right"
-  | "center"
-  | "justify";
+  "start" | "end" | "left" | "right" | "center" | "justify";
 
 const alignClasses: Record<TextAlign, string> = {
   start: css.start,

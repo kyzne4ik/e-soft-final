@@ -38,6 +38,14 @@ export const Default: Story = {
   args: { label: "Email", placeholder: "you@example.com" },
 };
 
+export const Required: Story = {
+  args: {
+    label: "Email",
+    placeholder: "you@example.com",
+    required: true,
+  },
+};
+
 export const WithError: Story = {
   args: {
     label: "Email",

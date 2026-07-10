@@ -1,5 +1,4 @@
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -32,7 +31,6 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   role: rolesEnum("role").notNull().default("STUDENT"),
-  isActivated: boolean("is_activated").notNull().default(false),
   ...timestamps,
 });
 

@@ -1,0 +1,49 @@
+$kind: "http-example"
+name: Performance by Stream (student) (200)
+request:
+  url: "{{baseUrl}}/api/lms/submissions/performance/:id"
+  method: "GET"
+  pathVariables:
+    - key: "id"
+      value: "1"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "averageScore": 82.5,
+              "rows": [
+                  {
+                      "taskId": 1,
+                      "title": "Домашнее задание #1",
+                      "status": "ACCEPTED",
+                      "score": 90,
+                      "reviewedAt": "2026-06-25T14:30:00.000Z",
+                      "comment": "Отличная работа!"
+                  },
+                  {
+                      "taskId": 2,
+                      "title": "Домашнее задание #2",
+                      "status": "CHANGES_REQUESTED",
+                      "score": 75,
+                      "reviewedAt": "2026-06-28T11:00:00.000Z",
+                      "comment": "Исправь обработку ошибок."
+                  },
+                  {
+                      "taskId": 3,
+                      "title": "Домашнее задание #3",
+                      "status": null,
+                      "score": null,
+                      "reviewedAt": null,
+                      "comment": null
+                  }
+              ]
+          }
+      }
+order: 1000

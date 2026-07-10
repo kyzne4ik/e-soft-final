@@ -5,11 +5,7 @@ import { Spinner } from "../spinner";
 import type { ButtonHTMLAttributes, PointerEvent, ReactNode } from "react";
 
 export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "ghost"
-  | "destructive";
+  "primary" | "secondary" | "tertiary" | "ghost" | "destructive";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends Omit<

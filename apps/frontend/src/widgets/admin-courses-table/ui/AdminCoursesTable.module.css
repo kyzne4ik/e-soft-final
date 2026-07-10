@@ -1,0 +1,44 @@
+.name {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.description {
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-1);
+}
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.2s ease;
+}
+
+.pagination {
+  margin-top: auto;
+  padding-block: var(--sp-4);
+  align-self: center;
+}

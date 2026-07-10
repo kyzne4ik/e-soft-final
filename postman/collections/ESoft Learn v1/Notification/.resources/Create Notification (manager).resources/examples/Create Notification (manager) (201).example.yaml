@@ -14,7 +14,7 @@ response:
   statusCode: 201
   statusText: "Created"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 201,

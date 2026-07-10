@@ -19,6 +19,7 @@ export type KanbanCard = {
   project?: string;
   date?: string;
   tags?: string[];
+  meta?: unknown;
 };
 
 export type KanbanColumn = {

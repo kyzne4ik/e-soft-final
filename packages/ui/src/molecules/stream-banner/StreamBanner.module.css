@@ -1,0 +1,60 @@
+.ui_sbanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-family: var(--font-body);
+  text-align: left;
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.ui_sbanner__clickable {
+  cursor: pointer;
+}
+.ui_sbanner__clickable:hover {
+  background: var(--surface-base);
+  border-color: var(--surface-border);
+}
+
+.ui_sbanner__active {
+  background: var(--surface-base);
+  border-color: var(--color-primary-medium);
+  box-shadow: var(--shadow-sm);
+}
+.ui_sbanner__active:hover {
+  border-color: var(--color-primary-medium);
+}
+
+.ui_sbanner__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.ui_sbanner__title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+
+.ui_sbanner__meta {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-caption);
+  color: var(--text-tertiary);
+}
+
+.ui_sbanner__badge {
+  flex-shrink: 0;
+}

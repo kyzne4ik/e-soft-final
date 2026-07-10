@@ -12,7 +12,7 @@ response:
   statusCode: 422
   statusText: "Unprocessable Entity"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 422,

@@ -1,0 +1,119 @@
+.ui_sevent {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  transition:
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.ui_sevent__clickable {
+  cursor: pointer;
+}
+
+.ui_sevent__clickable:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.ui_sevent__clickable:active {
+  transform: scale(0.995);
+}
+
+.ui_sevent__clickable:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.ui_sevent__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+}
+
+.ui_sevent__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ui_sevent__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+
+.ui_sevent__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.ui_sevent__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.ui_sevent__time > svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.ui_sevent__tag {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.ui_sevent__chev {
+  flex-shrink: 0;
+  margin-left: var(--sp-1);
+  color: var(--text-muted);
+}
+
+.ui_sevent__lecture {
+  background: var(--color-secondary-light);
+}
+
+.ui_sevent__lecture .ui_sevent__icon {
+  background: var(--color-secondary-medium);
+  color: var(--color-secondary-hover);
+}
+
+.ui_sevent__seminar {
+  background: var(--color-success-light);
+}
+
+.ui_sevent__seminar .ui_sevent__icon {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.ui_sevent__deadline {
+  background: var(--color-primary-light);
+}
+
+.ui_sevent__deadline .ui_sevent__icon {
+  background: var(--color-primary-medium);
+  color: var(--color-primary-hover);
+}
+
+.ui_sevent__default {
+  background: var(--surface-subtle);
+}
+
+.ui_sevent__default .ui_sevent__icon {
+  background: var(--surface-muted);
+  color: var(--text-tertiary);
+}

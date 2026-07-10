@@ -39,6 +39,7 @@
 .ui_toast__center {
   align-items: center;
 }
+
 .ui_toast__start {
   align-items: flex-start;
 }
@@ -82,6 +83,7 @@
   cursor: pointer;
   transition: color var(--transition-fast);
 }
+
 .ui_toast__close:hover {
   color: var(--text-primary);
 }
@@ -90,6 +92,7 @@
   border-color: var(--color-info);
   background-color: var(--color-info-light);
 }
+
 .ui_toast__info .ui_toast__badge {
   background-color: var(--color-info);
   color: var(--text-inverse);
@@ -99,6 +102,7 @@
   border-color: var(--color-success);
   background-color: var(--color-success-light);
 }
+
 .ui_toast__success .ui_toast__badge {
   background-color: var(--color-success);
   color: var(--text-inverse);
@@ -108,6 +112,7 @@
   border-color: var(--color-warning);
   background-color: var(--color-warning-light);
 }
+
 .ui_toast__warning .ui_toast__badge {
   background-color: var(--color-warning);
   color: var(--color-gray-900);
@@ -117,6 +122,7 @@
   border-color: var(--color-error);
   background-color: var(--color-error-light);
 }
+
 .ui_toast__error .ui_toast__badge {
   background-color: var(--color-error);
   color: var(--text-inverse);

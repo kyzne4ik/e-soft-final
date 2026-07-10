@@ -9,6 +9,18 @@ import { count, eq, and } from "drizzle-orm";
 import { IStreamMentorRepository } from "./stream-mentor.types";
 import { StreamMentorQuery, StreamMentorWithUserDto } from "@repo/schemas";
 
+const mentorWithUserFields = {
+  streamId: streamMentor.streamId,
+  mentorId: streamMentor.mentorId,
+  joinedAt: streamMentor.joinedAt,
+  userId: users.id,
+  firstName: users.firstName,
+  lastName: users.lastName,
+  patronymic: users.patronymic,
+  email: users.email,
+  role: users.role,
+} as const;
+
 export class StreamMentorRepository implements IStreamMentorRepository {
   constructor(private db: DatabaseType) {}
 
@@ -21,20 +33,10 @@ export class StreamMentorRepository implements IStreamMentorRepository {
 
     const [data, totalRows] = await Promise.all([
       this.db
-        .select({
-          streamId: streamMentor.streamId,
-          mentorId: streamMentor.mentorId,
-          joinedAt: streamMentor.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(mentorWithUserFields)
         .from(streamMentor)
-        .leftJoin(mentorProfile, eq(mentorProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamMentor.mentorId))
+        .leftJoin(mentorProfile, eq(mentorProfile.id, streamMentor.mentorId))
+        .leftJoin(users, eq(users.id, mentorProfile.userId))
         .where(eq(streamMentor.streamId, streamId))
         .limit(limit)
         .offset(offset),
@@ -71,20 +73,10 @@ export class StreamMentorRepository implements IStreamMentorRepository {
       if (!row) throw new Error("Ошибка при добавлении ментора в поток");
 
       const [sm] = await tx
-        .select({
-          streamId: streamMentor.streamId,
-          mentorId: streamMentor.mentorId,
-          joinedAt: streamMentor.joinedAt,
-          userId: users.id,
-          firstName: users.firstName,
-          lastName: users.lastName,
-          patronymic: users.patronymic,
-          email: users.email,
-          role: users.role,
-        })
+        .select(mentorWithUserFields)
         .from(streamMentor)
-        .leftJoin(mentorProfile, eq(mentorProfile.userId, users.id))
-        .leftJoin(users, eq(users.id, streamMentor.mentorId))
+        .leftJoin(mentorProfile, eq(mentorProfile.id, streamMentor.mentorId))
+        .leftJoin(users, eq(users.id, mentorProfile.userId))
         .where(
           and(
             eq(streamMentor.streamId, streamId),

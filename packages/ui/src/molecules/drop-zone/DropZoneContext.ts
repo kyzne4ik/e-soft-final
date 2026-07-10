@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-  type RefObject,
-} from "react";
+import { useCallback, useState, type RefObject } from "react";
+import { createStrictContext, useStrictContext } from "../../libs/react/react";
 
 export type DropZoneFileStatus = "pending" | "uploading" | "done" | "error";
 
@@ -32,20 +27,20 @@ export interface DropZoneContextValue {
   setDragging: (value: boolean) => void;
 }
 
-export const DropZoneContext = createContext<DropZoneContextValue | null>(null);
+export const DropZoneContext = createStrictContext<DropZoneContextValue>();
 
-export const useDropZone = (): DropZoneContextValue => {
-  const ctx = useContext(DropZoneContext);
-  if (!ctx) {
-    throw new Error("DropZone.* должен использоваться внутри <DropZone>");
+export const useDropZone = (): DropZoneContextValue =>
+  useStrictContext(DropZoneContext);
+
+export const DropZoneItemContext = createStrictContext<DropZoneFile>();
+
+export const useDropZoneItem = (): DropZoneFile | null => {
+  try {
+    return useStrictContext(DropZoneItemContext);
+  } catch {
+    return null;
   }
-  return ctx;
 };
-
-export const DropZoneItemContext = createContext<DropZoneFile | null>(null);
-
-export const useDropZoneItem = (): DropZoneFile | null =>
-  useContext(DropZoneItemContext);
 
 export function useControllableState<T>(
   controlled: T | undefined,

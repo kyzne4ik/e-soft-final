@@ -11,6 +11,11 @@ import { FastifyReply, FastifyRequest } from "fastify";
 export interface IReviewRepository {
   findById: (id: number) => Promise<ReviewDto | null>;
   findStudentUserId: (submissionId: number) => Promise<number | null>;
+  findStudentNotificationContext: (submissionId: number) => Promise<{
+    studentUserId: number;
+    taskId: number;
+    taskTitle: string;
+  } | null>;
   create: (data: CreateReviewRepositoryPayload) => Promise<ReviewDto>;
   update: (
     id: number,

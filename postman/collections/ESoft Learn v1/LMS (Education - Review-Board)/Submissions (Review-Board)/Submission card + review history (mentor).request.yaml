@@ -6,4 +6,5 @@ pathVariables:
   value: "6"
 documentation:
   content: "Карточка сдачи + история ревью (-id = submissionId). Ментор."
+examples: "./.resources/Submission card + review history (mentor).resources/examples"
 order: 8000

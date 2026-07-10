@@ -16,6 +16,8 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 export interface IStreamRepository {
   findAll: (filters?: StreamQuery) => Promise<PaginationResponse<StreamDto>>;
+  findByStudent: (studentId: number) => Promise<StreamDto[]>;
+  findByMentor: (mentorId: number) => Promise<StreamDto[]>;
   findById: (id: number) => Promise<StreamDto | null>;
   create: (data: CreateStreamRepositoryPayload) => Promise<StreamDto | null>;
   update: (
@@ -37,6 +39,8 @@ export interface IStreamService {
     filters?: StreamQuery,
   ) => Promise<PaginationResponse<StreamResponse>>;
   getStream: (id: number) => Promise<StreamResponse | null>;
+  getStreamsByStudent: (studentId: number) => Promise<StreamResponse[]>;
+  getStreamsByMentor: (mentorId: number) => Promise<StreamResponse[]>;
   createStream: (data: CreateStreamPayload) => Promise<StreamResponse>;
   updateStream: (
     id: number,
@@ -53,6 +57,14 @@ export interface IStreamService {
 export interface IStreamController {
   getAll: (req: FastifyRequest, rep: FastifyReply) => Promise<FastifyReply>;
   getById: (req: FastifyRequest, rep: FastifyReply) => Promise<FastifyReply>;
+  getMyStudentStreams: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  getMyMentorStreams: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
   create: (req: FastifyRequest, rep: FastifyReply) => Promise<FastifyReply>;
   update: (req: FastifyRequest, rep: FastifyReply) => Promise<FastifyReply>;
   delete: (req: FastifyRequest, rep: FastifyReply) => Promise<FastifyReply>;

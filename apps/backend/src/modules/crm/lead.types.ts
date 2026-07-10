@@ -13,6 +13,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 export interface ILeadRepository {
   findAll: (filters?: LeadQuery) => Promise<PaginationResponse<LeadDto>>;
   findById: (id: number) => Promise<LeadDto | null>;
+  findAcceptedByEmail: (email: string) => Promise<LeadDto | null>;
   create: (data: CreateManualLeadPayload) => Promise<LeadDto>;
   upsertByEmail: (data: UpsertLeadRepositoryPayload) => Promise<LeadDto>;
   updateStatus: (
@@ -20,6 +21,7 @@ export interface ILeadRepository {
     status: LeadStatus,
     managerId: number,
   ) => Promise<LeadDto | null>;
+  updateStatusSystem: (id: number, status: LeadStatus) => Promise<void>;
   linkConvertedUser: (email: string, userId: number) => Promise<void>;
 }
 

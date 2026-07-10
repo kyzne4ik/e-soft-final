@@ -2,11 +2,7 @@ import { classNames } from "../../libs/classNames";
 import css from "./ProgressBar.module.css";
 
 export type ProgressBarColor =
-  | "primary"
-  | "success"
-  | "warning"
-  | "error"
-  | "info";
+  "primary" | "success" | "warning" | "error" | "info";
 
 const COLOR_CLASS: Record<ProgressBarColor, string> = {
   primary: css.ui_pbar__fill__primary,

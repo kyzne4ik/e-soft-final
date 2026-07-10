@@ -16,6 +16,7 @@ export const inviteStorePayloadSchema = z.object({
   lastName: z.string().min(1),
   patronymic: z.string().nullable().optional(),
   role: roleSchema,
+  targetStreamId: z.number().int().positive().nullable().optional(),
   ttlSeconds: z.number().int().positive().max(SEVEN_DAYS).default(ONE_DAY),
 });
 

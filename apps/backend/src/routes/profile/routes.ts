@@ -22,6 +22,12 @@ export default async function profileRoutes(fastify: FastifyInstance) {
   );
 
   fastify.patch(
+    "/",
+    { schema: { tags: ["Profile"], summary: "Редактировать свой профиль" } },
+    controller.updateProfile,
+  );
+
+  fastify.patch(
     "/password",
     { schema: { tags: ["Profile"], summary: "Сменить пароль" } },
     controller.changePassword,

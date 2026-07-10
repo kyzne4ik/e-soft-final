@@ -14,4 +14,5 @@ body:
     }
 documentation:
   content: "Оставить ревью на сдачу (-id = submissionId). Ментор своих студентов. verdict двигает статус сдачи."
+examples: "./.resources/Create Review.resources/examples"
 order: 1000

@@ -1,0 +1,48 @@
+$kind: "http-example"
+name: Submission card + review history (mentor) (200)
+request:
+  url: "{{baseUrl}}/api/lms/submissions/mentor/:id"
+  method: "GET"
+  pathVariables:
+    - key: "id"
+      value: "6"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "submission": {
+                  "id": 6,
+                  "taskId": 11,
+                  "studentId": 13,
+                  "streamId": 1,
+                  "repoLink": "https://github.com/student1/hw-1",
+                  "status": "CHANGES_REQUESTED",
+                  "createdAt": "2026-06-22T07:22:05.084Z",
+                  "studentFirstName": "Иван",
+                  "studentLastName": "Иванов",
+                  "taskTitle": "Домашнее задание #1",
+                  "taskDeadline": "2026-07-01T20:59:00.000Z",
+                  "taskDescription": "Реализуй CRUD для сущности User с использованием Express и Drizzle ORM."
+              },
+              "reviews": [
+                  {
+                      "id": 3,
+                      "submissionId": 6,
+                      "mentorId": 2,
+                      "score": 60,
+                      "comment": "Нет валидации входных данных. Добавь zod-схемы.",
+                      "reviewedAt": "2026-06-25T14:30:00.000Z",
+                      "mentorFirstName": "Алексей",
+                      "mentorLastName": "Смирнов"
+                  }
+              ]
+          }
+      }
+order: 1000

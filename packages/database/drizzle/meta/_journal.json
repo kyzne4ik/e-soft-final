@@ -43,6 +43,41 @@
       "when": 1783320882551,
       "tag": "0005_past_maximus",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1783561828230,
+      "tag": "0006_typical_christian_walker",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1783580998686,
+      "tag": "0007_bitter_vampiro",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1783635735606,
+      "tag": "0008_heavy_inertia",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1783637114482,
+      "tag": "0009_thick_puck",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1783651618022,
+      "tag": "0010_numerous_the_twelve",
+      "breakpoints": true
     }
   ]
 }

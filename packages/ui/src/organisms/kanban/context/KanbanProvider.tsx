@@ -1,6 +1,20 @@
-import { ReactNode, Reducer, useReducer } from "react";
-import { kanbanContext } from "./KanbanContext";
-import { KanbanBoard, KanbanCard } from "../model/types";
+import {
+  useReducer,
+  useRef,
+  useState,
+  type ReactNode,
+  type Reducer,
+} from "react";
+import { kanbanContext, type KanbanDragState } from "./KanbanContext";
+import type { KanbanBoard, KanbanCard } from "../model/types";
+
+const NO_DRAG: KanbanDragState = {
+  cardId: null,
+  fromColumnId: null,
+  overColumnId: null,
+  overIndex: null,
+  cardHeight: null,
+};
 
 type Actions =
   | {
@@ -45,8 +59,6 @@ const reducer: Reducer<KanbanBoard, Actions> = (state, action) => {
 
       const movedCard = fromCol.cards[cardIndex];
 
-      // Перемещение внутри одной колонки: убираем и вставляем в одном массиве,
-      // иначе ветка fromIndex затрёт вставку в ту же колонку.
       if (fromIndex === toIndex) {
         const cards = [...fromCol.cards];
         cards.splice(cardIndex, 1);
@@ -109,6 +121,38 @@ export function KanbanProvider({
     initialBoard ?? { columns: [] },
   );
 
+  const [dragState, setDragState] = useState<KanbanDragState>(NO_DRAG);
+  const dragStateRef = useRef(dragState);
+
+  const applyDrag = (next: KanbanDragState) => {
+    dragStateRef.current = next;
+    setDragState(next);
+  };
+
+  const getDragState = () => dragStateRef.current;
+
+  const beginDrag = (
+    cardId: string,
+    fromColumnId: string,
+    cardHeight: number,
+  ) =>
+    applyDrag({
+      cardId,
+      fromColumnId,
+      overColumnId: null,
+      overIndex: null,
+      cardHeight,
+    });
+
+  const setDropTarget = (columnId: string, index: number) => {
+    const cur = dragStateRef.current;
+    if (!cur.cardId) return;
+    if (cur.overColumnId === columnId && cur.overIndex === index) return;
+    applyDrag({ ...cur, overColumnId: columnId, overIndex: index });
+  };
+
+  const endDrag = () => applyDrag(NO_DRAG);
+
   const moveCard = (
     cardId: string,
     fromColumnId: string,
@@ -127,7 +171,17 @@ export function KanbanProvider({
 
   return (
     <kanbanContext.Provider
-      value={{ board: state, moveCard, addCard, removeCard }}
+      value={{
+        board: state,
+        moveCard,
+        addCard,
+        removeCard,
+        dragState,
+        beginDrag,
+        setDropTarget,
+        endDrag,
+        getDragState,
+      }}
     >
       {children}
     </kanbanContext.Provider>

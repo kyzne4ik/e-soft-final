@@ -18,6 +18,11 @@
   color: var(--text-muted);
 }
 
+.ui_textarea__required {
+  margin-left: 2px;
+  color: var(--color-error);
+}
+
 .ui_textarea__field {
   box-sizing: border-box;
   min-height: 120px;

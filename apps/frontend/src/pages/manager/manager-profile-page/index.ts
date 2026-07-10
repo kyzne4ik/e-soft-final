@@ -1,0 +1,1 @@
+export { ManagerProfilePage } from "./ManagerProfilePageAsync";

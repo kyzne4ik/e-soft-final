@@ -25,13 +25,11 @@ export class UserRepository implements IUsersRepository {
   async findAll(
     filters: UserFilters = {},
   ): Promise<PaginationResponse<UserWithProfileDto>> {
-    const { role, isActivated, page = 1, limit = 20 } = filters;
+    const { role, page = 1, limit = 20 } = filters;
     const offset = (page - 1) * limit;
 
     const conditions = [];
     if (role) conditions.push(eq(users.role, role));
-    if (isActivated !== undefined)
-      conditions.push(eq(users.isActivated, isActivated));
     const where = conditions.length ? and(...conditions) : undefined;
 
     const [rows, totalRows] = await Promise.all([
@@ -44,7 +42,6 @@ export class UserRepository implements IUsersRepository {
           email: users.email,
           passwordHash: users.passwordHash,
           role: users.role,
-          isActivated: users.isActivated,
           createdAt: users.createdAt,
           updatedAt: users.updatedAt,
           studentProfileId: studentProfile.id,
@@ -78,7 +75,6 @@ export class UserRepository implements IUsersRepository {
         email: users.email,
         passwordHash: users.passwordHash,
         role: users.role,
-        isActivated: users.isActivated,
         createdAt: users.createdAt,
         updatedAt: users.updatedAt,
         studentProfileId: studentProfile.id,
@@ -104,7 +100,6 @@ export class UserRepository implements IUsersRepository {
         email: users.email,
         passwordHash: users.passwordHash,
         role: users.role,
-        isActivated: users.isActivated,
         createdAt: users.createdAt,
         updatedAt: users.updatedAt,
         studentProfileId: studentProfile.id,

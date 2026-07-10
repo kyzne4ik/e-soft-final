@@ -8,8 +8,6 @@ export const leadStatusSchema = z.enum([
   "ACCEPTED",
   "REJECTED",
   "IGNORED",
-  "LOST",
-  "ARCHIVED",
 ]);
 
 export type LeadStatus = z.infer<typeof leadStatusSchema>;

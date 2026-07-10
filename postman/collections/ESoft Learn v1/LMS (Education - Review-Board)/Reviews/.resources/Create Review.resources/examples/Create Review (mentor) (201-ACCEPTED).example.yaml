@@ -1,0 +1,35 @@
+$kind: "http-example"
+name: Create Review (mentor) (201) — ACCEPTED
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id/reviews"
+  method: "POST"
+  pathVariables:
+    - key: "id"
+      value: "11"
+  body:
+    type: "json"
+    content: |-
+      {
+          "score": 95,
+          "comment": "Отличная работа, всё чисто!",
+          "verdict": "ACCEPTED"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Ревью создано",
+          "data": {
+              "id": 7,
+              "submissionId": 11,
+              "mentorId": 2,
+              "score": 95,
+              "comment": "Отличная работа, всё чисто!"
+          }
+      }
+order: 1000

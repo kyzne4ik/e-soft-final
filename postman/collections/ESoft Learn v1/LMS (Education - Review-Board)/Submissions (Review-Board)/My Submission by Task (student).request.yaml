@@ -6,4 +6,5 @@ pathVariables:
   value: "2"
 documentation:
   content: "Своя сдача по задаче + ревью (-id = taskId). Студент."
+examples: "./.resources/My Submission by Task (student).resources/examples"
 order: 11000

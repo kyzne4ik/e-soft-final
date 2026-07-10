@@ -4,6 +4,7 @@ import {
   createStreamPayloadSchema,
   updateStreamPayloadSchema,
 } from "@repo/schemas";
+import { ForbiddenError } from "@error";
 import { ResponseToolKit } from "@utils";
 import { StreamService } from "./stream.service";
 import { IStreamController } from "./stream.types";
@@ -28,6 +29,30 @@ export class StreamController implements IStreamController {
   ): Promise<FastifyReply> => {
     const { id } = idParamSchema.parse(req.params);
     const result = await this.streamService.getStream(id);
+
+    return rep.send(ResponseToolKit.success(result));
+  };
+
+  getMyStudentStreams = async (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ): Promise<FastifyReply> => {
+    const profileId = req.currentUser?.profileId;
+    if (!profileId) throw new ForbiddenError("Профиль студента не найден");
+
+    const result = await this.streamService.getStreamsByStudent(profileId);
+
+    return rep.send(ResponseToolKit.success(result));
+  };
+
+  getMyMentorStreams = async (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ): Promise<FastifyReply> => {
+    const profileId = req.currentUser?.profileId;
+    if (!profileId) throw new ForbiddenError("Профиль ментора не найден");
+
+    const result = await this.streamService.getStreamsByMentor(profileId);
 
     return rep.send(ResponseToolKit.success(result));
   };

@@ -28,7 +28,7 @@ export const WithAction: Story = {
     text: "Начните обучение — выберите первый курс из каталога.",
     action: (
       <Button>
-        <Icon name="plus" size={17} />
+        <Icon name="plus" size={18} />
         Выбрать курс
       </Button>
     ),

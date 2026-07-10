@@ -12,4 +12,5 @@ body:
     }
 documentation:
   content: "Обновить своё решение (студент)."
+examples: "./.resources/Update Own Submission (student).resources/examples"
 order: 9000

@@ -1,0 +1,114 @@
+.ui_modal_section {
+  display: flex;
+  height: min(560px, 70vh);
+}
+
+.ui_modal_section__nav {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-4);
+  background: var(--surface-subtle);
+  border-right: 1px solid var(--surface-border);
+  overflow-y: auto;
+}
+
+.ui_modal_section__navitem {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base);
+}
+
+.ui_modal_section__navitem:hover {
+  background: var(--surface-muted);
+  color: var(--text-primary);
+}
+
+.ui_modal_section__navitem:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.ui_modal_section__navitem__active,
+.ui_modal_section__navitem__active:hover {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui_modal_section__navitem > svg {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.ui_modal_section__navitem__active > svg {
+  color: var(--text-primary);
+}
+
+.ui_modal_section__panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--sp-5);
+  overflow-y: auto;
+}
+
+.ui_modal_section__title {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-headline);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.ui_modal_section__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--surface-border);
+  margin-bottom: var(--sp-5);
+}
+
+.ui_modal_section__row:last-child {
+  border-bottom: none;
+}
+
+.ui_modal_section__row__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ui_modal_section__row__title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+.ui_modal_section__row__desc {
+  font-size: var(--text-xs);
+  line-height: var(--leading-caption);
+  color: var(--text-tertiary);
+}
+
+.ui_modal_section__row__control {
+  flex-shrink: 0;
+}

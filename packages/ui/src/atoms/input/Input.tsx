@@ -31,6 +31,7 @@ export function Input({
   className,
   id,
   disabled,
+  required,
   ...rest
 }: InputProps) {
   const generatedId = useId();
@@ -51,6 +52,15 @@ export function Input({
           })}
         >
           {label}
+          {required ? (
+            <span
+              className={css.ui_input__required}
+              aria-hidden
+              title="Обязательное поле"
+            >
+              *
+            </span>
+          ) : null}
         </label>
       ) : null}
       <input
@@ -64,6 +74,7 @@ export function Input({
           [VARIANT_CLASS[variant]],
         )}
         disabled={disabled}
+        aria-required={required || undefined}
         aria-invalid={isError || undefined}
         {...rest}
       />

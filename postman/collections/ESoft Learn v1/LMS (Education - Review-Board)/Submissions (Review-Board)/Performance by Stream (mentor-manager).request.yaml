@@ -6,4 +6,5 @@ pathVariables:
   value: "1"
 documentation:
   content: "Успеваемость по потоку (-id = streamId): средний балл, прогресс."
+examples: "./.resources/Performance by Stream (student).resources/examples"
 order: 10000

@@ -18,6 +18,11 @@
   color: var(--text-muted);
 }
 
+.ui_input__required {
+  margin-left: 2px;
+  color: var(--color-error);
+}
+
 .ui_input__field {
   box-sizing: border-box;
   padding: 12px 16px;

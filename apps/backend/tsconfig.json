@@ -22,6 +22,7 @@
       "@utils": ["./src/libs/utils", "./src/libs/utils/index.ts"],
       "@plugins/*": ["./src/libs/plugins/*"],
       "@telegram": ["./src/libs/telegram/index.ts"],
+      "@telegram/*": ["./src/libs/telegram/*"],
       "@modules/*": ["./src/modules/*"]
     }
   },

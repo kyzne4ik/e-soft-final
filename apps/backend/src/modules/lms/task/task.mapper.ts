@@ -6,6 +6,7 @@ export const taskMap = (t: TaskDto): TaskResponse => ({
   title: t.title,
   description: t.description,
   repoTemplate: t.repoTemplate,
+  recordLink: t.recordLink,
   deadline: t.deadline,
 });
 

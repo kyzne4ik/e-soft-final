@@ -1,4 +1,8 @@
-import { NotificationResponse, CreateNotificationPayload } from "@repo/schemas";
+import {
+  NotificationResponse,
+  CreateNotificationPayload,
+  UnreadCountResponse,
+} from "@repo/schemas";
 import { PaginationResponse } from "@types";
 import { enqueueTelegram } from "@bull";
 import { NotFoundError } from "@error/not-found.error";
@@ -36,8 +40,9 @@ export class NotificationService implements INotificationService {
     return notificationMap(n);
   }
 
-  async getUnreadCount(userId: number): Promise<number> {
-    return await this.notificationRepo.countUnread(userId);
+  async getUnreadCount(userId: number): Promise<UnreadCountResponse> {
+    const count = await this.notificationRepo.countUnread(userId);
+    return { count };
   }
 
   async markRead(id: number, userId: number): Promise<NotificationResponse> {

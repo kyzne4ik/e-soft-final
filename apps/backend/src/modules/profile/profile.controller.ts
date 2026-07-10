@@ -1,6 +1,7 @@
 import {
   bindTelegramPayloadSchema,
   changePasswordPayloadSchema,
+  updateProfilePayloadSchema,
 } from "@repo/schemas";
 import { getCurrentUser } from "@utils";
 import { ResponseToolKit } from "@utils/response";
@@ -20,6 +21,17 @@ export class ProfileController implements IProfileController {
     await this.profileService.changePassword(user.id, body);
 
     return rep.send(ResponseToolKit.success(null, "Пароль изменён"));
+  };
+
+  updateProfile = async (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ): Promise<FastifyReply> => {
+    const { user } = getCurrentUser(req);
+    const body = updateProfilePayloadSchema.parse(req.body);
+
+    const data = await this.profileService.updateProfile(user.id, body);
+    return rep.send(ResponseToolKit.success(data, "Профиль обновлён"));
   };
 
   getTelegram = async (

@@ -48,7 +48,6 @@ export class UserService implements IUsersService {
       const user = await this.userRepository.createWithProfile({
         ...rest,
         passwordHash,
-        isActivated: true,
       });
       return userMap(user);
     } catch (e) {

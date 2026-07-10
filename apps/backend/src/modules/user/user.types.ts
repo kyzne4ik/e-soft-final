@@ -21,7 +21,6 @@ export type UpdateUserRepositoryPayload = {
 
 export type UserFilters = {
   role?: Role | undefined;
-  isActivated?: boolean | undefined;
   page?: number | undefined;
   limit?: number | undefined;
 };

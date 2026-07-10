@@ -1,7 +1,9 @@
 import {
   UserDto,
+  UserResponse,
   UserTelegramResponse,
   ChangePasswordPayload,
+  UpdateProfilePayload,
   CreateUserTelegramPayload,
   GenerateLinkResponse,
 } from "@repo/schemas";
@@ -12,6 +14,10 @@ export interface IProfileService {
     userId: number,
     data: ChangePasswordPayload,
   ) => Promise<void>;
+  updateProfile: (
+    userId: number,
+    data: UpdateProfilePayload,
+  ) => Promise<UserResponse>;
   getTelegram: (userId: number) => Promise<UserTelegramResponse | null>;
   bindTelegram: (
     userId: number,
@@ -25,6 +31,10 @@ export interface IProfileService {
 
 export interface IProfileController {
   changePassword: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  updateProfile: (
     req: FastifyRequest,
     rep: FastifyReply,
   ) => Promise<FastifyReply>;

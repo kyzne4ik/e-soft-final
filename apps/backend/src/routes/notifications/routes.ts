@@ -24,8 +24,11 @@ export default async function notificationsRoutes(fastify: FastifyInstance) {
   fastify.post(
     "/",
     {
-      preHandler: fastify.authorize("MANAGER"),
-      schema: { tags: ["Notifications"], summary: "Создать уведомление" },
+      preHandler: fastify.authorize("MENTOR"),
+      schema: {
+        tags: ["Notifications"],
+        summary: "Создать уведомление (ментор)",
+      },
     },
     controller.create,
   );

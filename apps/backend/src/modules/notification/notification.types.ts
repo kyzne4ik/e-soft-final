@@ -3,6 +3,7 @@ import {
   NotificationDto,
   NotificationResponse,
   NotificationStatus,
+  UnreadCountResponse,
 } from "@repo/schemas";
 import type { PaginationResponse } from "@types";
 import { FastifyReply, FastifyRequest } from "fastify";
@@ -31,7 +32,7 @@ export interface INotificationService {
     filters: NotifyFilters,
   ) => Promise<PaginationResponse<NotificationResponse>>;
   create: (data: CreateNotificationPayload) => Promise<NotificationResponse>;
-  getUnreadCount: (userId: number) => Promise<number>;
+  getUnreadCount: (userId: number) => Promise<UnreadCountResponse>;
   markRead: (id: number, userId: number) => Promise<NotificationResponse>;
   markAllRead: (userId: number) => Promise<number>;
 }

@@ -2,9 +2,9 @@ import css from "./Modal.module.css";
 import { Icon } from "../../atoms/icon";
 import { Text } from "../../atoms/text";
 import { classNames } from "../../libs/classNames";
-import { useClickOutside } from "../../hooks/use-click-outside";
-import { useEventListener } from "../../hooks/use-event-listener";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { useOverlay } from "../../hooks/use-overlay";
+import { type ReactNode } from "react";
+import { withPortal } from "../../hocs/with-portal";
 
 export type ModalSize = "sm" | "default" | "wide";
 
@@ -13,42 +13,22 @@ export interface ModalProps {
   sub?: ReactNode;
   onClose: () => void;
   children: ReactNode;
-  isOpen?: boolean;
+  isOpen: boolean;
   size?: ModalSize;
 }
 
-export function Modal({
+function BaseModal({
   title,
   sub,
   onClose,
   children,
-  isOpen = false,
+  isOpen,
   size = "default",
 }: ModalProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [isMounted, setIsMounted] = useState(isOpen);
-  const [isClosing, setIsClosing] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      setIsMounted(true);
-      setIsClosing(false);
-    } else {
-      setIsClosing(true);
-    }
-  }, [isOpen]);
-
-  const onKeyDown = (event: Event) => {
-    const e = event as KeyboardEvent;
-    if (e.key === "Escape" && isOpen) onClose();
-  };
-
-  const onAnimationEnd = () => {
-    if (isClosing) setIsMounted(false);
-  };
-
-  useClickOutside(ref, onClose);
-  useEventListener("keydown", window, onKeyDown);
+  const { ref, isMounted, isClosing, onAnimationEnd } = useOverlay(
+    isOpen,
+    onClose,
+  );
 
   if (!isMounted) return null;
 
@@ -90,6 +70,8 @@ export function Modal({
     </div>
   );
 }
+
+export const Modal = (props: ModalProps) => withPortal(BaseModal)(props);
 
 Modal.Header = function ModalHeader({ children }: { children: ReactNode }) {
   return <div className={css.ui_modal__header}>{children}</div>;

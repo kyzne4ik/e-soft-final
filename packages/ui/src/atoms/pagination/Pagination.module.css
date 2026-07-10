@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.pagination__nav {
+  gap: var(--sp-1);
+}
+
+.pagination__page {
+  min-width: 32px;
+}

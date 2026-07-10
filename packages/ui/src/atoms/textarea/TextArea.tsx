@@ -39,6 +39,7 @@ export function TextArea({
   className,
   id,
   disabled,
+  required,
   ...rest
 }: TextAreaProps) {
   const generatedId = useId();
@@ -61,6 +62,15 @@ export function TextArea({
           })}
         >
           {label}
+          {required ? (
+            <span
+              className={css.ui_textarea__required}
+              aria-hidden
+              title="Обязательное поле"
+            >
+              *
+            </span>
+          ) : null}
         </label>
       ) : null}
       <textarea
@@ -75,6 +85,7 @@ export function TextArea({
           [RESIZE_CLASS[resize], VARIANT_CLASS[variant]],
         )}
         disabled={disabled}
+        aria-required={required || undefined}
         aria-invalid={isError || undefined}
         {...rest}
       />

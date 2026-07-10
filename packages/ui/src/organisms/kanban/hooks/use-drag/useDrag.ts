@@ -1,72 +1,93 @@
 import { useKanban } from "../../context/KanbanContext";
 
-type UseDragCardParams = {
+type CardParams = {
   cardId: string;
   columnId: string;
 };
 
-type UseDragColumnParams = {
+type ColumnParams = {
   columnId: string;
 };
 
-type DragHandlers = {
+type CardDragHandlers = {
   draggable: true;
   onDragStart: (e: React.DragEvent) => void;
   onDragEnd: (e: React.DragEvent) => void;
 };
 
-type DropHandlers = {
+type ColumnDropHandlers = {
   onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
 };
 
-type UseDragReturn = {
-  dragHandlers: DragHandlers;
-  dropHandlers: DropHandlers;
-};
+export const CARD_MARKER = "data-kanban-card";
 
-export function useDrag(
-  card: UseDragCardParams,
-  column: UseDragColumnParams,
-): UseDragReturn {
-  const { moveCard, board } = useKanban();
+export function useCardDrag({ cardId, columnId }: CardParams): {
+  handlers: CardDragHandlers;
+  isDragging: boolean;
+} {
+  const { dragState, beginDrag, endDrag } = useKanban();
 
-  const dragHandlers: DragHandlers = {
+  const handlers: CardDragHandlers = {
     draggable: true,
 
     onDragStart(e) {
-      e.dataTransfer.setData("cardId", card.cardId);
-      e.dataTransfer.setData("fromColumnId", card.columnId);
+      e.dataTransfer.setData("cardId", cardId);
+      e.dataTransfer.setData("fromColumnId", columnId);
       e.dataTransfer.effectAllowed = "move";
+      const height = e.currentTarget.getBoundingClientRect().height;
+      beginDrag(cardId, columnId, height);
     },
 
-    onDragEnd(e) {
-      e.dataTransfer.clearData();
+    onDragEnd() {
+      endDrag();
     },
   };
 
-  const dropHandlers: DropHandlers = {
+  return { handlers, isDragging: dragState.cardId === cardId };
+}
+
+export function useColumnDrop({ columnId }: ColumnParams): ColumnDropHandlers {
+  const { moveCard, setDropTarget, endDrag, getDragState } = useKanban();
+
+  const resolveIndex = (column: Element, pointerY: number): number => {
+    const cards = Array.from(
+      column.querySelectorAll<HTMLElement>(`[${CARD_MARKER}]`),
+    );
+
+    for (let i = 0; i < cards.length; i++) {
+      const rect = cards[i].getBoundingClientRect();
+      if (pointerY < rect.top + rect.height / 2) return i;
+    }
+
+    return cards.length;
+  };
+
+  return {
     onDragOver(e) {
+      if (!getDragState().cardId) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
+      setDropTarget(columnId, resolveIndex(e.currentTarget, e.clientY));
     },
-
-    onDragLeave() {},
 
     onDrop(e) {
       e.preventDefault();
       const cardId = e.dataTransfer.getData("cardId");
       const fromColumnId = e.dataTransfer.getData("fromColumnId");
+      if (!cardId) {
+        endDrag();
+        return;
+      }
 
-      if (!cardId) return;
+      const ds = getDragState();
+      const toIndex =
+        ds.overColumnId === columnId && ds.overIndex != null
+          ? ds.overIndex
+          : resolveIndex(e.currentTarget, e.clientY);
 
-      const toCol = board.columns.find((c) => c.id === column.columnId);
-      const toIndex = toCol ? toCol.cards.length : 0;
-
-      moveCard(cardId, fromColumnId, column.columnId, toIndex);
+      moveCard(cardId, fromColumnId, columnId, toIndex);
+      endDrag();
     },
   };
-
-  return { dragHandlers, dropHandlers };
 }

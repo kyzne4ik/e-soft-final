@@ -176,7 +176,7 @@ const renderBoard = (data: KanbanBoard, withAddTask = true) => (
     <Kanban board={data}>
       {({ col }) => (
         <Kanban.Column key={col.id} column={col}>
-          <Kanban.CardList cards={col.cards}>
+          <Kanban.CardList cards={col.cards} columnId={col.id}>
             {({ card }) => (
               <Kanban.Card key={card.id} card={card} columnId={col.id} />
             )}

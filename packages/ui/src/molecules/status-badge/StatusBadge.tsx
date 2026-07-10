@@ -5,13 +5,7 @@ import css from "./StatusBadge.module.css";
 export type StatusKind = "submission" | "lead" | "stream";
 
 type BadgeTone =
-  | "neutral"
-  | "info"
-  | "success"
-  | "warning"
-  | "error"
-  | "primary"
-  | "highprio";
+  "neutral" | "info" | "success" | "warning" | "error" | "primary" | "highprio";
 
 interface BadgeMeta {
   tone: BadgeTone;
@@ -20,8 +14,8 @@ interface BadgeMeta {
 }
 
 const SUBMISSION_MAP: Record<string, BadgeMeta> = {
-  NEW: { tone: "neutral", text: "Новое" },
-  REVIEWING: { tone: "info", text: "На ревью" },
+  NEW: { tone: "info", text: "Сдано", icon: "send" },
+  REVIEWING: { tone: "primary", text: "На ревью", icon: "eye" },
   CHANGES_REQUESTED: { tone: "error", text: "Доработка" },
   RESUBMITTED: { tone: "highprio", text: "Доработано", icon: "refresh-cw" },
   ACCEPTED: { tone: "success", text: "Зачтено", icon: "check" },
@@ -34,7 +28,6 @@ const LEAD_MAP: Record<string, BadgeMeta> = {
   ACCEPTED: { tone: "success", text: "Принят", icon: "check" },
   REJECTED: { tone: "error", text: "Отказ" },
   IGNORED: { tone: "warning", text: "Игнор" },
-  LOST: { tone: "neutral", text: "Потерян" },
 };
 
 const STREAM_MAP: Record<string, BadgeMeta> = {

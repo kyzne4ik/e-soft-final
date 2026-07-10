@@ -20,14 +20,17 @@
     color var(--transition-base),
     border-color var(--transition-base);
 }
+
 .ui_chip__filter:hover {
   background: var(--color-gray-200);
   border-color: var(--color-gray-300);
 }
+
 .ui_chip__filter:focus-visible {
   outline: none;
   box-shadow: var(--shadow-focus);
 }
+
 .ui_chip__selected,
 .ui_chip__selected:hover {
   color: var(--color-primary);
@@ -38,18 +41,22 @@
 .ui_chip__status {
   border: none;
 }
+
 .ui_chip__completed {
   background: var(--color-success-bg);
   color: var(--color-success-text);
 }
+
 .ui_chip__in_progress {
   background: var(--color-primary-medium);
   color: #c2410c;
 }
+
 .ui_chip__not_started {
   background: var(--surface-muted);
   color: var(--text-tertiary);
 }
+
 .ui_chip__locked {
   background: var(--color-gray-200);
   color: var(--text-muted);

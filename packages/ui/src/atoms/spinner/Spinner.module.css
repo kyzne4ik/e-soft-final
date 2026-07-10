@@ -1,12 +1,15 @@
 .ui_spinner {
   display: inline-block;
+  box-sizing: border-box;
   width: var(--ui-spinner-size, 24px);
   height: var(--ui-spinner-size, 24px);
   border-radius: var(--radius-circle);
-  border: max(2px, calc(var(--ui-spinner-size, 24px) / 8)) solid
+  border: max(2px, round(calc(var(--ui-spinner-size, 24px) / 8), 1px)) solid
     var(--color-gray-200);
   border-top-color: var(--ui-spinner-color, var(--color-primary));
   animation: ui_spinner_spin 0.7s linear infinite;
+  transform-origin: center;
+  will-change: transform;
 }
 
 .ui_spinner__primary {

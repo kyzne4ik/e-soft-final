@@ -3,12 +3,7 @@ import { classNames } from "../../libs/classNames";
 import css from "./Spinner.module.css";
 
 export type SpinnerColor =
-  | "primary"
-  | "success"
-  | "warning"
-  | "error"
-  | "info"
-  | "current";
+  "primary" | "success" | "warning" | "error" | "info" | "current";
 
 const COLOR_CLASS: Record<SpinnerColor, string> = {
   primary: css.ui_spinner__primary,

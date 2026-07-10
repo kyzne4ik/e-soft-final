@@ -1,10 +1,12 @@
 import type {
   ReviewDto,
-  ReviewResponse,
   StreamStatus,
   SubmissionDto,
   SubmissionStatus,
   SubmissionResponse,
+  SubmissionReviewResponse,
+  MentorSubmissionResponse,
+  MentorSubmissionDetail,
   CreateSubmissionPayload,
   UpdateSubmissionPayload,
   CreateSubmissionRepositoryPayload,
@@ -12,6 +14,8 @@ import type {
   StudentPerformanceRow,
   StudentPerformanceResponse,
   SubmissionMentorQuery,
+  MentorJournalQuery,
+  MentorJournalResponse,
 } from "@repo/schemas";
 import { PaginationResponse } from "@types";
 import { FastifyReply, FastifyRequest } from "fastify";
@@ -21,14 +25,63 @@ export type SubmissionEligibility = {
   enrolled: boolean;
 };
 
-export type SubmissionReviewRepositoryResponse = {
-  submission: SubmissionDto | null;
-  reviews: ReviewDto[];
+export type MentorJournalDbRow = {
+  studentId: number;
+  studentUserId: number;
+  studentFirstName: string | null;
+  studentLastName: string | null;
+  studentStatus: "ACTIVE" | "GRADUATED" | "EXPELLED";
+  totalTasks: number;
+  submittedTasks: number;
+  acceptedTasks: number;
+  averageScore: number | null;
+  lastActivityAt: Date | null;
 };
 
-export type SubmissionReviewResponse = {
-  submission: SubmissionResponse | null;
-  reviews: ReviewResponse[];
+export type StudentReviewRow = {
+  id: number;
+  submissionId: number;
+  mentorId: number;
+  score: number;
+  comment: string;
+  reviewedAt: Date;
+  mentorFirstName: string | null;
+  mentorLastName: string | null;
+};
+
+export type SubmissionReviewRepositoryResponse = {
+  submission: SubmissionDto | null;
+  reviews: StudentReviewRow[];
+};
+
+export type MentorSubmissionRow = {
+  id: number;
+  taskId: number;
+  studentId: number;
+  streamId: number;
+  repoLink: string;
+  status: SubmissionStatus;
+  createdAt: Date;
+  studentFirstName: string | null;
+  studentLastName: string | null;
+  taskTitle: string;
+  taskDeadline: Date;
+};
+
+export type MentorReviewRow = {
+  id: number;
+  submissionId: number;
+  mentorId: number;
+  score: number;
+  comment: string;
+  reviewedAt: Date;
+  mentorFirstName: string | null;
+  mentorLastName: string | null;
+};
+
+export type MentorSubmissionDetailRow = {
+  submission: (MentorSubmissionRow & { taskDescription: string }) | null;
+  reviews: MentorReviewRow[];
 };
 
 export interface ISubmissionRepository {
@@ -43,13 +96,26 @@ export interface ISubmissionRepository {
   findMentorSubmissions: (
     mentorId: number,
     filters?: SubmissionMentorQuery,
-  ) => Promise<PaginationResponse<SubmissionDto>>;
+  ) => Promise<PaginationResponse<MentorSubmissionRow>>;
   findMentorSubmissionById: (
     submissionId: number,
     mentorId: number,
-  ) => Promise<SubmissionReviewRepositoryResponse>;
+  ) => Promise<MentorSubmissionDetailRow>;
+  findMentorJournal: (
+    mentorId: number,
+    streamId: number,
+  ) => Promise<MentorJournalDbRow[]>;
   findById: (id: number) => Promise<SubmissionDto | null>;
   findStudentUserId: (submissionId: number) => Promise<number | null>;
+  findMentorUserIdBySubmission: (
+    submissionId: number,
+  ) => Promise<number | null>;
+  findMentorNotificationContext: (submissionId: number) => Promise<{
+    mentorUserId: number;
+    studentFirstName: string | null;
+    studentLastName: string | null;
+    taskTitle: string;
+  } | null>;
   switchStatus: (
     submissionId: number,
     status: SubmissionStatus,
@@ -65,7 +131,7 @@ export interface ISubmissionService {
   getMentorSubmissions: (
     mentorId: number,
     filters?: SubmissionMentorQuery,
-  ) => Promise<PaginationResponse<SubmissionResponse>>;
+  ) => Promise<PaginationResponse<MentorSubmissionResponse>>;
   getStudentPerformance: (
     streamId: number,
     studentId: number,
@@ -77,7 +143,11 @@ export interface ISubmissionService {
   getMentorSubmissionById: (
     submissionId: number,
     mentorId: number,
-  ) => Promise<SubmissionReviewResponse>;
+  ) => Promise<MentorSubmissionDetail>;
+  getMentorJournal: (
+    mentorId: number,
+    streamId: number,
+  ) => Promise<MentorJournalResponse>;
   getSubmission: (id: number) => Promise<SubmissionResponse | null>;
   switchStatusSubmission: (
     studentId: number,
@@ -109,6 +179,10 @@ export interface ISubmissionController {
     rep: FastifyReply,
   ) => Promise<FastifyReply>;
   getMentorSubmissionById: (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ) => Promise<FastifyReply>;
+  getMentorJournal: (
     req: FastifyRequest,
     rep: FastifyReply,
   ) => Promise<FastifyReply>;

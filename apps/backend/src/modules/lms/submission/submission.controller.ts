@@ -1,6 +1,7 @@
 import {
   idParamSchema,
   submissionMentorQuerySchema,
+  mentorJournalQuerySchema,
   createSubmissionPayloadSchema,
   updateSubmissionPayloadSchema,
   switchSubmissionStatusPayloadSchema,
@@ -65,6 +66,20 @@ export class SubmissionController implements ISubmissionController {
     const result = await this.submissionService.getMentorSubmissionById(
       id,
       mentorId,
+    );
+
+    return rep.send(ResponseToolKit.success(result));
+  };
+
+  getMentorJournal = async (
+    req: FastifyRequest,
+    rep: FastifyReply,
+  ): Promise<FastifyReply> => {
+    const mentorId = this.requireProfileId(req, "Профиль ментора не найден");
+    const { streamId } = mentorJournalQuerySchema.parse(req.query);
+    const result = await this.submissionService.getMentorJournal(
+      mentorId,
+      streamId,
     );
 
     return rep.send(ResponseToolKit.success(result));

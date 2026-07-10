@@ -1,6 +1,7 @@
 import {
   users,
   reviews,
+  tasks,
   submission,
   DatabaseType,
   studentProfile,
@@ -35,6 +36,27 @@ export class ReviewRepository implements IReviewRepository {
       .limit(1);
 
     return row?.userId ?? null;
+  }
+
+  async findStudentNotificationContext(submissionId: number): Promise<{
+    studentUserId: number;
+    taskId: number;
+    taskTitle: string;
+  } | null> {
+    const [row] = await this.db
+      .select({
+        studentUserId: users.id,
+        taskId: submission.taskId,
+        taskTitle: tasks.title,
+      })
+      .from(submission)
+      .innerJoin(tasks, eq(tasks.id, submission.taskId))
+      .innerJoin(studentProfile, eq(studentProfile.id, submission.studentId))
+      .innerJoin(users, eq(users.id, studentProfile.userId))
+      .where(eq(submission.id, submissionId))
+      .limit(1);
+
+    return row ?? null;
   }
 
   async create(data: CreateReviewRepositoryPayload): Promise<ReviewDto> {

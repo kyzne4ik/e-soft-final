@@ -5,32 +5,41 @@ import {
   CreateSubmissionPayload,
   UpdateSubmissionPayload,
   StudentPerformanceResponse,
-} from "@repo/schemas";
-import {
-  ISubmissionService,
   SubmissionReviewResponse,
-  SubmissionReviewRepositoryResponse,
-} from "./submission.types";
+  MentorSubmissionResponse,
+  MentorSubmissionDetail,
+  MentorJournalResponse,
+} from "@repo/schemas";
+import { ISubmissionService } from "./submission.types";
 import { NotFoundError } from "@error";
+import { ConflictError } from "@error/conflict.error";
 import { PaginationResponse } from "@types";
 import { isPgError, PG } from "@repo/database";
-import { reviewsMap } from "./review/review.mapper";
 import { StreamGuard } from "../stream/stream.guard";
 import { SubmissionGuard } from "./submission.guard";
 import { SubmissionRepository } from "./submission.repository";
-import { submissionMap, submissionsMap } from "./submission.mapper";
+import {
+  submissionMap,
+  mentorSubmissionsMap,
+  mentorSubmissionDetailMap,
+  submissionReviewMap,
+} from "./submission.mapper";
+import { NotificationService } from "@modules/notification/notification.service";
+import { buildMentorSubmissionLink } from "@utils/build-links";
+import { SubmissionTemplate } from "@telegram/templates";
 
 export class SubmissionService implements ISubmissionService {
   constructor(
     private submissionRepo: SubmissionRepository,
     private submissionGuard: SubmissionGuard,
     private streamGuard: StreamGuard,
+    private notificationService: NotificationService,
   ) {}
 
   async getMentorSubmissions(
     mentorId: number,
     filters?: SubmissionMentorQuery,
-  ): Promise<PaginationResponse<SubmissionResponse>> {
+  ): Promise<PaginationResponse<MentorSubmissionResponse>> {
     const submissions = await this.submissionRepo.findMentorSubmissions(
       mentorId,
       filters,
@@ -38,7 +47,7 @@ export class SubmissionService implements ISubmissionService {
 
     return {
       ...submissions,
-      data: submissionsMap(submissions.data),
+      data: mentorSubmissionsMap(submissions.data),
     };
   }
 
@@ -71,19 +80,26 @@ export class SubmissionService implements ISubmissionService {
       studentId,
     );
 
-    return this.mapSubmissionReview(result);
+    return submissionReviewMap(result);
   }
 
   async getMentorSubmissionById(
     submissionId: number,
     mentorId: number,
-  ): Promise<SubmissionReviewResponse> {
+  ): Promise<MentorSubmissionDetail> {
     const result = await this.submissionRepo.findMentorSubmissionById(
       submissionId,
       mentorId,
     );
 
-    return this.mapSubmissionReview(result);
+    return mentorSubmissionDetailMap(result);
+  }
+
+  async getMentorJournal(
+    mentorId: number,
+    streamId: number,
+  ): Promise<MentorJournalResponse> {
+    return this.submissionRepo.findMentorJournal(mentorId, streamId);
   }
 
   async getSubmission(id: number): Promise<SubmissionResponse> {
@@ -125,16 +141,46 @@ export class SubmissionService implements ISubmissionService {
     );
     await this.streamGuard.assertActive(streamId);
 
+    const existing = await this.submissionRepo.findStudentSubmissionByTask(
+      data.taskId,
+      studentId,
+    );
+    if (existing.submission) {
+      throw new ConflictError(
+        "Вы уже сдавали это задание. Для пересдачи отредактируйте существующую сдачу.",
+      );
+    }
+
     try {
       const submission = await this.submissionRepo.create({
         ...data,
         studentId,
       });
 
+      const ctx = await this.submissionRepo.findMentorNotificationContext(
+        submission.id,
+      );
+      if (ctx) {
+        await this.notificationService.create({
+          userId: ctx.mentorUserId,
+          message: SubmissionTemplate.submitted({
+            studentFirstName: ctx.studentFirstName,
+            studentLastName: ctx.studentLastName,
+            taskTitle: ctx.taskTitle,
+            link: buildMentorSubmissionLink(submission.id),
+          }),
+          isSilent: false,
+        });
+      }
+
       return submissionMap(submission);
     } catch (e) {
       if (isPgError(e, PG.FK))
         throw new NotFoundError("Задача или студент не найдены");
+      if (isPgError(e, PG.UNIQUE))
+        throw new ConflictError(
+          "Вы уже сдавали это задание. Для пересдачи отредактируйте существующую сдачу.",
+        );
       throw e;
     }
   }
@@ -154,15 +200,21 @@ export class SubmissionService implements ISubmissionService {
 
     if (!submission) throw new NotFoundError("Решение не найдено");
 
-    return submissionMap(submission);
-  }
+    const ctx =
+      await this.submissionRepo.findMentorNotificationContext(submissionId);
+    if (ctx) {
+      await this.notificationService.create({
+        userId: ctx.mentorUserId,
+        message: SubmissionTemplate.resubmitted({
+          studentFirstName: ctx.studentFirstName,
+          studentLastName: ctx.studentLastName,
+          taskTitle: ctx.taskTitle,
+          link: buildMentorSubmissionLink(submissionId),
+        }),
+        isSilent: false,
+      });
+    }
 
-  private mapSubmissionReview(
-    r: SubmissionReviewRepositoryResponse,
-  ): SubmissionReviewResponse {
-    return {
-      submission: r.submission ? submissionMap(r.submission) : null,
-      reviews: reviewsMap(r.reviews),
-    };
+    return submissionMap(submission);
   }
 }

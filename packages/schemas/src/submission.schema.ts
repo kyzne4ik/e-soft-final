@@ -1,5 +1,9 @@
 import z from "zod";
 import { paginationSchema } from "./common.schema";
+import {
+  reviewResponseSchema,
+  mentorReviewResponseSchema,
+} from "./review.schema";
 
 export const submissionStatusSchema = z.enum([
   "NEW",
@@ -81,8 +85,26 @@ export const submissionResponseSchema = z.object({
 
 export type SubmissionResponse = z.infer<typeof submissionResponseSchema>;
 
+export const studentReviewResponseSchema = reviewResponseSchema.extend({
+  reviewedAt: z.coerce.date(),
+  mentorFirstName: z.string().nullable(),
+  mentorLastName: z.string().nullable(),
+});
+
+export type StudentReviewResponse = z.infer<typeof studentReviewResponseSchema>;
+
+export const submissionReviewResponseSchema = z.object({
+  submission: submissionResponseSchema.nullable(),
+  reviews: z.array(studentReviewResponseSchema),
+});
+
+export type SubmissionReviewResponse = z.infer<
+  typeof submissionReviewResponseSchema
+>;
+
 export const submissionMentorQuerySchema = z
   .object({
+    streamId: z.coerce.number().int().positive(),
     taskId: z.coerce.number().int().positive(),
     studentId: z.coerce.number().int().positive(),
     status: submissionStatusSchema,
@@ -91,6 +113,35 @@ export const submissionMentorQuerySchema = z
   .partial();
 
 export type SubmissionMentorQuery = z.infer<typeof submissionMentorQuerySchema>;
+
+export const mentorSubmissionResponseSchema = z.object({
+  id: z.number().int(),
+  taskId: z.number().int(),
+  studentId: z.number().int(),
+  streamId: z.number().int(),
+  repoLink: z.string(),
+  status: submissionStatusSchema,
+  createdAt: z.coerce.date(),
+  studentFirstName: z.string().nullable(),
+  studentLastName: z.string().nullable(),
+  taskTitle: z.string(),
+  taskDeadline: z.coerce.date(),
+});
+
+export type MentorSubmissionResponse = z.infer<
+  typeof mentorSubmissionResponseSchema
+>;
+
+export const mentorSubmissionDetailSchema = z.object({
+  submission: mentorSubmissionResponseSchema
+    .extend({ taskDescription: z.string() })
+    .nullable(),
+  reviews: z.array(mentorReviewResponseSchema),
+});
+
+export type MentorSubmissionDetail = z.infer<
+  typeof mentorSubmissionDetailSchema
+>;
 
 export const submissionStudentQuerySchema = z
   .object({
@@ -124,3 +175,28 @@ export const studentPerformanceResponseSchema = z.object({
 export type StudentPerformanceResponse = z.infer<
   typeof studentPerformanceResponseSchema
 >;
+
+export const mentorJournalQuerySchema = z.object({
+  streamId: z.coerce.number().int().positive(),
+});
+
+export type MentorJournalQuery = z.infer<typeof mentorJournalQuerySchema>;
+
+export const mentorJournalRowSchema = z.object({
+  studentId: z.number().int(),
+  studentUserId: z.number().int(),
+  studentFirstName: z.string().nullable(),
+  studentLastName: z.string().nullable(),
+  studentStatus: z.enum(["ACTIVE", "GRADUATED", "EXPELLED"]),
+  totalTasks: z.number().int(),
+  submittedTasks: z.number().int(),
+  acceptedTasks: z.number().int(),
+  averageScore: z.number().nullable(),
+  lastActivityAt: z.coerce.date().nullable(),
+});
+
+export type MentorJournalRow = z.infer<typeof mentorJournalRowSchema>;
+
+export const mentorJournalResponseSchema = z.array(mentorJournalRowSchema);
+
+export type MentorJournalResponse = z.infer<typeof mentorJournalResponseSchema>;

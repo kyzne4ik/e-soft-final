@@ -5,6 +5,9 @@ export const lessonSchema = z.object({
   id: z.number().int(),
   streamId: z.number().int(),
   title: z.string(),
+  type: z.string().nullable(),
+  host: z.string().nullable(),
+  description: z.string().nullable(),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   meetingLink: z.string().nullable(),
@@ -20,6 +23,9 @@ export type LessonDto = z.infer<typeof lessonSchema>;
 export const createLessonPayloadSchema = z.object({
   streamId: z.number().int(),
   title: z.string(),
+  type: z.string().nullable(),
+  host: z.string().nullable(),
+  description: z.string().nullable(),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   meetingLink: z.string().nullable(),
@@ -30,10 +36,10 @@ export type CreateLessonRepositoryPayload = z.infer<
   typeof createLessonPayloadSchema
 >;
 
-export const overlappingLessonPayloadSchema = createLessonPayloadSchema.omit({
-  title: true,
-  meetingLink: true,
-  recordLink: true,
+export const overlappingLessonPayloadSchema = z.object({
+  streamId: z.number().int(),
+  startTime: z.coerce.date(),
+  endTime: z.coerce.date(),
 });
 
 export type OverlappingLessonRepositoryPayload = z.infer<
@@ -54,6 +60,9 @@ export const lessonResponseSchema = z.object({
   id: z.number().int(),
   streamId: z.number().int(),
   title: z.string(),
+  type: z.string().nullable(),
+  host: z.string().nullable(),
+  description: z.string().nullable(),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   meetingLink: z.string().nullable(),

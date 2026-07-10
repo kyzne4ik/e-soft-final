@@ -6,7 +6,7 @@ response:
   statusCode: 403
   statusText: "Forbidden"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 403,

@@ -1,0 +1,37 @@
+$kind: "http-example"
+name: Update Review (mentor) (200)
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id/reviews/:reviewId"
+  method: "PATCH"
+  pathVariables:
+    - key: "id"
+      value: "11"
+    - key: "reviewId"
+      value: "8"
+  body:
+    type: "json"
+    content: |-
+      {
+          "score": 80,
+          "comment": "Поправил замечания — принято.",
+          "verdict": "ACCEPTED"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Ревью обновлено",
+          "data": {
+              "id": 8,
+              "submissionId": 11,
+              "mentorId": 2,
+              "score": 80,
+              "comment": "Поправил замечания — принято."
+          }
+      }
+order: 1000

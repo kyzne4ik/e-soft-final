@@ -1,0 +1,50 @@
+$kind: http-example
+name: Mark One Read (200)
+request:
+  url: "{{baseUrl}}/api/notifications/:id/read"
+  method: PATCH
+  pathVariables:
+    id: "5"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    content-security-policy: "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self' 'unsafe-inline';img-src 'self' data: https:;font-src 'self' data:;connect-src 'self';frame-src 'none';object-src 'none';base-uri 'self';form-action 'self';frame-ancestors 'none';upgrade-insecure-requests;script-src-attr 'none'"
+    cross-origin-opener-policy: same-origin
+    cross-origin-resource-policy: same-origin
+    origin-agent-cluster: ?1
+    referrer-policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubDomains
+    x-content-type-options: nosniff
+    x-dns-prefetch-control: off
+    x-download-options: noopen
+    x-frame-options: SAMEORIGIN
+    x-permitted-cross-domain-policies: none
+    x-xss-protection: "0"
+    access-control-allow-origin: http://localhost:3001
+    access-control-allow-credentials: "true"
+    x-ratelimit-limit: "100"
+    x-ratelimit-remaining: "96"
+    x-ratelimit-reset: "43"
+    content-type: application/json; charset=utf-8
+    content-length: "225"
+    date: Tue, 07 Jul 2026 08:14:49 GMT
+    connection: keep-alive
+    keep-alive: timeout=72
+  body:
+    type: json
+    content: |-
+      {
+        "status": 200,
+        "success": true,
+        "message": "Уведомлениe прочитано",
+        "data": {
+          "id": 5,
+          "message": "Важное системное сообщение",
+          "isSilent": false,
+          "sendAt": null,
+          "status": "PENDING",
+          "isRead": true
+        }
+      }
+order: 3661274861797562

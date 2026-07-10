@@ -1,8 +1,7 @@
-$kind: "http-request"
+$kind: http-request
 url: "{{baseUrl}}/api/notifications/:id/read"
-method: "PATCH"
+method: PATCH
 pathVariables:
-- key: "id"
-  value: "13"
-examples: "./.resources/Mark One Read.resources/examples"
+  id: "13"
+examples: .resources/Mark One Read.resources/examples
 order: 5000

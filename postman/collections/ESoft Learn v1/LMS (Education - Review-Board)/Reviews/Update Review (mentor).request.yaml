@@ -16,4 +16,5 @@ body:
     }
 documentation:
   content: "Обновить своё ревью (ментор). Все поля опциональны (partial)."
+examples: "./.resources/Update Review.resources/examples"
 order: 2000

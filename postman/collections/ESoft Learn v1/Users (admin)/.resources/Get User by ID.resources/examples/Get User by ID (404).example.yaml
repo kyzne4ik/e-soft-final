@@ -6,7 +6,7 @@ response:
   statusCode: 404
   statusText: "Not Found"
   body:
-    type: "text"
+    type: "json"
     content: |-
       {
           "status": 404,

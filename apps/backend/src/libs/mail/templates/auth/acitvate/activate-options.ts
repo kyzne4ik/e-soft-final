@@ -11,10 +11,13 @@ const ACTIVATE_TEMPLATE = readFileSync(
   "utf-8",
 );
 
-export const activateOptions = (to: string, link: string) =>
+export const activateOptions = (to: string, link: string, streamName: string) =>
   ({
     from: MailConfig.MAIL_FROM,
     to,
-    subject: "Активация аккаунта",
-    html: ACTIVATE_TEMPLATE.replaceAll("{{link}}", link),
+    subject: "Вы приняты в ESOFT Learn 🎉",
+    html: ACTIVATE_TEMPLATE.replaceAll("{{link}}", link).replaceAll(
+      "{{streamName}}",
+      streamName,
+    ),
   }) satisfies SendMailOptions;

@@ -14,9 +14,11 @@ export class AuthTokenService implements IAuthTokenService {
   async verifyRefresh(
     refreshToken: string,
   ): Promise<AuthTokenVerifyResponse | null> {
-    return await this.jwt.verify(refreshToken, {
-      key: AppConfig.BACKEND_JWT_SECRET,
-    });
+    try {
+      return await this.jwt.verify(refreshToken);
+    } catch {
+      return null;
+    }
   }
 
   async issue(data: AuthTokenIssuePayload): Promise<AuthTokenResponse> {

@@ -18,6 +18,7 @@ const __dirname = dirname(__filename);
 export const createAppInstance = () => {
   const app = fastify({
     loggerInstance: logger,
+    pluginTimeout: 60000,
   }).withTypeProvider<ZodTypeProvider>();
 
   app.register(fastifyJwt, {

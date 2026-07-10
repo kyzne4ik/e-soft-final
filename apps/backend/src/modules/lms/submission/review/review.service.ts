@@ -10,12 +10,16 @@ import { ReviewRepository } from "./review.repository";
 import { NotFoundError } from "@error";
 import { ReviewGuard } from "./review.guard";
 import { StreamGuard } from "@modules/lms/stream/stream.guard";
+import { NotificationService } from "@modules/notification/notification.service";
+import { buildStudentTaskLink } from "@utils/build-links";
+import { SubmissionTemplate } from "@telegram/templates";
 
 export class ReviewService implements IReviewService {
   constructor(
     private reviewRepo: ReviewRepository,
     private reviewGuard: ReviewGuard,
     private streamGuard: StreamGuard,
+    private notificationService: NotificationService,
   ) {}
 
   async createReview(
@@ -36,6 +40,29 @@ export class ReviewService implements IReviewService {
       });
 
       if (!review) throw new Error("Не удалось создать ревью");
+
+      const ctx =
+        await this.reviewRepo.findStudentNotificationContext(submissionId);
+      if (ctx) {
+        const link = buildStudentTaskLink(ctx.taskId);
+        const message =
+          data.verdict === "ACCEPTED"
+            ? SubmissionTemplate.reviewAccepted({
+                taskTitle: ctx.taskTitle,
+                score: data.score,
+                link,
+              })
+            : SubmissionTemplate.reviewChangesRequested({
+                taskTitle: ctx.taskTitle,
+                score: data.score,
+                link,
+              });
+        await this.notificationService.create({
+          userId: ctx.studentUserId,
+          message,
+          isSilent: false,
+        });
+      }
 
       return reviewMap(review);
     } catch (e) {
@@ -62,6 +89,30 @@ export class ReviewService implements IReviewService {
       verdict: data.verdict,
     });
     if (!updated) throw new NotFoundError("Ревью не найдено");
+
+    const ctx = await this.reviewRepo.findStudentNotificationContext(
+      review.submissionId,
+    );
+    if (ctx && data.verdict) {
+      const link = buildStudentTaskLink(ctx.taskId);
+      const message =
+        data.verdict === "ACCEPTED"
+          ? SubmissionTemplate.reviewAccepted({
+              taskTitle: ctx.taskTitle,
+              score: data.score ?? 0,
+              link,
+            })
+          : SubmissionTemplate.reviewChangesRequested({
+              taskTitle: ctx.taskTitle,
+              score: data.score ?? 0,
+              link,
+            });
+      await this.notificationService.create({
+        userId: ctx.studentUserId,
+        message,
+        isSilent: false,
+      });
+    }
 
     return reviewMap(updated);
   }

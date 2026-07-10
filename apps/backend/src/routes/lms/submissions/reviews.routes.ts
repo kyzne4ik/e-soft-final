@@ -5,6 +5,8 @@ import { ReviewController } from "@modules/lms/submission/review/review.controll
 import { ReviewRepository } from "@modules/lms/submission/review/review.repository";
 import { ReviewGuard } from "@modules/lms/submission/review/review.guard";
 import { StreamGuard } from "@modules/lms/stream/stream.guard";
+import { NotificationService } from "@modules/notification/notification.service";
+import { NotificationRepository } from "@modules/notification/notification.repository";
 
 export default async function reviewsRoutes(fastify: FastifyInstance) {
   const controller = new ReviewController(
@@ -12,6 +14,7 @@ export default async function reviewsRoutes(fastify: FastifyInstance) {
       new ReviewRepository(db),
       new ReviewGuard(db),
       new StreamGuard(db),
+      new NotificationService(new NotificationRepository(db)),
     ),
   );
 

@@ -5,6 +5,8 @@ import { SubmissionGuard } from "@modules/lms/submission/submission.guard";
 import { SubmissionService } from "@modules/lms/submission/submission.service";
 import { SubmissionController } from "@modules/lms/submission/submission.controller";
 import { SubmissionRepository } from "@modules/lms/submission/submission.repository";
+import { NotificationService } from "@modules/notification/notification.service";
+import { NotificationRepository } from "@modules/notification/notification.repository";
 
 export default async function submissionsRoutes(fastify: FastifyInstance) {
   const controller = new SubmissionController(
@@ -12,6 +14,7 @@ export default async function submissionsRoutes(fastify: FastifyInstance) {
       new SubmissionRepository(db),
       new SubmissionGuard(db),
       new StreamGuard(db),
+      new NotificationService(new NotificationRepository(db)),
     ),
   );
 
@@ -61,6 +64,18 @@ export default async function submissionsRoutes(fastify: FastifyInstance) {
       },
     },
     controller.getStudentSubmissionByTask,
+  );
+
+  fastify.get(
+    "/mentor/journal",
+    {
+      preHandler: fastify.authorize("MENTOR"),
+      schema: {
+        tags: ["Submissions"],
+        summary: "Журнал успеваемости студентов ментора по потоку (?streamId=)",
+      },
+    },
+    controller.getMentorJournal,
   );
 
   fastify.get(

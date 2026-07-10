@@ -36,7 +36,7 @@ export class StreamStudentService implements IStreamStudentService {
   async addStudent(
     streamId: number,
     studentId: number,
-    mentorId: number,
+    mentorId: number | null = null,
   ): Promise<StreamStudentWithUserResponse> {
     await this.streamGuard.assertMutable(streamId);
 

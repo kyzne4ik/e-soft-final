@@ -1,0 +1,47 @@
+.ui_sbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-badge);
+  white-space: nowrap;
+  border-radius: var(--radius-pill);
+}
+
+.ui_sbadge__neutral {
+  background: var(--color-gray-100);
+  color: var(--text-secondary);
+}
+
+.ui_sbadge__info {
+  background: var(--color-secondary-light);
+  color: var(--color-info-text);
+}
+
+.ui_sbadge__success {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.ui_sbadge__warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.ui_sbadge__error {
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+}
+
+.ui_sbadge__primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary-hover);
+}
+
+.ui_sbadge__highprio {
+  background: #fef3c7;
+  color: #b45309;
+}

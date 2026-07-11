@@ -1,0 +1,2 @@
+ALTER TABLE "leads" ADD COLUMN "target_stream_id" integer NOT NULL;--> statement-breakpoint
+ALTER TABLE "leads" ADD CONSTRAINT "leads_target_stream_id_streams_id_fk" FOREIGN KEY ("target_stream_id") REFERENCES "public"."streams"("id") ON DELETE restrict ON UPDATE no action;

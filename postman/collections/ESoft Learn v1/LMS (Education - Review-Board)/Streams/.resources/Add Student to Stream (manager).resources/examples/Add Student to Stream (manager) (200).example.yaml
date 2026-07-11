@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams/:id/students"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "studentId": 25
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Студент добавлен в поток",
+          "data": {
+              "id": 1,
+              "name": "ШП-2026",
+              "courseId": 1,
+              "status": "FINISHED",
+              "createdAt": "2026-06-20T08:39:01.044Z",
+              "updatedAt": "2026-06-22T18:12:20.849Z"
+          }
+      }
+order: 1000

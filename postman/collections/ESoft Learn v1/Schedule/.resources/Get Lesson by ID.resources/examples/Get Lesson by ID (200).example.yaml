@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/schedule/:id"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "id": 1,
+              "streamId": 1,
+              "title": "Вводная лекция",
+              "startTime": "2026-04-06T15:00:00.000Z",
+              "endTime": "2026-04-06T17:00:00.000Z",
+              "meetingLink": null,
+              "recordLink": null,
+              "createdAt": "2026-06-20T08:39:01.048Z",
+              "updatedAt": "2026-06-20T08:39:01.048Z"
+          }
+      }
+order: 1000

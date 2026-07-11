@@ -1,0 +1,27 @@
+$kind: "http-example"
+name: Confirm Enrollment (200)
+request:
+  url: "{{baseUrl}}/api/auth/confirm-enrollment"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "token": "{{inviteToken}}"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Зачисление подтверждено",
+          "data": {
+              "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsInByb2ZpbGVJZCI6MSwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3ODI1NDI2MDMsImV4cCI6MTc4MjU0NjIwM30.abc123",
+              "refreshToken": "refresh_token_example_abc123"
+          }
+      }
+order: 1000

@@ -1,0 +1,41 @@
+$kind: "http-example"
+name: My Submission by Task (student) (200) — сдача есть
+request:
+  url: "{{baseUrl}}/api/lms/submissions/task/:id"
+  method: "GET"
+  pathVariables:
+    - key: "id"
+      value: "2"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "submission": {
+                  "id": 11,
+                  "taskId": 2,
+                  "studentId": 25,
+                  "repoLink": "https://github.com/ivan/hw2/pull/2",
+                  "status": "CHANGES_REQUESTED"
+              },
+              "reviews": [
+                  {
+                      "id": 5,
+                      "submissionId": 11,
+                      "mentorId": 2,
+                      "score": 65,
+                      "comment": "Исправь обработку ошибок в контроллере.",
+                      "reviewedAt": "2026-06-28T11:00:00.000Z",
+                      "mentorFirstName": "Алексей",
+                      "mentorLastName": "Смирнов"
+                  }
+              ]
+          }
+      }
+order: 1000

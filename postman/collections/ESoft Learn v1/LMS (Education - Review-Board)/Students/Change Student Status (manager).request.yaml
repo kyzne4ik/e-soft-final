@@ -1,0 +1,17 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/students/:studentId/status"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "1"
+- key: "studentId"
+  value: "25"
+body:
+  type: "json"
+  content: |-
+    {
+        "status": "ACTIVE"
+    }
+documentation:
+  content: "Изменить статус студента в потоке: ACTIVE | GRADUATED | EXPELLED."
+order: 3000

@@ -1,0 +1,31 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/streams"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 1,
+                  "name": "ШП-2026",
+                  "courseId": 1,
+                  "status": "IN_PROGRESS",
+                  "createdAt": "2026-06-20T08:39:01.044Z",
+                  "updatedAt": "2026-06-20T08:39:01.044Z"
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 1
+          }
+      }
+order: 3000

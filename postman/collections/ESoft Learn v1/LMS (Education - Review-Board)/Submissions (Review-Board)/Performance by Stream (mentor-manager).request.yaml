@@ -1,0 +1,10 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/performance/:id"
+method: "GET"
+pathVariables:
+- key: "id"
+  value: "1"
+documentation:
+  content: "Успеваемость по потоку (-id = streamId): средний балл, прогресс."
+examples: "./.resources/Performance by Stream (student).resources/examples"
+order: 10000

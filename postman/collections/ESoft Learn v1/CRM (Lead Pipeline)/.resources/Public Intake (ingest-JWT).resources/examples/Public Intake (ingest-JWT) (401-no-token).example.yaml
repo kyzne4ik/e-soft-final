@@ -1,0 +1,24 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/intake"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Кирилл",
+          "lastName": "Заявкин",
+          "email": "kirill@cand.dev"
+      }
+response:
+  statusCode: 401
+  statusText: "Unauthorized"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 401,
+          "success": false,
+          "message": "Требуется ingest-токен"
+      }
+order: 2000

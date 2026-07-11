@@ -1,0 +1,29 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/submissions/:id/status"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": "REVIEWING"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Статус работы обновлён",
+          "data": {
+              "id": 6,
+              "taskId": 11,
+              "studentId": 13,
+              "repoLink": "https://github.com/student1/hw-1",
+              "status": "REVIEWING"
+          }
+      }
+order: 1000

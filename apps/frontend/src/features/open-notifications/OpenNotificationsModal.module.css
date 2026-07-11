@@ -1,0 +1,29 @@
+.on_modal__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.on_modal__body {
+  display: flex;
+  min-height: 50vh;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.on_modal__footer {
+  display: flex;
+  justify-content: center;
+}
+.on_button__wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.on_button__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+}

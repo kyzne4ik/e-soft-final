@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/profile"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "Иван-updated",
+        "lastName": "Иванов-updated",
+        "patronymic": "Иванович-updated",
+        "email": "admin@esoft.fake"
+    }
+examples: .resources/Update Profile.resources/examples
+order: 950

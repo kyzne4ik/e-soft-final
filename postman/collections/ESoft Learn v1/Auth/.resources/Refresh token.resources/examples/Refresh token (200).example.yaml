@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/refresh"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "refreshToken": "{{refreshToken}}"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Токены обновлены",
+          "data": {
+              "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjEzODU4NCwiZXhwIjoxNzgyMTQyMTg0fQ.heZ_vpes6733OWsaZsct0Rxw-iAl1WIa5p219X9oK3g",
+              "refreshToken": "clk8seS3s7mWiMYfJ7FVIG2g-wY6uNd8aaFopLfi5lBZoe5nZBgrLAR0vPO0IqYk"
+          }
+      }
+order: 2000

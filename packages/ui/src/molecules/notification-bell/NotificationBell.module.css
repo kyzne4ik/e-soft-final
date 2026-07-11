@@ -1,0 +1,52 @@
+.ui_bell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--surface-base);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.ui_bell:hover {
+  background: var(--surface-hover);
+  border-color: var(--color-primary-medium);
+  color: var(--color-primary);
+}
+
+.ui_bell:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.ui_bell__active {
+  background: var(--surface-hover);
+  border-color: var(--color-primary-medium);
+  color: var(--color-primary);
+}
+
+.ui_bell__badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  color: var(--text-inverse);
+  background: var(--color-error);
+  border: 2px solid var(--surface-base);
+  border-radius: var(--radius-pill);
+}

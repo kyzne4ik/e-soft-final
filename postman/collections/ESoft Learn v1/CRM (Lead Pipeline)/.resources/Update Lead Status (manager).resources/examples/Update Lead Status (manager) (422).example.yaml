@@ -1,0 +1,28 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/crm/leads/:id/status"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": "ACCEPTE"
+      }
+response:
+  statusCode: 422
+  statusText: "Unprocessable Entity"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 422,
+          "success": false,
+          "message": "Validation error",
+          "errors": [
+              {
+                  "field": "status",
+                  "message": "Invalid enum value. Expected 'NEW' | 'IN_REVIEW' | 'ACCEPTED' | 'REJECTED' | 'IGNORED' | 'LOST' | 'ARCHIVED', received 'ACCEPTE'"
+              }
+          ]
+      }
+order: 3000

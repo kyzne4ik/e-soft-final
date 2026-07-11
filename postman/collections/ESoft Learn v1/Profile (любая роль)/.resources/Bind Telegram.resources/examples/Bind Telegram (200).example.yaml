@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/profile/telegram"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "tgId": "99887766",
+          "tgUsername": "@neskhak"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Telegram привязан",
+          "data": {
+              "tgId": "99887766",
+              "tgUsername": "@neskhak"
+          }
+      }
+order: 1000

@@ -1,0 +1,44 @@
+{
+  "name": "@repo/database",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "author": "kyzne4ik",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "db:seed": "tsx scripts/seeds/index.ts",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio",
+    "db:check": "drizzle-kit check",
+    "db:push": "drizzle-kit push",
+    "db:down": "drizzle-kit down",
+    "db:up": "drizzle-kit up",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\""
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^24.13.0",
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
+    "tsx": "^4.20.3",
+    "typescript": "~6.0.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "drizzle-seed": "^0.3.1",
+    "envalid": "^8.2.0",
+    "pg": "^8.21.0"
+  }
+}

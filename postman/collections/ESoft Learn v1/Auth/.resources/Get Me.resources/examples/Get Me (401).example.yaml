@@ -1,0 +1,16 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/me"
+  method: "GET"
+response:
+  statusCode: 401
+  statusText: "Unauthorized"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 401,
+          "success": false,
+          "message": "Требуется авторизация"
+      }
+order: 2000

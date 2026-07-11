@@ -1,0 +1,71 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/crm/leads"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 3,
+                  "convertedUserId": null,
+                  "managerId": null,
+                  "firstName": "Кирилл",
+                  "lastName": "Заявкин",
+                  "patronymic": "Игоревич",
+                  "email": "kirill@cand.dev",
+                  "phone": "+79991112233",
+                  "telegram": "@kirill",
+                  "experience": "1 год на JS",
+                  "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0",
+                  "status": "NEW",
+                  "createdAt": "2026-06-22T10:32:49.861Z",
+                  "updatedAt": "2026-06-22T10:32:49.861Z"
+              },
+              {
+                  "id": 2,
+                  "convertedUserId": null,
+                  "managerId": null,
+                  "firstName": "Кирилл",
+                  "lastName": "Заявкин",
+                  "patronymic": "Игоревич",
+                  "email": "kirill@cand.dev",
+                  "phone": "+79991112233",
+                  "telegram": "@kirill",
+                  "experience": "1 год на JS",
+                  "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0",
+                  "status": "NEW",
+                  "createdAt": "2026-06-22T10:32:48.433Z",
+                  "updatedAt": "2026-06-22T10:32:48.433Z"
+              },
+              {
+                  "id": 1,
+                  "convertedUserId": null,
+                  "managerId": null,
+                  "firstName": "Кирилл",
+                  "lastName": "Заявкин",
+                  "patronymic": "Игоревич",
+                  "email": "kirill@cand.dev",
+                  "phone": "+79991112233",
+                  "telegram": "@kirill",
+                  "experience": "1 год на JS",
+                  "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0",
+                  "status": "NEW",
+                  "createdAt": "2026-06-22T10:32:38.830Z",
+                  "updatedAt": "2026-06-22T10:32:38.830Z"
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 3
+          }
+      }
+order: 1000

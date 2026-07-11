@@ -1,0 +1,30 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/submissions"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "taskId": 2,
+          "repoLink": "https://github.com/ivan/hw2/pull/1"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Работа сдана",
+          "data": {
+              "id": 11,
+              "taskId": 2,
+              "studentId": 25,
+              "repoLink": "https://github.com/ivan/hw2/pull/1",
+              "status": "NEW"
+          }
+      }
+order: 1000

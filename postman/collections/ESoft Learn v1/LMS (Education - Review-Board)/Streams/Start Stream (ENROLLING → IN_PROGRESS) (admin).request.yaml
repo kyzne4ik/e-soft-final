@@ -1,0 +1,9 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams/:id/start"
+method: "POST"
+pathVariables:
+- key: "id"
+  value: "1"
+documentation:
+  content: "Запустить поток: ENROLLING → IN_PROGRESS (админ)."
+order: 15000

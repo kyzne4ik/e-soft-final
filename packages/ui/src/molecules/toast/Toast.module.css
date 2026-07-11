@@ -1,0 +1,129 @@
+@keyframes ui-toast-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ui-toast-pop-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+}
+
+.ui_toast {
+  display: flex;
+  gap: var(--sp-3);
+  max-width: 320px;
+  padding: var(--sp-3);
+  font-family: var(--font-body);
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  animation: ui-toast-pop var(--transition-base);
+}
+
+.ui_toast__closing {
+  animation: ui-toast-pop-out var(--transition-base) forwards;
+}
+
+.ui_toast__center {
+  align-items: center;
+}
+
+.ui_toast__start {
+  align-items: flex-start;
+}
+
+.ui_toast__badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+}
+
+.ui_toast__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.ui_toast__title {
+  word-wrap: break-word;
+}
+
+.ui_toast__msg {
+  word-wrap: break-word;
+}
+
+.ui_toast__close {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.ui_toast__close:hover {
+  color: var(--text-primary);
+}
+
+.ui_toast__info {
+  border-color: var(--color-info);
+  background-color: var(--color-info-light);
+}
+
+.ui_toast__info .ui_toast__badge {
+  background-color: var(--color-info);
+  color: var(--text-inverse);
+}
+
+.ui_toast__success {
+  border-color: var(--color-success);
+  background-color: var(--color-success-light);
+}
+
+.ui_toast__success .ui_toast__badge {
+  background-color: var(--color-success);
+  color: var(--text-inverse);
+}
+
+.ui_toast__warning {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning-light);
+}
+
+.ui_toast__warning .ui_toast__badge {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+}
+
+.ui_toast__error {
+  border-color: var(--color-error);
+  background-color: var(--color-error-light);
+}
+
+.ui_toast__error .ui_toast__badge {
+  background-color: var(--color-error);
+  color: var(--text-inverse);
+}

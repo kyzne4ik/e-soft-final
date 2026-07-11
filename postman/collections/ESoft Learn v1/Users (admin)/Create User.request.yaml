@@ -1,0 +1,16 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/users"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "firstName": "Студент",
+        "lastName": "Студентов",
+        "patronymic": "Студентович",
+        "email": "student2@student.stud",
+        "password": "password123",
+        "role": "STUDENT"
+    }
+examples: "./.resources/Create User.resources/examples"
+order: 3000

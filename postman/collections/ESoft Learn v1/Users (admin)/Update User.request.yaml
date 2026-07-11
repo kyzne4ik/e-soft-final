@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/users/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "5"
+body:
+  type: "json"
+  content: |-
+    {
+        "firstName": "Изменённый",
+        "role": "MENTOR"
+    }
+examples: "./.resources/Update User.resources/examples"
+order: 4000

@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--sp-4);
+  min-height: 0;
+}
+
+.page {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}

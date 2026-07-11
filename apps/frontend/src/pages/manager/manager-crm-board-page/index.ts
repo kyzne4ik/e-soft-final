@@ -1,0 +1,1 @@
+export { ManagerCrmBoardPage } from "./ManagerCrmBoardPageAsync";

@@ -1,0 +1,20 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/schedule/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "120"
+body:
+  type: "json"
+  content: |-
+    {
+        "id": 120,
+        "streamId": 1,
+        "title": "Тестовая лекция",
+        "startTime": "2026-07-01T12:20:00+05:00",
+        "endTime": "2026-07-01T12:30:00+05:00",
+        "meetingLink": "https://localhost:3000/j/123",
+        "recordLink": "https://youtu.be/rec"
+    }
+examples: "./.resources/Update Lesson (manager).resources/examples"
+order: 4000

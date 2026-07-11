@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/tasks"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "streamId": 1,
+        "title": "ДЗ-3: Авторизация",
+        "description": "Реализовать JWT-аутентификацию.",
+        "repoTemplate": "https://github.com/esoft/hw3-template",
+        "deadline": "2026-12-31T00:00:00.000Z"
+    }
+examples: "./.resources/Create Task (admin).resources/examples"
+order: 1000

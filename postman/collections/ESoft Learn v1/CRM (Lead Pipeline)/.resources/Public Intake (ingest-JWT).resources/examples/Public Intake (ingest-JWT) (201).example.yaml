@@ -1,0 +1,45 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/intake"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Кирилл",
+          "lastName": "Заявкин",
+          "patronymic": "Игоревич",
+          "email": "kirill@cand.dev",
+          "phone": "+79991112233",
+          "telegram": "@kirill",
+          "experience": "1 год на JS",
+          "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Заявка отправлена",
+          "data": {
+              "id": 4,
+              "convertedUserId": null,
+              "managerId": null,
+              "firstName": "Кирилл",
+              "lastName": "Заявкин",
+              "patronymic": "Игоревич",
+              "email": "kirill@cand.dev",
+              "phone": "+79991112233",
+              "telegram": "@kirill",
+              "experience": "1 год на JS",
+              "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0",
+              "status": "NEW",
+              "createdAt": "2026-06-22T10:33:10.500Z",
+              "updatedAt": "2026-06-22T10:33:10.500Z"
+          }
+      }
+order: 1000

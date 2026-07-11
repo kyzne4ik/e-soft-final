@@ -1,0 +1,20 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/profile/telegram/link"
+  method: "POST"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": {
+              "token": "uFT0Q4S7-Nfs6Biqm-OM4u3k0bTK7Fl7zRAPjP2yAHc",
+              "link": "https://t.me/ci_cd_laravel_pipeline_bot?start=uFT0Q4S7-Nfs6Biqm-OM4u3k0bTK7Fl7zRAPjP2yAHc"
+          }
+      }
+order: 1000

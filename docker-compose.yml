@@ -1,0 +1,148 @@
+services:
+  backend:
+    container_name: esoft-backend
+    build:
+      context: .
+      dockerfile: ./apps/backend/Dockerfile
+    env_file: .env
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./apps/backend/src:/app/apps/backend/src
+      - ./packages/database/src:/app/packages/database/src
+      - ./packages/schemas/src:/app/packages/schemas/src
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/backend/src
+          target: /app/apps/backend/src
+        - action: sync
+          path: ./packages/database/src
+          target: /app/packages/database/src
+        - action: sync
+          path: ./packages/schemas/src
+          target: /app/packages/schemas/src
+        - action: rebuild
+          path: ./apps/backend/package.json
+        - action: rebuild
+          path: ./packages/database/package.json
+        - action: rebuild
+          path: ./packages/schemas/package.json
+    networks:
+      - esoft_net
+
+  frontend:
+    container_name: esoft-frontend
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile
+    environment:
+      - APP_NAME=${APP_NAME}
+      - APP_ENV=${APP_ENV}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - VITE_PORT=${VITE_PORT}
+      - VITE_URL=${VITE_URL}
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_API_TIMEOUT=${VITE_API_TIMEOUT}
+      - VITE_USE_MOCKS=${VITE_USE_MOCKS}
+      - VITE_ENABLE_DEVTOOLS=${VITE_ENABLE_DEVTOOLS}
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    volumes:
+      - ./apps/frontend/src:/app/apps/frontend/src
+      - ./packages/ui/src:/app/packages/ui/src
+      - ./packages/schemas/src:/app/packages/schemas/src
+    depends_on:
+      - backend
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/frontend/src
+          target: /app/apps/frontend/src
+        - action: sync
+          path: ./packages/ui/src
+          target: /app/packages/ui/src
+        - action: sync
+          path: ./packages/schemas/src
+          target: /app/packages/schemas/src
+        - action: rebuild
+          path: ./apps/frontend/package.json
+        - action: rebuild
+          path: ./packages/ui/package.json
+        - action: rebuild
+          path: ./packages/schemas/package.json
+    networks:
+      - esoft_net
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: esoft-postgres
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - esoft_net
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:8.8-alpine
+    container_name: esoft-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    volumes:
+      - redis-data:/data
+    networks:
+      - esoft_net
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: esoft-mailpit
+    restart: unless-stopped
+    ports:
+      - "${MAIL_PORT}:1025"
+      - "8025:8025"
+    networks:
+      - esoft_net
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: esoft-cloudbeaver
+    restart: unless-stopped
+    ports:
+      - "8978:8978"
+    volumes:
+      - cloudbeaver-data:/opt/cloudbeaver/workspace
+    depends_on:
+      - postgres
+    networks:
+      - esoft_net
+
+volumes:
+  postgres-data:
+  redis-data:
+  cloudbeaver-data:
+
+networks:
+  esoft_net:
+    driver: bridge

@@ -1,0 +1,13 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/auth/confirm-enrollment"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "token": "{{inviteToken}}"
+    }
+documentation:
+  content: "Подтвердить зачисление в поток (existing user). Используется когда студент уже есть в системе и получил инвайт на новый поток."
+examples: "./.resources/Confirm Enrollment.resources/examples"
+order: 5000

@@ -4,18 +4,17 @@
 
 ### Поля
 
-| Поле          | Тип       | Обязательное | Описание                                                             |
-| ------------- | --------- | ------------ | -------------------------------------------------------------------- |
-| id            | INTEGER   | Да           | Уникальный идентификатор (PK)                                        |
-| first_name    | TEXT      | Да           | Имя пользователя                                                     |
-| last_name     | TEXT      | Да           | Фамилия пользователя                                                 |
-| patronymic    | TEXT      | Нет          | Отчество пользователя                                                |
-| email         | TEXT      | Да           | Почта (UNIQUE, логин)                                                |
-| password_hash | TEXT      | Да           | Хэш пароля                                                           |
-| role          | TEXT      | Да           | Роль (ADMIN, MANAGER, MENTOR, STUDENT)                               |
-| is_activated  | BOOLEAN   | Да           | Активация аккаунта (должен перейти по инвайт-ссылке), default: false |
-| created_at    | TIMESTAMP | Да           | Дата создания, auto                                                  |
-| updated_at    | TIMESTAMP | Да           | Дата обновления, auto                                                |
+| Поле          | Тип       | Обязательное | Описание                               |
+| ------------- | --------- | ------------ | -------------------------------------- |
+| id            | INTEGER   | Да           | Уникальный идентификатор (PK)          |
+| first_name    | TEXT      | Да           | Имя пользователя                       |
+| last_name     | TEXT      | Да           | Фамилия пользователя                   |
+| patronymic    | TEXT      | Нет          | Отчество пользователя                  |
+| email         | TEXT      | Да           | Почта (UNIQUE, логин)                  |
+| password_hash | TEXT      | Да           | Хэш пароля                             |
+| role          | TEXT      | Да           | Роль (ADMIN, MANAGER, MENTOR, STUDENT) |
+| created_at    | TIMESTAMP | Да           | Дата создания, auto                    |
+| updated_at    | TIMESTAMP | Да           | Дата обновления, auto                  |
 
 ## UserTelegram
 
@@ -30,22 +29,21 @@
 | user_id     | INTEGER   | Да           | Ссылка на пользователя (FK, UNIQUE)             |
 | tg_id       | TEXT      | Нет          | Telegram_id для уведомлений (UNIQUE)            |
 | tg_username | TEXT      | Нет          | Telegram_username для отображения в UI и поиска |
-| linked_at   | TIMESTAMP | Нет          |                                                 |
+| linked_at   | TIMESTAMP | Нет          | Дата привязки, auto                             |
 
 ## StudentProfile
 
-Описание: Профиль студента, расширяющий базового пользователя. Хранит статус обучения в потоке (активен|выпущен|отчислен).
+Описание: Профиль студента, расширяющий базового пользователя.
 Связан с User (1:1).
 
 ### Поля
 
-| Поле       | Тип           | Обязательное | Описание                             |
-| ---------- | ------------- | ------------ | ------------------------------------ |
-| id         | INTEGER       | Да           | Уникальный идентификатор (PK)        |
-| user_id    | INTEGER       | Да           | Ссылка на пользователя (FK, UNIQUE)  |
-| status     | StudentStatus | Да           | Статус (ACTIVE, GRADUATED, EXPELLED) |
-| created_at | TIMESTAMP     | Да           | Дата зачисления, auto                |
-| updated_at | TIMESTAMP     | Да           | Дата обновления, auto                |
+| Поле       | Тип       | Обязательное | Описание                            |
+| ---------- | --------- | ------------ | ----------------------------------- |
+| id         | INTEGER   | Да           | Уникальный идентификатор (PK)       |
+| user_id    | INTEGER   | Да           | Ссылка на пользователя (FK, UNIQUE) |
+| created_at | TIMESTAMP | Да           | Дата зачисления, auto               |
+| updated_at | TIMESTAMP | Да           | Дата обновления, auto               |
 
 ## **ENUM**: StudentStatus
 
@@ -114,7 +112,6 @@
 | id         | INTEGER      | Да           | Уникальный идентификатор (PK)             |
 | name       | TEXT         | Да           | Название потока (например, "ШП-2027")     |
 | course_id  | INTEGER      | Да           | Ссылка на курс (FK)                       |
-| mentor_id  | INTEGER      | Да           | Закрепленный ментор (FK к MentorProfile)  |
 | status     | StreamStatus | Да           | Статус (ENROLLING, IN_PROGRESS, FINISHED) |
 | created_at | TIMESTAMP    | Да           | Дата создания потока, auto                |
 | updated_at | TIMESTAMP    | Да           | Дата обновления потока, auto              |
@@ -131,17 +128,62 @@
 | IN_PROGRESS |
 | FINISHED    |
 
-## StreamStudent
+## StreamTelegram
 
-Описание: Связующая таблица между студентами и потоком (M:N).
+Описание: Привязка потока к Telegram-группе для автоматических анонсов лекций. Хранит id группы и id топика "Анонсы лекций", куда бот постит сообщения.
+Связан со Stream (1:1).
 
 ### Поля
 
-| Поле       | Тип       | Обязательное | Описание                       |
-| ---------- | --------- | ------------ | ------------------------------ |
-| stream_id  | INTEGER   | Да           | Ссылка на поток (PK, FK)       |
-| student_id | INTEGER   | Да           | Ссылка на студента (PK, FK)    |
-| joined_at  | TIMESTAMP | Да           | Дата добавления в группу, auto |
+| Поле               | Тип       | Обязательное | Описание                                      |
+| ------------------ | --------- | ------------ | --------------------------------------------- |
+| id                 | INTEGER   | Да           | Уникальный идентификатор (PK)                 |
+| stream_id          | INTEGER   | Да           | Ссылка на поток (FK, UNIQUE)                  |
+| chat_id            | TEXT      | Нет          | id Telegram-группы потока                     |
+| announce_thread_id | INTEGER   | Нет          | id топика «Анонсы лекций» (message_thread_id) |
+| linked_at          | TIMESTAMP | Нет          | Дата привязки группы, auto                    |
+
+## StreamTelegram
+
+Описание: Привязка потока к Telegram-группе для автоматических анонсов лекций. Хранит id группы и id топика "Анонсы лекций", куда бот постит сообщения.
+Связан со Stream (1:1).
+
+### Поля
+
+| Поле               | Тип       | Обязательное | Описание                                      |
+| ------------------ | --------- | ------------ | --------------------------------------------- |
+| id                 | INTEGER   | Да           | Уникальный идентификатор (PK)                 |
+| stream_id          | INTEGER   | Да           | Ссылка на поток (FK, UNIQUE)                  |
+| chat_id            | TEXT      | Нет          | id Telegram-группы потока                     |
+| announce_thread_id | INTEGER   | Нет          | id топика «Анонсы лекций» (message_thread_id) |
+| linked_at          | TIMESTAMP | Нет          | Дата привязки группы                          |
+
+## StreamStudent
+
+Описание: Связующая таблица между студентами и потоком (M:N).
+Хранит статус обучения в потоке (активен|выпущен|отчислен).
+
+### Поля
+
+| Поле       | Тип           | Обязательное | Описание                                 |
+| ---------- | ------------- | ------------ | ---------------------------------------- |
+| stream_id  | INTEGER       | Да           | Ссылка на поток (PK, FK)                 |
+| student_id | INTEGER       | Да           | Ссылка на студента (PK, FK)              |
+| mentor_id  | INTEGER       | Да           | Закрепленный ментор (FK к MentorProfile) |
+| status     | StudentStatus | Да           | Статус (ACTIVE, GRADUATED, EXPELLED)     |
+| joined_at  | TIMESTAMP     | Да           | Дата добавления в группу, auto           |
+
+## StreamMentor
+
+Описание: Связующая таблица между менторами и потоком (M:N).
+
+### Поля
+
+| Поле      | Тип       | Обязательное | Описание                       |
+| --------- | --------- | ------------ | ------------------------------ |
+| stream_id | INTEGER   | Да           | Ссылка на поток (PK, FK)       |
+| mentor_id | INTEGER   | Да           | Ссылка на ментора (PK, FK)     |
+| joined_at | TIMESTAMP | Да           | Дата добавления в группу, auto |
 
 ## Task
 
@@ -156,6 +198,7 @@
 | title         | TEXT      | Да           | Тема задания                          |
 | description   | TEXT      | Да           | Подробное описание / ТЗ               |
 | repo_template | TEXT      | Да           | Ссылка на GitHub-репозиторий (шаблон) |
+| record_link   | TEXT      | Нет          | Ссылка на запись лекции по теме ДЗ    |
 | deadline      | TIMESTAMP | Да           | Дедлайн сдачи                         |
 | created_at    | TIMESTAMP | Да           | Дата публикации, auto                 |
 | updated_at    | TIMESTAMP | Да           | Дата обновления задания, auto         |
@@ -166,16 +209,15 @@
 
 ### Поля
 
-| Поле        | Тип              | Обязательное | Описание                                                                    |
-| ----------- | ---------------- | ------------ | --------------------------------------------------------------------------- |
-| id          | INTEGER          | Да           | Уникальный идентификатор (PK)                                               |
-| task_id     | INTEGER          | Да           | Ссылка на задание (FK)                                                      |
-| student_id  | INTEGER          | Да           | Ссылка на профиль студента (FK)                                             |
-| repo_link   | TEXT             | Да           | Ссылка на PR/Репозиторий студента                                           |
-| status      | SubmissionStatus | Да           | Статус (NEW, REVIEWING, CHANGES_REQUESTED, ACCEPTED, RESUBMITTED, ARCHIVED) |
-| is_activate | BOOLEAN          | Да           | Актуальна ли сдача (false для отчисленных/архивных), default: true          |
-| created_at  | TIMESTAMP        | Да           | Время первой сдачи, auto                                                    |
-| updated_at  | TIMESTAMP        | Да           | Время обновления, auto                                                      |
+| Поле       | Тип              | Обязательное | Описание                                                          |
+| ---------- | ---------------- | ------------ | ----------------------------------------------------------------- |
+| id         | INTEGER          | Да           | Уникальный идентификатор (PK)                                     |
+| task_id    | INTEGER          | Да           | Ссылка на задание (FK)                                            |
+| student_id | INTEGER          | Да           | Ссылка на профиль студента (FK)                                   |
+| repo_link  | TEXT             | Да           | Ссылка на PR/Репозиторий студента                                 |
+| status     | SubmissionStatus | Да           | Статус (NEW, REVIEWING, CHANGES_REQUESTED, ACCEPTED, RESUBMITTED) |
+| created_at | TIMESTAMP        | Да           | Время первой сдачи, auto                                          |
+| updated_at | TIMESTAMP        | Да           | Время обновления, auto                                            |
 
 ## **ENUM**: SubmissionStatus
 
@@ -190,7 +232,6 @@
 | CHANGES_REQUESTED |
 | ACCEPTED          |
 | RESUBMITTED       |
-| ARCHIVED          |
 
 ## Review
 
@@ -210,21 +251,26 @@
 
 ## Lesson
 
-Описание: Занятие/Лекция в рамках учебного потока. Хранит тему, дату начала/конец, ссылку на трансляцию и запись.
+Описание: Занятие/Лекция в рамках учебного потока. Хранит тему, дату начала/конец, ссылку на трансляцию и запись. Поля `announce_sent_at` и `reminder_sent_at` используются `LessonScheduler` для отслеживания отправленных уведомлений через BullMQ.
 
 ### Поля
 
-| Поле         | Тип       | Обязательное | Описание                         |
-| ------------ | --------- | ------------ | -------------------------------- |
-| id           | INTEGER   | Да           | Уникальный идентификатор (PK)    |
-| stream_id    | INTEGER   | Да           | Для какого потока (FK)           |
-| title        | TEXT      | Да           | Тема лекции                      |
-| start_time   | TIMESTAMP | Да           | Дата и время начала              |
-| end_time     | TIMESTAMP | Да           | Время завершения                 |
-| meeting_link | TEXT      | Нет          | Ссылка на трансляцию (Zoom/Meet) |
-| record_link  | TEXT      | Нет          | Ссылка на запись и материалы     |
-| created_at   | TIMESTAMP | Да           | Дата создания записи, auto       |
-| updated_at   | TIMESTAMP | Да           | Время изменения записи, auto     |
+| Поле             | Тип       | Обязательное | Описание                                                           |
+| ---------------- | --------- | ------------ | ------------------------------------------------------------------ |
+| id               | INTEGER   | Да           | Уникальный идентификатор (PK)                                      |
+| stream_id        | INTEGER   | Да           | Для какого потока (FK)                                             |
+| title            | TEXT      | Да           | Тема лекции                                                        |
+| type             | TEXT      | Нет          | Тип занятия (лекция, воркшоп и т.д.)                               |
+| host             | TEXT      | Нет          | Ведущий занятия                                                    |
+| description      | TEXT      | Нет          | Описание темы занятия                                              |
+| start_time       | TIMESTAMP | Да           | Дата и время начала                                                |
+| end_time         | TIMESTAMP | Да           | Время завершения                                                   |
+| meeting_link     | TEXT      | Нет          | Ссылка на трансляцию (Zoom/Meet)                                   |
+| record_link      | TEXT      | Нет          | Ссылка на запись и материалы                                       |
+| announce_sent_at | TIMESTAMP | Нет          | Когда отправлен анонс «завтра лекция» (null = не отправлен)        |
+| reminder_sent_at | TIMESTAMP | Нет          | Когда отправлено напоминание «скоро начнём» (null = не отправлено) |
+| created_at       | TIMESTAMP | Да           | Дата создания записи, auto                                         |
+| updated_at       | TIMESTAMP | Да           | Время изменения записи, auto                                       |
 
 ## Lead
 
@@ -238,22 +284,23 @@
 | ----------------- | ---------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
 | id                | INTEGER    | Да           | Уникальный идентификатор (PK)                                                                                |
 | converted_user_id | INTEGER    | Нет          | Уник-й идент-р, который появляется в момент конвертации лида в пользователя системы (при статусе `ACCEPTED`) |
+| target_stream_id  | INTEGER    | Да           | Поток, на который подана заявка (FK к Stream)                                                                |
 | first_name        | TEXT       | Да           | Имя кандидата                                                                                                |
 | last_name         | TEXT       | Да           | Фамилия кандидата                                                                                            |
 | patronymic        | TEXT       | Нет          | Отчество пользователя                                                                                        |
 | email             | TEXT       | Да           | Почта для связи и отправки оффера                                                                            |
-| phone             | TEXT       | Да           | Контактный телефон                                                                                           |
-| telegram          | TEXT       | Да           | Ник в Telegram                                                                                               |
+| phone             | TEXT       | Нет          | Контактный телефон                                                                                           |
+| telegram          | TEXT       | Нет          | Ник в Telegram                                                                                               |
 | experience        | TEXT       | Нет          | Описание опыта / бэкграунда                                                                                  |
 | test_result       | TEXT       | Нет          | Ссылка на тестовое задание                                                                                   |
-| status            | LeadStatus | Да           | Статус (NEW, IN_REVIEW, ACCEPTED, REJECTED, IGNORED, LOST, ARCHIVED)                                         |
+| status            | LeadStatus | Да           | Статус (NEW, IN_REVIEW, ACCEPTED, REJECTED, IGNORED)                                                         |
 | manager_id        | INTEGER    | Нет          | Ответственный менеджер (FK к ManagerProfile)                                                                 |
 | created_at        | TIMESTAMP  | Да           | Дата поступления заявки, auto                                                                                |
 | updated_at        | TIMESTAMP  | Да           | Дата онбовления заявки, auto                                                                                 |
 
 ## **ENUM**: LeadStatus
 
-Описание: Статус заявки кандидата в CRM-воронке - от новой заявки до зачисления илил отказа
+Описание: Статус заявки кандидата в CRM-воронке - от новой заявки до зачисления или отказа
 
 ### Поля
 
@@ -264,8 +311,6 @@
 | ACCEPTED  |
 | REJECTED  |
 | IGNORED   |
-| LOST      |
-| ARCHIVED  |
 
 ## Notification
 

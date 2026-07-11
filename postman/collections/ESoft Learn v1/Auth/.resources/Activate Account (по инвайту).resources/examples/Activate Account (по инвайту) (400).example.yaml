@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/activate"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "token": "{{inviteToken}}",
+          "password": "newpass1234",
+          "firstName": "Никита",
+          "lastName": "Тимофеев",
+          "patronymic": "Александрович"
+      }
+response:
+  statusCode: 400
+  statusText: "Bad Request"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 400,
+          "success": false,
+          "message": "Инвайт недействителен или истёк"
+      }
+order: 2000

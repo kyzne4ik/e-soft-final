@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/users"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Студент",
+          "lastName": "Студентов",
+          "patronymic": "Студентович",
+          "email": "student2@student.stud",
+          "password": "password123",
+          "role": "STUDENT"
+      }
+response:
+  statusCode: 401
+  statusText: "Unauthorized"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 401,
+          "success": false,
+          "message": "Требуется авторизация"
+      }
+order: 2000

@@ -1,0 +1,135 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(17, 24, 39, 0.2);
+  animation: sheet-fade var(--transition-base);
+}
+
+.overlay__closing {
+  animation: sheet-fade-out var(--transition-base) forwards;
+}
+
+@keyframes sheet-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.content {
+  position: fixed;
+  z-index: 81;
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  max-width: calc(100vw - var(--sp-5) * 2);
+  max-height: calc(100vh - var(--sp-5) * 2);
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.content__right {
+  top: var(--sp-8);
+  right: var(--sp-5);
+  animation: sheet-pop-in var(--transition-base);
+}
+
+.content__left {
+  top: var(--sp-5);
+  left: var(--sp-5);
+  animation: sheet-pop-in var(--transition-base);
+}
+
+.content__closing {
+  animation: sheet-pop-out var(--transition-base) forwards;
+}
+
+@keyframes sheet-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-pop-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 0 0 auto;
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.header_slot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base);
+}
+
+.close:hover {
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+.footer {
+  flex: 0 0 auto;
+  padding: var(--sp-3) var(--sp-4);
+  border-top: 1px solid var(--surface-border);
+  background: var(--surface-subtle);
+}

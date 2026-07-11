@@ -1,0 +1,98 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/courses"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 15,
+                  "name": "Backend Pro",
+                  "description": "Node.js + PostgreSQL"
+              },
+              {
+                  "id": 14,
+                  "name": "Новый курс",
+                  "description": "Какой-то новый курс"
+              },
+              {
+                  "id": 13,
+                  "name": "Новый курс-updated",
+                  "description": "Какой-то новый курс-updated"
+              },
+              {
+                  "id": 12,
+                  "name": "Новый курс",
+                  "description": "Какой-то новый курс"
+              },
+              {
+                  "id": 11,
+                  "name": "Новый курс",
+                  "description": "Какой-то новый курс"
+              },
+              {
+                  "id": 10,
+                  "name": "DevOps-инженер",
+                  "description": "Курс по DevOps: Linux, Docker, Kubernetes, CI/CD, мониторинг."
+              },
+              {
+                  "id": 9,
+                  "name": "Школа программирования",
+                  "description": "Полный курс веб-разработки: Frontend (React/TS), Backend (Node.js/Fastify), БД (PostgreSQL/Prisma), DevOps (Docker/CI)."
+              },
+              {
+                  "id": 8,
+                  "name": "DevOps-инженер",
+                  "description": "Курс по DevOps: Linux, Docker, Kubernetes, CI/CD, мониторинг."
+              },
+              {
+                  "id": 7,
+                  "name": "Школа программирования",
+                  "description": "Полный курс веб-разработки: Frontend (React/TS), Backend (Node.js/Fastify), БД (PostgreSQL/Prisma), DevOps (Docker/CI)."
+              },
+              {
+                  "id": 6,
+                  "name": "Backend Pro",
+                  "description": "Node.js + PostgreSQL"
+              },
+              {
+                  "id": 5,
+                  "name": "Backend Pro",
+                  "description": "Node.js + PostgreSQL"
+              },
+              {
+                  "id": 4,
+                  "name": "DevOps-инженер",
+                  "description": "Курс по DevOps: Linux, Docker, Kubernetes, CI/CD, мониторинг."
+              },
+              {
+                  "id": 3,
+                  "name": "Школа программирования",
+                  "description": "Полный курс веб-разработки: Frontend (React/TS), Backend (Node.js/Fastify), БД (PostgreSQL/Prisma), DevOps (Docker/CI)."
+              },
+              {
+                  "id": 1,
+                  "name": "Школа программирования",
+                  "description": "Полный курс веб-разработки: Frontend (React/TS), Backend (Node.js/Fastify), БД (PostgreSQL/Prisma), DevOps (Docker/CI)."
+              },
+              {
+                  "id": 2,
+                  "name": "DevOps-инженер",
+                  "description": "Курс по DevOps: Linux, Docker, Kubernetes, CI/CD, мониторинг."
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 15
+          }
+      }
+order: 1000

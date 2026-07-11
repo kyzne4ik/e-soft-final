@@ -1,0 +1,36 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/tasks"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "streamId": 1,
+          "title": "ДЗ-3: Авторизация",
+          "description": "Реализовать JWT-аутентификацию.",
+          "repoTemplate": "https://github.com/esoft/hw3-template",
+          "deadline": "2026-12-31T00:00:00.000Z"
+      }
+response:
+  statusCode: 201
+  statusText: "Created"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 201,
+          "success": true,
+          "message": "Задание создано",
+          "data": {
+              "id": 21,
+              "streamId": 1,
+              "title": "ДЗ-3: Авторизация",
+              "description": "Реализовать JWT-аутентификацию.",
+              "repoTemplate": "https://github.com/esoft/hw3-template",
+              "deadline": "2026-12-31T00:00:00.000Z",
+              "createdAt": "2026-06-22T21:50:02.907Z",
+              "updatedAt": "2026-06-22T21:50:02.907Z"
+          }
+      }
+order: 1000

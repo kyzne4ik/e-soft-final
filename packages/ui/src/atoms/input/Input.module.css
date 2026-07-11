@@ -1,0 +1,116 @@
+.ui_input {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ui_input__full {
+  display: flex;
+  width: 100%;
+}
+
+.ui_input__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.ui_input__label__disabled {
+  color: var(--text-muted);
+}
+
+.ui_input__required {
+  margin-left: 2px;
+  color: var(--color-error);
+}
+
+.ui_input__field {
+  box-sizing: border-box;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--surface-base);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base);
+}
+
+.ui_input__field__full {
+  width: 100%;
+}
+
+.ui_input__field::placeholder {
+  color: var(--text-tertiary);
+}
+
+.ui_input__field:hover {
+  border-color: var(--color-gray-300);
+}
+
+.ui_input__field:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.ui_input__field:disabled {
+  color: var(--text-muted);
+  background: var(--surface-subtle);
+  border-color: var(--color-gray-200);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.ui_input__field__error,
+.ui_input__field__error:hover {
+  border-color: var(--color-error);
+  background: var(--color-error-light);
+}
+.ui_input__field__error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.ui_input__field__filled {
+  background: var(--surface-muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+.ui_input__field__filled:hover {
+  background: var(--color-gray-200);
+  border-color: transparent;
+}
+.ui_input__field__filled:focus {
+  background: var(--surface-base);
+  border-color: var(--color-primary);
+}
+
+.ui_input__field__flushed {
+  padding-left: 0;
+  padding-right: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-gray-300);
+  border-radius: 0;
+  box-shadow: none;
+}
+.ui_input__field__flushed:hover {
+  border-color: var(--color-gray-400);
+}
+.ui_input__field__flushed:focus {
+  border-color: var(--color-primary);
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+.ui_input__error {
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}

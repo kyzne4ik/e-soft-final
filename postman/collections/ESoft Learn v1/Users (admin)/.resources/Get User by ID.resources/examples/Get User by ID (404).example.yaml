@@ -1,0 +1,16 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/users/:id"
+  method: "GET"
+response:
+  statusCode: 404
+  statusText: "Not Found"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 404,
+          "success": false,
+          "message": "Пользователь не найден"
+      }
+order: 3000

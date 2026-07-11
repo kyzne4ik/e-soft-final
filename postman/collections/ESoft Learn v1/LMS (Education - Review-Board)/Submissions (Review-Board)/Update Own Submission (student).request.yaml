@@ -1,0 +1,16 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "6"
+body:
+  type: "json"
+  content: |-
+    {
+        "repoLink": "https://github.com/ivan/hw2/pull/2"
+    }
+documentation:
+  content: "Обновить своё решение (студент)."
+examples: "./.resources/Update Own Submission (student).resources/examples"
+order: 9000

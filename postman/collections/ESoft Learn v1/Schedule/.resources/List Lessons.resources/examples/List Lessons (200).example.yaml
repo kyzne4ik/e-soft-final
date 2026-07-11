@@ -1,0 +1,243 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/schedule"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 1,
+                  "streamId": 1,
+                  "title": "Вводная лекция",
+                  "startTime": "2026-04-06T15:00:00.000Z",
+                  "endTime": "2026-04-06T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 2,
+                  "streamId": 1,
+                  "title": "Git: VCS, ветвление, слияние, rebase, конфликты",
+                  "startTime": "2026-04-08T15:00:00.000Z",
+                  "endTime": "2026-04-08T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 3,
+                  "streamId": 1,
+                  "title": "Войти в IT — направления разработки",
+                  "startTime": "2026-04-11T15:00:00.000Z",
+                  "endTime": "2026-04-11T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 4,
+                  "streamId": 1,
+                  "title": "React: Virtual DOM, JSX, CRA, ReactDOM, Fragment",
+                  "startTime": "2026-04-13T15:00:00.000Z",
+                  "endTime": "2026-04-13T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 5,
+                  "streamId": 1,
+                  "title": "Reconciliation, списки, key, useState, поток данных",
+                  "startTime": "2026-04-15T15:00:00.000Z",
+                  "endTime": "2026-04-15T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 6,
+                  "streamId": 1,
+                  "title": "useEffect, useLayoutEffect, жизненный цикл, useRef, Portals",
+                  "startTime": "2026-04-18T15:00:00.000Z",
+                  "endTime": "2026-04-18T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 7,
+                  "streamId": 1,
+                  "title": "Продвинутые хуки: useContext, useReducer, useMemo, useCallback, Custom Hooks",
+                  "startTime": "2026-04-21T15:00:00.000Z",
+                  "endTime": "2026-04-21T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 8,
+                  "streamId": 1,
+                  "title": "Работа с формами, валидация (RHF + Zod)",
+                  "startTime": "2026-04-23T15:00:00.000Z",
+                  "endTime": "2026-04-23T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 9,
+                  "streamId": 1,
+                  "title": "TypeScript: основы через React",
+                  "startTime": "2026-04-24T15:00:00.000Z",
+                  "endTime": "2026-04-24T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 10,
+                  "streamId": 1,
+                  "title": "Роутинг: React Router v6",
+                  "startTime": "2026-04-27T15:00:00.000Z",
+                  "endTime": "2026-04-27T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 11,
+                  "streamId": 1,
+                  "title": "State Managers: Zustand vs Redux",
+                  "startTime": "2026-04-29T15:00:00.000Z",
+                  "endTime": "2026-04-29T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 12,
+                  "streamId": 1,
+                  "title": "Работа с API: TanStack Query",
+                  "startTime": "2026-04-30T15:00:00.000Z",
+                  "endTime": "2026-04-30T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 13,
+                  "streamId": 1,
+                  "title": "UI-Kit, Atomic Design, Storybook",
+                  "startTime": "2026-05-02T15:00:00.000Z",
+                  "endTime": "2026-05-02T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/BubbaCat/storybook",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 14,
+                  "streamId": 1,
+                  "title": "Архитектура фронтенда: FSD + SSR/SSG",
+                  "startTime": "2026-05-04T15:00:00.000Z",
+                  "endTime": "2026-05-04T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/BubbaCat/SSR_and_FSD",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 15,
+                  "streamId": 1,
+                  "title": "Node.js: устройство + Fastify старт",
+                  "startTime": "2026-05-06T15:00:00.000Z",
+                  "endTime": "2026-05-06T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/AlexanderFromEarth/node-server-esoftsp-example",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 16,
+                  "streamId": 1,
+                  "title": "Fastify: реальное приложение",
+                  "startTime": "2026-05-08T15:00:00.000Z",
+                  "endTime": "2026-05-08T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 17,
+                  "streamId": 1,
+                  "title": "Трёхслойная архитектура",
+                  "startTime": "2026-05-12T15:00:00.000Z",
+                  "endTime": "2026-05-12T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/BubbaCat/backend-architecture",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 18,
+                  "streamId": 1,
+                  "title": "TypeScript Intermediate: Generics и Utility Types",
+                  "startTime": "2026-05-14T15:00:00.000Z",
+                  "endTime": "2026-05-14T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/BubbaCat/18_TS_GENERICS",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 19,
+                  "streamId": 1,
+                  "title": "Авторизация через JWT",
+                  "startTime": "2026-05-15T15:00:00.000Z",
+                  "endTime": "2026-05-15T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": "https://github.com/BubbaCat/backend_auth",
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              },
+              {
+                  "id": 20,
+                  "streamId": 1,
+                  "title": "Введение в PostgreSQL",
+                  "startTime": "2026-05-18T15:00:00.000Z",
+                  "endTime": "2026-05-18T17:00:00.000Z",
+                  "meetingLink": null,
+                  "recordLink": null,
+                  "createdAt": "2026-06-20T08:39:01.048Z",
+                  "updatedAt": "2026-06-20T08:39:01.048Z"
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 39
+          }
+      }
+order: 1000

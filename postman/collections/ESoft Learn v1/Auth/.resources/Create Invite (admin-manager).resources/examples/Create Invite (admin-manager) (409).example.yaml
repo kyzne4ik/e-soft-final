@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/invite"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Глеб",
+          "lastName": "Новый",
+          "email": "nikita3@new.dev",
+          "role": "ADMIN",
+          "ttlSeconds": 86400
+      }
+response:
+  statusCode: 409
+  statusText: "Conflict"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 409,
+          "success": false,
+          "message": "Пользователь с таким email уже есть"
+      }
+order: 3000

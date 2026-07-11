@@ -1,0 +1,5 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/profile/telegram/link"
+method: "POST"
+examples: "./.resources/Generate bind link Telegram.resources/examples"
+order: 5000

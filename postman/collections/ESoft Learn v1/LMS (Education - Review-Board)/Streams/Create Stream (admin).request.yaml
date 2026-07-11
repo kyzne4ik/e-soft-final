@@ -1,0 +1,12 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams"
+method: "POST"
+body:
+  type: "json"
+  content: |-
+    {
+        "name": "ШП-ОСЕНЬ-2026",
+        "courseId": 6
+    }
+examples: "./.resources/Create Stream (admin).resources/examples"
+order: 4000

@@ -1,0 +1,56 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/crm/leads/:id/status"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": "ACCEPTED"
+      }
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Статус лида обновлён",
+          "data": {
+              "lead": {
+                  "id": 1,
+                  "convertedUserId": 64,
+                  "managerId": null,
+                  "firstName": "Кирилл",
+                  "lastName": "Заявкин",
+                  "patronymic": "Игоревич",
+                  "email": "kirill@cand.dev",
+                  "phone": "+79991112233",
+                  "telegram": "@kirill",
+                  "experience": "1 год на JS",
+                  "testResult": "https://docs.google.com/forms/d/1RtqdyKa2qf_TXn--0F7u48CiUCyaBqg4jmaRCcWr_N8/edit#response=ACYDBNg9VXZP8m7DM0B8azPXS1dhySbg7nPCLlvpkvaQe6QZAmREb7aG244T1Bw9MfxFNT0",
+                  "status": "ACCEPTED",
+                  "createdAt": "2026-06-22T10:32:38.830Z",
+                  "updatedAt": "2026-06-22T10:35:21.717Z"
+              },
+              "invite": {
+                  "user": {
+                      "id": 64,
+                      "firstName": "Кирилл",
+                      "lastName": "Заявкин",
+                      "patronymic": "Игоревич",
+                      "email": "kirill@cand.dev",
+                      "role": "STUDENT",
+                      "isActivated": false,
+                      "createdAt": "2026-06-22T10:35:21.707Z",
+                      "updatedAt": "2026-06-22T10:35:21.707Z"
+                  },
+                  "token": "y6ZMTyuFaFclENPVzzzP4LieWSKaA9tuWI69I25pVn0",
+                  "inviteLink": "http://localhost:3000/activate?token=y6ZMTyuFaFclENPVzzzP4LieWSKaA9tuWI69I25pVn0",
+                  "expiresInSeconds": 86400
+              }
+          }
+      }
+order: 1000

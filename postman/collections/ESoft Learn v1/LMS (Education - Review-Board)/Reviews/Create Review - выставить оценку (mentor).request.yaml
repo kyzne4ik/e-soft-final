@@ -1,0 +1,18 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/submissions/:id/reviews"
+method: "POST"
+pathVariables:
+- key: "id"
+  value: "11"
+body:
+  type: "json"
+  content: |-
+    {
+        "score": 100,
+        "comment": "Отличная работа, зачёт",
+        "verdict": "ACCEPTED"
+    }
+documentation:
+  content: "Оставить ревью на сдачу (-id = submissionId). Ментор своих студентов. verdict двигает статус сдачи."
+examples: "./.resources/Create Review.resources/examples"
+order: 1000

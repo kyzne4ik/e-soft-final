@@ -1,0 +1,133 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/lms/tasks"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Success",
+          "data": [
+              {
+                  "id": 21,
+                  "streamId": 1,
+                  "title": "ДЗ-3: Авторизация",
+                  "description": "Реализовать JWT-аутентификацию.",
+                  "repoTemplate": "https://github.com/esoft/hw3-template",
+                  "deadline": "2026-12-31T00:00:00.000Z",
+                  "createdAt": "2026-06-22T21:50:02.907Z",
+                  "updatedAt": "2026-06-22T21:50:02.907Z"
+              },
+              {
+                  "id": 10,
+                  "streamId": 1,
+                  "title": "ДЗ #10 — DB.Code: работа с БД на уровне кода",
+                  "description": "Закрепление Knex и Prisma. Примеры: knex-ветка и prisma-ветка в репозитории Андреева.",
+                  "repoTemplate": "https://docs.google.com/forms/d/114SFsazwy4hrobI-Zo9xQLDoHnmOD-CKevJ3p6gMNYY/viewform",
+                  "deadline": "2026-06-06T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 9,
+                  "streamId": 1,
+                  "title": "ДЗ #9 — БД: связи и ER-диаграмма",
+                  "description": "Делается на основе ДЗ #8. Нарисовать ER-диаграмму. Mermaid необязателен — можно PNG.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSeEMGBZE0YE_ewtW5OKuAkqj6HijdiDh6ele5wx3tDWZwiKMQ/viewform",
+                  "deadline": "2026-05-27T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 8,
+                  "streamId": 1,
+                  "title": "ДЗ #8 — БД: старт",
+                  "description": "Проектирование структуры данных: описать сущности с типами полей, выполнить базовые SQL-операции.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSeZZjim_g5vX3B2Odxb-QrBsF3L8U7Bx8juqgq24evutLA3OA/viewform",
+                  "deadline": "2026-05-27T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 7,
+                  "streamId": 1,
+                  "title": "ДЗ #7 — Backend: Fastify + Архитектура #2",
+                  "description": "Закрепление трёхслойной архитектуры. Пример: https://github.com/BubbaCat/backend-architecture",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSfyQlRd852Gi-IRsDcWh5GQZNFTGHVC2eKGwll-kBuQKO8doQ/viewform",
+                  "deadline": "2026-05-20T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 6,
+                  "streamId": 1,
+                  "title": "ДЗ #6 — Backend: Fastify #1",
+                  "description": "Старт блока по Backend с нуля. Пример сервера: https://github.com/AlexanderFromEarth/node-server-esoftsp-example",
+                  "repoTemplate": "https://docs.google.com/forms/d/1wgGrAGKZ0Uu4Qqty7A_zaQ4taDex3EMwA2WmN8IdSnY/viewform",
+                  "deadline": "2026-05-12T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 5,
+                  "streamId": 1,
+                  "title": "ДЗ #5 — Хуки и формы",
+                  "description": "Только функциональность и логика — без стилизации. Внутри репозитория много интересного.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSeGz6827WXOQFLDpYVx3j2YX_AvguCyE7-Aip5r4cEtuTEKSQ/viewform",
+                  "deadline": "2026-05-08T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 4,
+                  "streamId": 1,
+                  "title": "ДЗ #4 — React: эффекты",
+                  "description": "ДЗ для закрепления знаний по эффектам в React. Есть дополнительные задания для желающих.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLScrAP6h12HZ8SMi4DRo5efqZTYNhfSjrKGDJIwoBrzFddJKxw/viewform",
+                  "deadline": "2026-05-02T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 3,
+                  "streamId": 1,
+                  "title": "ДЗ #3 — React: продолжение",
+                  "description": "Закрепление знаний после второй лекции по React. ДЗ для фиксации знаний + тестовый опрос.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLScrAP6h12HZ8SMi4DRo5efqZTYNhfSjrKGDJIwoBrzFddJKxw/viewform",
+                  "deadline": "2026-04-30T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 2,
+                  "streamId": 1,
+                  "title": "ДЗ #2 — React: базовые знания",
+                  "description": "Небольшое ДЗ для закрепления базовых знаний React после первой лекции. Включает тестовый опрос.",
+                  "repoTemplate": "https://docs.google.com/forms/d/1zB6L_1bd46ZkEfVBwXp-1lx09CVSzo4OYERdidSw6bk",
+                  "deadline": "2026-04-25T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              },
+              {
+                  "id": 1,
+                  "streamId": 1,
+                  "title": "ДЗ #1 — Git: базовый воркфлоу",
+                  "description": "Создать ветки, сделать коммиты по Conventional Commits, открыть PR и попросить соседа принять его.",
+                  "repoTemplate": "https://docs.google.com/forms/d/e/1FAIpQLSe",
+                  "deadline": "2026-04-18T09:00:00.000Z",
+                  "createdAt": "2026-06-20T08:39:01.051Z",
+                  "updatedAt": "2026-06-20T08:39:01.051Z"
+              }
+          ],
+          "meta": {
+              "page": 1,
+              "limit": 20,
+              "total": 11
+          }
+      }
+order: 1000

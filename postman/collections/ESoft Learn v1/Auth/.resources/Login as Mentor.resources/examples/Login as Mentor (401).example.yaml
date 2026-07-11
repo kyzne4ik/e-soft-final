@@ -1,0 +1,23 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/login"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "email": "sapov@esoft.fake",
+          "password": "password1234"
+      }
+response:
+  statusCode: 401
+  statusText: "Unauthorized"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 401,
+          "success": false,
+          "message": "Неверный email или пароль"
+      }
+order: 2000

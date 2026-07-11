@@ -1,0 +1,18 @@
+import { z } from "zod";
+
+export const roleSchema = z.enum(["ADMIN", "MANAGER", "MENTOR", "STUDENT"]);
+
+export type Role = z.infer<typeof roleSchema>;
+
+export const paginationSchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(20),
+});
+
+export type PaginationQuery = z.infer<typeof paginationSchema>;
+
+export const idParamSchema = z.object({
+  id: z.coerce.number().int().positive(),
+});
+
+export type IdParam = z.infer<typeof idParamSchema>;

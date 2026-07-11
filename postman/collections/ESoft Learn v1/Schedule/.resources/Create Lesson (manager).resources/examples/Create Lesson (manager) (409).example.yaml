@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/schedule"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "streamId": 1,
+          "title": "Лекция: Drizzle ORM",
+          "startTime": "2026-08-01T10:00:00.000Z",
+          "endTime": "2026-08-01T12:00:00.000Z",
+          "meetingLink": "https://localhost:3000/j/123",
+          "recordLink": "https://youtu.be/rec"
+      }
+response:
+  statusCode: 409
+  statusText: "Conflict"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 409,
+          "success": false,
+          "message": "Занятие пересекается по времени с другим в этом потоке"
+      }
+order: 2000

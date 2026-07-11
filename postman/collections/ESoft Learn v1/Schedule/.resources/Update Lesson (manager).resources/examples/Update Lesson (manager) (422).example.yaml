@@ -1,0 +1,31 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/schedule/:id"
+  method: "PATCH"
+  body:
+    type: "json"
+    content: |-
+      {
+          "title": "Лекция (обновлено)",
+          "recordLink": "https://youtu.be/new-rec",
+          "startTime": "2026-08-06T15:00:00.000Z",
+          "endTime": "2026-04-06T17:00:00.000Z"
+      }
+response:
+  statusCode: 422
+  statusText: "Unprocessable Entity"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 422,
+          "success": false,
+          "message": "Validation error",
+          "errors": [
+              {
+                  "field": "endTime",
+                  "message": "Время окончания должно быть позже времени начала"
+              }
+          ]
+      }
+order: 2000

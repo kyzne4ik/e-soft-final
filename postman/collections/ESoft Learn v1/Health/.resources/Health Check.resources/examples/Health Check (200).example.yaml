@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/health"
+  method: "GET"
+response:
+  statusCode: 200
+  statusText: "OK"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 200,
+          "success": true,
+          "message": "Service is healthy",
+          "data": {
+              "status": "ok",
+              "uptime": 592,
+              "timestamps": "2026-06-22T07:54:33.047Z",
+              "environment": "development",
+              "services": {
+                  "redis": "up",
+                  "database": "up"
+              }
+          }
+      }
+order: 1000

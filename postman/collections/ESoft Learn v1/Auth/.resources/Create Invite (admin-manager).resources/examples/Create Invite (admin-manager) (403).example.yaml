@@ -1,0 +1,26 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/auth/invite"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Глеб",
+          "lastName": "Новый",
+          "email": "nikita@new.dev",
+          "role": "ADMIN",
+          "ttlSeconds": 86400
+      }
+response:
+  statusCode: 403
+  statusText: "Forbidden"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 403,
+          "success": false,
+          "message": "Недостаточно прав"
+      }
+order: 2000

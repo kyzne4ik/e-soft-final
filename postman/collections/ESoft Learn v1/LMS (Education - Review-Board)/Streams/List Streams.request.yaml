@@ -1,0 +1,19 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/streams"
+method: "GET"
+queryParams:
+- key: "page"
+  value: "1"
+- key: "limit"
+  value: "20"
+- key: "status"
+  value: "IN_PROGRESS"
+  disabled: true
+- key: "courseId"
+  value: "1"
+  disabled: true
+- key: "mentorId"
+  value: "1"
+  disabled: true
+examples: "./.resources/List Streams.resources/examples"
+order: 5000

@@ -1,0 +1,27 @@
+$kind: "http-example"
+request:
+  url: "{{baseUrl}}/api/users"
+  method: "POST"
+  body:
+    type: "json"
+    content: |-
+      {
+          "firstName": "Студент",
+          "lastName": "Студентов",
+          "patronymic": "Студентович",
+          "email": "student2@student.stud",
+          "password": "password123",
+          "role": "STUDENT"
+      }
+response:
+  statusCode: 403
+  statusText: "Forbidden"
+  body:
+    type: "json"
+    content: |-
+      {
+          "status": 403,
+          "success": false,
+          "message": "Недостаточно прав"
+      }
+order: 3000

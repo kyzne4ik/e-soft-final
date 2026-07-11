@@ -1,0 +1,15 @@
+$kind: "http-request"
+url: "{{baseUrl}}/api/lms/courses/:id"
+method: "PATCH"
+pathVariables:
+- key: "id"
+  value: "13"
+body:
+  type: "json"
+  content: |-
+    {
+        "name": "Новый курс-updated",
+        "description": "Какой-то новый курс-updated"
+    }
+examples: "./.resources/Update Course (manager).resources/examples"
+order: 4000

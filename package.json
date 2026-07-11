@@ -1,0 +1,33 @@
+{
+  "name": "esoft-learn",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\" --ignore-path .prettierignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\" --ignore-path .prettierignore",
+    "lint-staged": "lint-staged --config lint-staged.config.js",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.0",
+    "eslint": "^9.39.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.7.4",
+    "turbo": "^2.9.6",
+    "typescript": "~6.0.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.28.0"
+    }
+  }
+}

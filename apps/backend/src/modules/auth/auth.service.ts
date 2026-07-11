@@ -22,6 +22,7 @@ import { UserRepository } from "@modules/user/user.repository";
 import { AuthTokenService } from "./auth-token/auth-token.service";
 import { StreamService } from "@modules/lms/stream/stream.service";
 import { activateOptions } from "@mail/templates/auth/acitvate/activate-options";
+import { inviteStaffOptions } from "@mail/templates/auth/invite-staff/invite-staff-options";
 import { StreamStudentService } from "@modules/lms/stream/stream-student/stream-student.service";
 
 export class AuthService implements IAuthService {
@@ -86,11 +87,23 @@ export class AuthService implements IAuthService {
     const user = await this.userRepo.findByEmail(data.email);
     if (user) throw new ConflictError("Email уже занят");
 
-    if (!data?.targetStreamId)
-      throw new NotFoundError("Целевой поток заявки не найден");
+    if (data.role !== "STUDENT") {
+      const tokens = await this.inviteService.create({
+        ...data,
+        targetStreamId: null,
+      });
 
-    const stream = await this.streamService.getStream(data?.targetStreamId);
+      await enqueueEmail(
+        inviteStaffOptions(data.email, tokens.inviteLink, data.role),
+      );
 
+      return tokens;
+    }
+
+    if (!data.targetStreamId)
+      throw new BadRequestError("Для приглашения студента укажите поток");
+
+    const stream = await this.streamService.getStream(data.targetStreamId);
     if (!stream) throw new NotFoundError("Целевой поток заявки не найден");
 
     const tokens = await this.inviteService.create(data);

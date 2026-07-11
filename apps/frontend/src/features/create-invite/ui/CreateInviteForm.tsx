@@ -3,6 +3,7 @@ import {
   FormProvider,
   useForm,
   useFormContext,
+  useWatch,
   type SubmitHandler,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +16,7 @@ import {
   Patronymic,
   Email,
   RoleSelect,
+  TargetStreamSelect,
   TtlSelect,
 } from "./fields";
 import { createInviteSchema, type CreateInviteFormData } from "../model/types";
@@ -41,6 +43,7 @@ export function CreateInviteForm({
       patronymic: "",
       email: "",
       role: "",
+      targetStreamId: "",
       ttlSeconds: "86400",
     },
   });
@@ -67,6 +70,8 @@ export function CreateInviteForm({
       patronymic: data.patronymic || null,
       email: data.email,
       role: data.role as InviteStorePayload["role"],
+      targetStreamId:
+        data.role === "STUDENT" ? Number(data.targetStreamId) : null,
       ttlSeconds: Number(data.ttlSeconds),
     });
   };
@@ -85,9 +90,12 @@ export function CreateInviteForm({
 }
 
 CreateInviteForm.Fields = function CreateInviteFormFields() {
+  const role = useWatch<CreateInviteFormData, "role">({ name: "role" });
+
   return (
     <>
       <RoleSelect />
+      {role === "STUDENT" && <TargetStreamSelect />}
       <FirstName />
       <LastName />
       <Patronymic />

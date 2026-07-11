@@ -85,3 +85,12 @@ export const useInvalidateStreams = () => {
       queryKey: [streamsQueryKey],
     });
 };
+
+export const useInvalidateStreamList = () => {
+  const queryClient = useQueryClient();
+
+  return () =>
+    queryClient.invalidateQueries({
+      queryKey: [streamsQueryKey, "list"],
+    });
+};

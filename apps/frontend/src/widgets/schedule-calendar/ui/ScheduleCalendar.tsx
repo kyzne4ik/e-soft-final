@@ -4,6 +4,7 @@ import { Skeleton } from "@repo/ui/atoms/skeleton";
 import type { LessonsResponse } from "@repo/schemas";
 import { UpdateLessonModal } from "@/features/update-lesson";
 import { CreateLessonModal } from "@/features/create-lesson";
+import { DeleteLessonButton } from "@/features/delete-lesson";
 import { useScheduleCalendar } from "../model/useScheduleCalendar";
 import { Calendar, useCalendarState } from "@repo/ui/organisms/calendar";
 import { CreateLessonForm } from "@/features/create-lesson/ui/CreateLessonForm";
@@ -60,6 +61,15 @@ export function ScheduleCalendar({ streamId }: ScheduleCalendarProps) {
           key={lessonForForm?.id}
           isOpen={!!editing}
           onClose={() => setEditing(null)}
+          renderSlot={
+            lessonForForm && (
+              <DeleteLessonButton
+                lessonId={lessonForForm.id}
+                lessonTitle={lessonForForm.title}
+                onDeleted={() => setEditing(null)}
+              />
+            )
+          }
         />
       </UpdateLessonForm>
       <CreateLessonForm

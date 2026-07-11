@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { AxiosError, AxiosResponse } from "axios";
 import type { ApiErrorResponse } from "@/shared/lib/types";
 import { lmsStreamsService } from "@/shared/api";
-import { useInvalidateStreams } from "@/entities/streams/queries";
+import { useInvalidateStreamList } from "@/entities/streams/queries";
 
 export function useDeleteStream({
   onSuccess,
@@ -13,12 +13,12 @@ export function useDeleteStream({
   onError?: (error: AxiosError<ApiErrorResponse>) => void;
   onSettled?: () => void;
 } = {}) {
-  const invalidateStreams = useInvalidateStreams();
+  const invalidateStreamList = useInvalidateStreamList();
 
   const { mutate: deleteStream, isPending } = useMutation({
     mutationFn: (streamId: number) => lmsStreamsService.delete(streamId),
     async onSuccess(response) {
-      invalidateStreams();
+      invalidateStreamList();
       onSuccess?.(response);
     },
     onError,

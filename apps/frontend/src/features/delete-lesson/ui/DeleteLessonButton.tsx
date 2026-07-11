@@ -9,11 +9,13 @@ import { useDeleteLesson } from "../model/useDeleteLesson";
 export interface DeleteLessonButtonProps {
   lessonId: number;
   lessonTitle?: string;
+  onDeleted?: () => void;
 }
 
 export function DeleteLessonButton({
   lessonId,
   lessonTitle,
+  onDeleted,
 }: DeleteLessonButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getToast } = useToast();
@@ -21,6 +23,7 @@ export function DeleteLessonButton({
   const { deleteLesson, isPending } = useDeleteLesson({
     async onSuccess() {
       onClose();
+      onDeleted?.();
       await getToast({ type: "success", message: "Занятие удалено" });
     },
     async onError(error) {

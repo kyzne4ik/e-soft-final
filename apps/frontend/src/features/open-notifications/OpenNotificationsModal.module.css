@@ -7,7 +7,7 @@
 
 .on_modal__body {
   display: flex;
-  min-height: 70vh;
+  min-height: 50vh;
   flex-direction: column;
   flex: 1;
   overflow-y: auto;

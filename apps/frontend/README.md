@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# ESoft Learn — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA на React 19 + TypeScript, архитектура Feature-Sliced Design (FSD).
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19, React Router v7
+- TanStack Query (server state), React Hook Form + Zod (формы)
+- Axios (HTTP-клиент)
+- Lucide React (иконки)
+- Shared UI-kit из `packages/ui`
 
-## React Compiler
+## Структура (`src/`)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+app/          # Роутинг, глобальные стили, провайдеры
+pages/
+  student/    # Dashboard, задания, расписание, успеваемость, профиль
+  mentor/     # Review-Board, журнал успеваемости, расписание, профиль
+  manager/    # CRM-доска, расписание, профиль
+  admin/      # Курсы, потоки, задания, расписание, пользователи
+  public/     # Логин, активация аккаунта
+widgets/      # Review-Board, CRM-Board, таблицы, календарь, хедер
+features/     # Атомарные пользовательские сценарии (submit-solution, create-task и др.)
+entities/     # Бизнес-сущности: user, task, submission, lead
+shared/       # API-клиент, утилиты, интеграция с packages/ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Запуск
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+```bash
+# из корня монорепы
+pnpm dev
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+# только фронтенд
+pnpm --filter @repo/frontend dev
+```
+
+## Переменные окружения
+
+```env
+VITE_API_URL=http://localhost:3000
+VITE_PORT=5173
+VITE_USE_MOCKS=false
+VITE_ENABLE_DEVTOOLS=true
 ```

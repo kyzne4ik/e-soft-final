@@ -1,15 +1,97 @@
 <!doctype html>
 <html lang="ru">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --brand: #f97316;
+        --brand-hover: #ea580c;
+        --brand-light: #fff7ed;
+        --ink: #111827;
+        --ink-soft: #4b5563;
+        --ink-muted: #6b7280;
+        --line: #e5e7eb;
+        --surface: #ffffff;
+        --page: #f9fafb;
+        --inverse: #ffffff;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--page);
+        font-family: "Poppins", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--ink);
+      }
+      .wrap {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 32px 16px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .brand {
+        margin: 0 0 24px;
+        font-family: "Fredoka", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--brand);
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        line-height: 1.25;
+        color: var(--ink);
+      }
+      p {
+        margin: 0 0 16px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+      .stream {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .btn {
+        display: inline-block;
+        margin: 8px 0 4px;
+        padding: 12px 28px;
+        background: var(--brand);
+        color: var(--inverse);
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+      .btn:hover {
+        background: var(--brand-hover);
+      }
+      .muted {
+        margin: 24px 0 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+      }
+    </style>
   </head>
   <body>
-    <p>Поздравляем! Вы прошли отбор в поток</p>
-    <p>"{{streamName}}".</p>
-    <p>Завершите регистрацию, чтобы начать обучение:</p>
-    <p>Чтобы задать пароль и активировать аккаунт, перейдите по ссылке:</p>
-    <p><a href="{{link}}">Активировать аккаунт</a></p>
-    <p>Ссылка действует ограниченное время.</p>
+    <div class="wrap">
+      <div class="card">
+        <p class="brand">ESOFT Learn</p>
+        <h1>Поздравляем, вы прошли отбор! 🎉</h1>
+        <p>
+          Вас приняли в поток <span class="stream">«{{streamName}}»</span> на
+          платформе ESOFT Learn.
+        </p>
+        <p>Задайте пароль и активируйте аккаунт, чтобы начать обучение:</p>
+        <a class="btn" href="{{link}}">Активировать аккаунт</a>
+        <p class="muted">Ссылка действует ограниченное время.</p>
+      </div>
+    </div>
   </body>
 </html>

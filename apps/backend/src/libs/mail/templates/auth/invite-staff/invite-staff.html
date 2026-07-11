@@ -6,8 +6,7 @@
     <style>
       :root {
         --brand: #f97316;
-        --accent: #3b82f6;
-        --accent-hover: #2563eb;
+        --brand-hover: #ea580c;
         --ink: #111827;
         --ink-soft: #4b5563;
         --ink-muted: #6b7280;
@@ -54,7 +53,7 @@
         line-height: 1.6;
         color: var(--ink-soft);
       }
-      .stream {
+      .role {
         color: var(--ink);
         font-weight: 600;
       }
@@ -69,7 +68,7 @@
         font-weight: 600;
       }
       .btn:hover {
-        background: var(--accent-hover);
+        background: var(--brand-hover);
       }
       .muted {
         margin: 24px 0 0;
@@ -83,16 +82,16 @@
     <div class="wrap">
       <div class="card">
         <p class="brand">ESOFT Learn</p>
-        <h1>Привет, {{firstName}}!</h1>
+        <h1>Вас пригласили в ESOFT Learn</h1>
         <p>
-          Вас приняли в поток <span class="stream">«{{streamName}}»</span> на
-          платформе ESOFT Learn.
+          Для вас создан аккаунт с ролью
+          <span class="role">«{{roleLabel}}»</span>.
         </p>
-        <p>Если это вы оставляли заявку — подтвердите участие по кнопке ниже:</p>
-        <a class="btn" href="{{confirmLink}}">Подтвердить участие →</a>
+        <p>Задайте пароль и активируйте аккаунт по кнопке ниже:</p>
+        <a class="btn" href="{{link}}">Активировать аккаунт</a>
         <p class="muted">
-          Ссылка действует 7 дней.<br />
-          Если вы не оставляли заявку — просто проигнорируйте это письмо.
+          Ссылка действует ограниченное время.<br />
+          Если вы не ожидали это письмо — просто проигнорируйте его.
         </p>
       </div>
     </div>

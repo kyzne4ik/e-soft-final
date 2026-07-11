@@ -7,4 +7,5 @@ export {
   streamStudentsQuery,
   streamTelegramQuery,
   useInvalidateStreams,
+  useInvalidateStreamList,
 } from "./queries";

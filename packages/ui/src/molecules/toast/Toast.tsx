@@ -1,8 +1,10 @@
-import { useState } from "react";
 import css from "./Toast.module.css";
 import { Icon } from "../../atoms/icon";
 import { Text } from "../../atoms/text";
+import { useEffect, useState, memo } from "react";
 import { classNames } from "../../libs/classNames";
+
+const AUTO_DISMISS_MS = 4000;
 
 export type ToastType = "info" | "success" | "warning" | "error";
 
@@ -22,7 +24,7 @@ const ICON_BY_TYPE: Record<ToastType, string> = {
   error: "circle-x",
 };
 
-export function Toast({
+function BaseToast({
   type = "info",
   title,
   message,
@@ -30,10 +32,7 @@ export function Toast({
   onClose,
   className,
 }: ToastProps) {
-  const [visible, setVisible] = useState(true);
   const [closing, setClosing] = useState(false);
-
-  if (!visible) return null;
 
   const handleClose = () => {
     setClosing(true);
@@ -41,9 +40,13 @@ export function Toast({
 
   const handleAnimationEnd = () => {
     if (!closing) return;
-    setVisible(false);
     onClose?.();
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => handleClose?.(), AUTO_DISMISS_MS);
+    return () => clearTimeout(timer);
+  }, []);
 
   const align = title && message ? css.ui_toast__start : css.ui_toast__center;
 
@@ -84,3 +87,5 @@ export function Toast({
     </div>
   );
 }
+
+export const Toast = memo(BaseToast);

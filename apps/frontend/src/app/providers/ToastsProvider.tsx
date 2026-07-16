@@ -7,8 +7,6 @@ import {
 } from "@/shared/lib/contexts/toasts-context";
 import { withPortal } from "@repo/ui/hocs/with-portal";
 
-const AUTO_DISMISS_MS = 4000;
-
 type ToastItem = {
   id: number;
   message: string;
@@ -26,6 +24,27 @@ const viewportStyle = {
   gap: 10,
   alignItems: "center",
 } as const;
+
+const ToastsPortal = ({
+  items,
+  closeToast,
+}: {
+  items: ToastItem[];
+  closeToast: (id: number) => void;
+}) => (
+  <div style={viewportStyle}>
+    {items.map((item) => (
+      <Toast
+        key={item.id}
+        type={item.type}
+        message={item.message}
+        onClose={() => closeToast(item.id)}
+      />
+    ))}
+  </div>
+);
+
+const Toasts = withPortal(ToastsPortal, "toasts");
 
 export function ToastsProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([]);
@@ -47,29 +66,13 @@ export function ToastsProvider({ children }: { children: ReactNode }) {
         const id = nextId.current++;
         resolvers.current.set(id, resolve);
         setItems((prev) => [...prev, { id, message, type }]);
-        setTimeout(() => closeToast(id), AUTO_DISMISS_MS);
       }),
     [closeToast],
   );
 
-  const Toasts = withPortal(function () {
-    return (
-      <div style={viewportStyle}>
-        {items.map((item) => (
-          <Toast
-            key={item.id}
-            type={item.type}
-            message={item.message}
-            onClose={() => closeToast(item.id)}
-          />
-        ))}
-      </div>
-    );
-  }, "toasts");
-
   return (
     <toastsContext.Provider value={{ getToast, closeToast }}>
-      <Toasts />
+      <Toasts items={items} closeToast={closeToast} />
       {children}
     </toastsContext.Provider>
   );

@@ -132,7 +132,7 @@ ENROLLING → (startStream) → IN_PROGRESS → (finishStream) → FINISHED
 │   ├── backend
 │   │   └── src
 │   │       ├── libs
-│   │       │   ├── bull          # BullMQ: 4 очереди (email, telegram, lead, monitoring)
+│   │       │   ├── bull          # BullMQ: 4 очереди (email, telegram, lead)
 │   │       │   │   ├── queues    #   + 4 воркера
 │   │       │   │   └── workers
 │   │       │   ├── telegram      # grammY-бот: диспетчер, шаблоны сообщений
@@ -207,7 +207,6 @@ ENROLLING → (startStream) → IN_PROGRESS → (finishStream) → FINISHED
    - `email.worker` — отправка писем через Nodemailer (активация, отказ, зачисление существующего пользователя)
    - `telegram.worker` — push-уведомления через grammY: уведомления о сдаче/проверке ДЗ, анонсы лекций, напоминания
    - `lead.worker` — отложенный автоперевод лида в статус `IGNORED` если студент не активировал аккаунт
-   - `monitoring.worker` — мониторинг процессов (просроченные проверки и т.д.)
 
 Запись `notifications` в БД — персистентный слой для in-app «колокольчика» на дашборде и истории уведомлений.
 
@@ -237,7 +236,7 @@ pnpm dev           # параллельный запуск backend + frontend
 
 | Сервис              | URL                        |
 | ------------------- | -------------------------- |
-| Frontend            | http://localhost:5173      |
+| Frontend            | http://localhost:3001      |
 | Backend API         | http://localhost:3000      |
 | Swagger (API docs)  | http://localhost:3000/docs |
 | Mailpit (dev email) | http://localhost:8025      |

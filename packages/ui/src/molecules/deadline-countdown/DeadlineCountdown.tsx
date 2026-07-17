@@ -16,7 +16,7 @@ const toParts = (totalSeconds: number): TimeParts => ({
   days: Math.floor(totalSeconds / 86400),
   hours: Math.floor((totalSeconds % 86400) / 3600),
   minutes: Math.floor((totalSeconds % 3600) / 60),
-  seconds: totalSeconds % 60,
+  seconds: Math.floor(totalSeconds % 60),
 });
 
 const pad = (value: number): string => String(value).padStart(2, "0");

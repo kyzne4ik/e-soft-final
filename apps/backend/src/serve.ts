@@ -1,9 +1,10 @@
-import { AppConfig, TelegramConfig } from "@config";
+import { Redis } from "@database";
+import { AppConfig } from "@config";
+import { db } from "@repo/database";
 import { bullWorkers } from "@bull";
 import { createAppInstance } from "./app";
-import { Redis } from "@database";
-import { db } from "@repo/database";
 import { TelegramBot, TelegramClient } from "@telegram";
+import { TelegramWebhook } from "@telegram/telegram.webhook";
 import { UserRepository } from "@modules/user/user.repository";
 import { ProfileService } from "@modules/profile/profile.service";
 import { UserTelegramStore } from "@modules/profile/user-telegram/user-telegram.store";
@@ -29,14 +30,8 @@ const start = async () => {
     );
     telegramBot.registerBotHandlers();
 
-    if (AppConfig.APP_ENV === "production") {
-      await TelegramClient.getApi().setWebhook(
-        `${AppConfig.BACKEND_PUBLIC_URL}/api/telegram/webhook`,
-        { secret_token: TelegramConfig.TELEGRAM_WEBHOOK_SECRET },
-      );
-    } else {
-      void TelegramClient.getBot().start();
-    }
+    const telegramWebhook = new TelegramWebhook();
+    telegramWebhook.registerWebhook();
 
     console.log(`Server listening on port ${AppConfig.BACKEND_PORT}`);
     app.log.info(`Server listening on port ${AppConfig.BACKEND_PORT}`);

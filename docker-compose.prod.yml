@@ -1,4 +1,21 @@
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: esoft-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      frontend:
+        condition: service_started
+    networks:
+      - esoft_net
+
   migrator:
     container_name: esoft-migrator
     build:
@@ -62,8 +79,6 @@ services:
         VITE_API_URL: /api
         VITE_API_TIMEOUT: ${VITE_API_TIMEOUT:-10000}
     restart: unless-stopped
-    ports:
-      - "80:80"
     depends_on:
       backend:
         condition: service_healthy
@@ -108,6 +123,8 @@ services:
 volumes:
   postgres-data:
   redis-data:
+  caddy-data:
+  caddy-config:
 
 networks:
   esoft_net:

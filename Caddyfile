@@ -1,0 +1,3 @@
+ваше-имя.duckdns.org {
+    reverse_proxy frontend:80
+}

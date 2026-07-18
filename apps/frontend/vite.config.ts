@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    build: { cssCodeSplit: false },
     assetsInclude: ["**/*.svg", "**/*.csv"],
     server: {
       host: true,

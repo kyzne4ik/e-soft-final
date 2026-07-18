@@ -24,6 +24,8 @@ ARG VITE_API_URL=/api
 ARG VITE_API_TIMEOUT=10000
 ENV VITE_API_URL=$VITE_API_URL VITE_API_TIMEOUT=$VITE_API_TIMEOUT
 
+ENV NODE_OPTIONS=--max-old-space-size=1024
+
 RUN pnpm -F frontend build
 
 FROM nginx:alpine AS runtime

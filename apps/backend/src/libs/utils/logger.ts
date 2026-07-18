@@ -29,7 +29,10 @@ export const createLogger = (
         }
       : {
           target: "pino/file",
-          options: { destination, mkdir: true },
+          options: {
+            destination: 1, // stdout
+            mkdir: true,
+          },
         },
     formatters: {
       level: (label) => ({ level: label.toUpperCase() }),

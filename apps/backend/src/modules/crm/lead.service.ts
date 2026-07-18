@@ -14,7 +14,7 @@ import { leadMap, leadsMap } from "./lead.mapper";
 import { LeadRepository } from "./lead.repository";
 import { NotFoundError } from "@error/not-found.error";
 import { InviteService } from "@modules/auth/invite/invite.service";
-import { activateOptions } from "@mail/templates/auth/acitvate/activate-options";
+import { activateOptions } from "@mail/templates/auth/activate/activate-options";
 import { rejectionOptions } from "@mail/templates/auth/rejection/rejection-options";
 import { StreamService } from "@modules/lms/stream/stream.service";
 import { UserRepository } from "@modules/user/user.repository";

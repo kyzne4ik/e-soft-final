@@ -21,7 +21,7 @@ import { UnauthorizedError } from "@error/unauthorized.error";
 import { UserRepository } from "@modules/user/user.repository";
 import { AuthTokenService } from "./auth-token/auth-token.service";
 import { StreamService } from "@modules/lms/stream/stream.service";
-import { activateOptions } from "@mail/templates/auth/acitvate/activate-options";
+import { activateOptions } from "@mail/templates/auth/activate/activate-options";
 import { inviteStaffOptions } from "@mail/templates/auth/invite-staff/invite-staff-options";
 import { StreamStudentService } from "@modules/lms/stream/stream-student/stream-student.service";
 

@@ -1,4 +1,4 @@
-import { activateOptions } from "./templates/auth/acitvate/activate-options";
+import { activateOptions } from "./templates/auth/activate/activate-options";
 import { rejectionOptions } from "./templates/auth/rejection/rejection-options";
 
 export const templates = {
